@@ -1,4 +1,4 @@
-package com.invertase.rnfirebasestarter;
+package com.habitapp.habitapp;
 
 import android.app.Application;
 
