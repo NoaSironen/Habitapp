@@ -1,32 +1,94 @@
 import React from 'react';
-import { StyleSheet, Platform, Image, Text, View, Navigator } from 'react-native';
-import AddWorker from './components/AddWorker'
+import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity } from 'react-native';
+//import AddWorker from './components/AddWorker'
 
 import firebase from 'react-native-firebase';
 
+const rootRef = firebase.database().ref();
+const animalRef = rootRef.child('animals');
+
 export default class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      // firebase things?
-    };
+  constructor(props) {
+    super(props);
+    this.state = ({
+      animals: [],
+      newAnimalName: '',
+      loading: false,
+    });
   }
 
   componentDidMount() {
-    // firebase things?
+    animalRef.on('value', (childSnapshot) => {
+      const animals= [];
+      childSnapshot.forEach((doc) => {
+        animals.push({
+          key: doc.key,
+          animalName: doc.toJSON().animalName
+        });
+        this.setState({
+          animals: animals.sort((a, b) => {
+            return (a.animalName < b.animalName);
+          }),
+          loading: false,
+        });
+      });
+    });
+  }
+
+  onPressAdd = () => {
+    if (this.state.newAnimalName.trim() === '') {
+      alert('Tomma fält existerar!');
+      return;
+    }
+    animalRef.push({
+      animalName: this.state.newAnimalName
+    });
   }
 
   render() {
     return (
 
       <View>
-      <AddWorker/>
+         <TextInput style={styles.inputStyle} placeholder='Förnamn' returnKeyType='next'
+          onChangeText={
+            (text) => {
+              this.setState({ newAnimalName: text});
+            }
+          }
+          value={this.state.newAnimalName} 
+          />
+                    
+                    <TouchableOpacity style={styles.buttonStyle}  
+                    onPress={this.onPressAdd}>
+                    <Text style={styles.buttonTextStyle}> Skapa Stjärna</Text>
+                    </TouchableOpacity>
       </View>
     );
   }
 }
 
+const styles = StyleSheet.create({
+  inputStyle: {
+    height: 60,
+    alignItems: 'center',
+    textAlign: 'center',
+    fontSize: 25,
+    marginBottom: 20,
+   // paddingHorizontal: 10,
+  //  backgroundColor: '#e5e6e8',
 
+},
+buttonStyle: {
+        
+  alignItems: 'center',
+  backgroundColor: '#275770',
+  padding: 20,
+},
+buttonTextStyle: {
+  color: '#FFFFFF',
+  fontSize: 25,
+}
+})
 
 
 
