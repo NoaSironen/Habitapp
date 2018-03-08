@@ -1,17 +1,10 @@
 import React, {Component} from 'react';
 import {AppRegistry, View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView} from 'react-native';
 // import { Button } from 'react-native-elements';
-// var Firebase = require('firebase');
+
 
 export default class AddWorker extends Component {
-/*      constructor(props) {
-        super(props);
-        var myFirebaseRef = new Firebase('https://habitapp-88060.firebaseio.com');
-        myFirebaseRef.set({
-            Title: 'Sebastian',
-            Author: 'Altikardes'
-        });
-    }  */
+
 
     render() {
         return(

@@ -5,29 +5,29 @@ import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, Touchabl
 import firebase from 'react-native-firebase';
 
 const rootRef = firebase.database().ref();
-const animalRef = rootRef.child('animals');
+const workerRef = rootRef.child('workers');
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = ({
-      animals: [],
-      newAnimalName: '',
+      workers: [],
+      newFirstName: '',
       loading: false,
     });
   }
 
   componentDidMount() {
-    animalRef.on('value', (childSnapshot) => {
-      const animals= [];
+    workerRef.on('value', (childSnapshot) => {
+      const workers= [];
       childSnapshot.forEach((doc) => {
-        animals.push({
+        workers.push({
           key: doc.key,
-          animalName: doc.toJSON().animalName
+          firstName: doc.toJSON().firstName
         });
         this.setState({
-          animals: animals.sort((a, b) => {
-            return (a.animalName < b.animalName);
+          workers: workers.sort((a, b) => {
+            return (a.firstName < b.firstName);
           }),
           loading: false,
         });
@@ -36,12 +36,12 @@ export default class App extends React.Component {
   }
 
   onPressAdd = () => {
-    if (this.state.newAnimalName.trim() === '') {
+    if (this.state.newFirstName.trim() === '') {
       alert('Tomma fält existerar!');
       return;
     }
-    animalRef.push({
-      animalName: this.state.newAnimalName
+    workerRef.push({
+      firstName: this.state.newFirstName
     });
   }
 
@@ -52,10 +52,10 @@ export default class App extends React.Component {
          <TextInput style={styles.inputStyle} placeholder='Förnamn' returnKeyType='next'
           onChangeText={
             (text) => {
-              this.setState({ newAnimalName: text});
+              this.setState({ newFirstName: text});
             }
           }
-          value={this.state.newAnimalName} 
+          value={this.state.newFirstName} 
           />
                     
                     <TouchableOpacity style={styles.buttonStyle}  
