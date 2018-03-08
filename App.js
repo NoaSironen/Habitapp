@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Platform, Image, Text, View } from 'react-native';
+import { StyleSheet, Platform, Image, Text, View, Navigator } from 'react-native';
+import AddWorker from './components/AddWorker'
 
 import firebase from 'react-native-firebase';
 
@@ -17,8 +18,19 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Image source={require('./assets/RNFirebase512x512.png')} style={[styles.logo]} />
+
+      <View>
+      <AddWorker/>
+      </View>
+    );
+  }
+}
+
+
+
+
+
+{/*         <Image source={require('./assets/RNFirebase512x512.png')} style={[styles.logo]} />
         <Text style={styles.welcome}>
           Welcome to the React Native{'\n'}Firebase starter project!
         </Text>
@@ -89,4 +101,4 @@ const styles = StyleSheet.create({
     marginTop: 4,
     textAlign: 'center',
   }
-});
+}); */}
