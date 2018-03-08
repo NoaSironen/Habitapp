@@ -2,9 +2,49 @@ import React, {Component} from 'react';
 import {AppRegistry, View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView} from 'react-native';
 // import { Button } from 'react-native-elements';
 
+import firebase from 'react-native-firebase';
+
+const rootRef = firebase.database().ref();
+const workerRef = rootRef.child('workers');
 
 export default class AddWorker extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = ({
+          workers: [],
+          newFirstName: '',
+          loading: false,
+        });
+      }
+    
+      componentDidMount() {
+        workerRef.on('value', (childSnapshot) => {
+          const workers= [];
+          childSnapshot.forEach((doc) => {
+            workers.push({
+              key: doc.key,
+              firstName: doc.toJSON().firstName
+            });
+            this.setState({
+              workers: workers.sort((a, b) => {
+                return (a.firstName < b.firstName);
+              }),
+              loading: false,
+            });
+          });
+        });
+      }
+    
+      onPressAdd = () => {
+        if (this.state.newFirstName.trim() === '') {
+          alert('Tomma fält existerar!');
+          return;
+        }
+        workerRef.push({
+          firstName: this.state.newFirstName
+        });
+      }
+    
 
     render() {
         return(
@@ -12,8 +52,22 @@ export default class AddWorker extends Component {
             
             <View style={styles.container}>
                <Text style={styles.headerStyle}>LÄGG TILL STJÄRNA</Text>
+
+                    <TextInput style={styles.inputStyle} placeholder='Förnamn' returnKeyType='next'
+                    onChangeText={
+                        (text) => {
+                        this.setState({ newFirstName: text});
+                        }
+                    }
+                    value={this.state.newFirstName} 
+                    />
+                    
+                    <TouchableOpacity style={styles.buttonStyle}  
+                    onPress={this.onPressAdd}>
+                    <Text style={styles.buttonTextStyle}> Skapa Stjärna</Text>
+                    </TouchableOpacity>
               
-                    <TextInput style={styles.inputStyle} placeholder='Förnamn' returnKeyType='next'/>
+{/*                     <TextInput style={styles.inputStyle} placeholder='Förnamn' returnKeyType='next'/>
                     <TextInput style={styles.inputStyle} placeholder='Efternamn' returnKeyType='next'/>
                     <TextInput style={styles.inputStyle} placeholder='Mobil' returnKeyType='next'/>
                     <TextInput style={styles.inputStyle} placeholder='E-post' returnKeyType='next'/>
@@ -24,7 +78,7 @@ export default class AddWorker extends Component {
                     <TouchableOpacity style={styles.buttonStyle}  
                     onPress={() => {Alert.alert('Du har lagt till en ny arbetare!');}}>
                     <Text style={styles.buttonTextStyle}> Skapa Stjärna</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                     
             </View> 

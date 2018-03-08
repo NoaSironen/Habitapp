@@ -1,94 +1,24 @@
 import React from 'react';
 import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity } from 'react-native';
-//import AddWorker from './components/AddWorker'
+import AddWorker from './components/AddWorker'
 
 import firebase from 'react-native-firebase';
 
-const rootRef = firebase.database().ref();
-const workerRef = rootRef.child('workers');
+
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = ({
-      workers: [],
-      newFirstName: '',
-      loading: false,
-    });
-  }
 
-  componentDidMount() {
-    workerRef.on('value', (childSnapshot) => {
-      const workers= [];
-      childSnapshot.forEach((doc) => {
-        workers.push({
-          key: doc.key,
-          firstName: doc.toJSON().firstName
-        });
-        this.setState({
-          workers: workers.sort((a, b) => {
-            return (a.firstName < b.firstName);
-          }),
-          loading: false,
-        });
-      });
-    });
-  }
-
-  onPressAdd = () => {
-    if (this.state.newFirstName.trim() === '') {
-      alert('Tomma fält existerar!');
-      return;
-    }
-    workerRef.push({
-      firstName: this.state.newFirstName
-    });
-  }
 
   render() {
     return (
 
       <View>
-         <TextInput style={styles.inputStyle} placeholder='Förnamn' returnKeyType='next'
-          onChangeText={
-            (text) => {
-              this.setState({ newFirstName: text});
-            }
-          }
-          value={this.state.newFirstName} 
-          />
-                    
-                    <TouchableOpacity style={styles.buttonStyle}  
-                    onPress={this.onPressAdd}>
-                    <Text style={styles.buttonTextStyle}> Skapa Stjärna</Text>
-                    </TouchableOpacity>
+          <AddWorker/>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  inputStyle: {
-    height: 60,
-    alignItems: 'center',
-    textAlign: 'center',
-    fontSize: 25,
-    marginBottom: 20,
-   // paddingHorizontal: 10,
-  //  backgroundColor: '#e5e6e8',
-
-},
-buttonStyle: {
-        
-  alignItems: 'center',
-  backgroundColor: '#275770',
-  padding: 20,
-},
-buttonTextStyle: {
-  color: '#FFFFFF',
-  fontSize: 25,
-}
-})
 
 
 
