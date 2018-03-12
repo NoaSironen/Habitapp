@@ -1,7 +1,8 @@
 import { AppRegistry } from 'react-native';
 import App from './App';
-AppRegistry.registerComponent('Habitapp', () => App);
-
+AppRegistry.registerComponent('Habitapp', () => App); //Rootcomponents register with this and then the native system can load the 
+                                                      //bundle for the app and then run the app when it i ready by
+                                                      //invoking AppRegistry.runApplication // looks ugly with the lines fix this later
 import { Platform } from 'react-native';
 import firebase from 'react-native-firebase';
 
