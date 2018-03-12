@@ -13,6 +13,9 @@ export default class AddWorker extends Component {
         this.state = ({
           workers: [],
           newFirstName: '',
+          newLastName: '',
+          newPhoneNumber: '',
+          newEmail: '',
           loading: false,
         });
       }
@@ -23,7 +26,10 @@ export default class AddWorker extends Component {
           childSnapshot.forEach((doc) => {
             workers.push({
               key: doc.key,
-              firstName: doc.toJSON().firstName
+              firstName: doc.toJSON().firstName,
+              lastName: doc.toJSON().lastName,
+              phoneNumber: doc.toJSON().phoneNumber,
+              email: doc.toJSON().newEmail
             });
             this.setState({
               workers: workers.sort((a, b) => {
@@ -36,13 +42,29 @@ export default class AddWorker extends Component {
       }
     
       onPressAdd = () => {
-        if (this.state.newFirstName.trim() === '') {
-          alert('Tomma fält existerar!');
-          return;
+        if (this.state.newFirstName.trim() === ''){
+            alert('Vänligen fyll i ditt förnamn!');
+            return;
+        }
+        if (this.state.newLastName.trim() === ''){
+            alert('Vänligen fyll i ditt efternamn!');
+            return;
+        }
+        if (this.state.newPhoneNumber.trim() === ''){
+            alert('Vänligen fyll i ditt telefonnummer!');
+            return;
+        } 
+        if(this.state.newEmail.trim() === ''){
+            alert('Vänligen fyll i din e-post!');
+            return;
         }
         workerRef.push({
-          firstName: this.state.newFirstName
+          firstName: this.state.newFirstName,
+          lastName: this.state.newLastName,
+          phoneNumber: this.state.newPhoneNumber,
+          email: this.state.newEmail
         });
+        alert('Du har lagt till en ny stjärna!');
       }
     
 
@@ -53,7 +75,9 @@ export default class AddWorker extends Component {
             <View style={styles.container}>
                <Text style={styles.headerStyle}>LÄGG TILL STJÄRNA</Text>
 
-                    <TextInput style={styles.inputStyle} placeholder='Förnamn' returnKeyType='next'
+                    <TextInput style={styles.inputStyle} 
+                    placeholder='Förnamn' 
+                    returnKeyType='next'
                     onChangeText={
                         (text) => {
                         this.setState({ newFirstName: text});
@@ -62,10 +86,43 @@ export default class AddWorker extends Component {
                     value={this.state.newFirstName} 
                     />
                     
-                    <TouchableOpacity style={styles.buttonStyle}  
-                    onPress={this.onPressAdd}>
-                    <Text style={styles.buttonTextStyle}> Skapa Stjärna</Text>
-                    </TouchableOpacity>
+                    <TextInput style={styles.inputStyle} 
+                    placeholder='Efternamn' 
+                    returnKeyType='next'
+                    onChangeText={
+                        (text) => {
+                        this.setState({ newLastName: text});
+                        }
+                    }
+                    value={this.state.newLastName} 
+                    />
+
+                    <TextInput style={styles.inputStyle} 
+                    placeholder='Mobilnummer' 
+                    returnKeyType='next'
+                    onChangeText={
+                        (text) => {
+                        this.setState({ newPhoneNumber: text});
+                        }
+                    }
+                    value={this.state.newPhoneNumber} 
+                    />
+
+                    <TextInput style={styles.inputStyle} 
+                    placeholder='E-post' 
+                    returnKeyType='next'
+                    onChangeText={
+                        (text) => {
+                        this.setState({ newEmail: text});
+                        }
+                    }
+                    value={this.state.newEmail} 
+                    />
+
+                            <TouchableOpacity style={styles.buttonStyle}  
+                            onPress={this.onPressAdd}>
+                            <Text style={styles.buttonTextStyle}> Skapa Stjärna</Text>
+                            </TouchableOpacity>
               
 {/*                     <TextInput style={styles.inputStyle} placeholder='Förnamn' returnKeyType='next'/>
                     <TextInput style={styles.inputStyle} placeholder='Efternamn' returnKeyType='next'/>
