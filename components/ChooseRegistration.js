@@ -18,5 +18,39 @@ export default class ChooseRegistration extends Component {
       </View>
     );
   }
+
+  
 }
 
+const styles = StyleSheet.create({
+
+  container: {
+  
+      margin: 20,
+  },
+  inputStyle: {
+      height: 60,
+      alignItems: 'center',
+      textAlign: 'center',
+      fontSize: 25,
+      marginBottom: 20,
+     // paddingHorizontal: 10,
+    //  backgroundColor: '#e5e6e8',
+
+  },
+  headerStyle: {
+      textAlign: 'center',
+      fontSize: 20,
+      margin: 20,
+  },
+  buttonStyle: {
+      
+      alignItems: 'center',
+      backgroundColor: '#275770',
+      padding: 20,
+  },
+  buttonTextStyle: {
+      color: '#FFFFFF',
+      fontSize: 25,
+  }
+}) 

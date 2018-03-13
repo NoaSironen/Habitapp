@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppRegistry, View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import {AppRegistry, View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Image} from 'react-native';
 // import { Button } from 'react-native-elements';
 import ChooseRegistration from './ChooseRegistration';
 import {StackNavigator} from 'react-navigation';
@@ -17,6 +17,7 @@ export default class Home extends Component {
 
             
             <View style={styles.container}>
+            <Image style={styles.picture} source={require('../images/HabitApp.png')} />
                     <Text style={styles.headerStyle} onPress= { ()=> navigate('AddWorker')}> Lägg till stjärna</Text>
                     <Text style={styles.headerStyle} onPress= { ()=> navigate('ChooseRegistration')}> Registrera dig</Text>
             </View> 
@@ -29,8 +30,14 @@ export default class Home extends Component {
     const styles = StyleSheet.create({
 
     container: {
-    
+        justifyContent: 'center',
+        alignItems: 'center',
         margin: 20,
+    },
+    picture: {
+        width: 400,
+        height:400,
+        opacity: 0.1,
     },
     inputStyle: {
         height: 60,
