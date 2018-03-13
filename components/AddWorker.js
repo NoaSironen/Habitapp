@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {AppRegistry, View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView} from 'react-native';
 // import { Button } from 'react-native-elements';
+import ChooseRegistration from './ChooseRegistration';
 
 import firebase from 'react-native-firebase';
 
@@ -8,6 +9,11 @@ const rootRef = firebase.database().ref();
 const workerRef = rootRef.child('workers');
 
 export default class AddWorker extends Component {
+
+/*     static navigationOptions = {
+        title: 'AddWorker',
+      }; */
+
     constructor(props) {
         super(props);
         this.state = ({
@@ -42,6 +48,7 @@ export default class AddWorker extends Component {
       }
     
       onPressAdd = () => {
+        const { navigate } = this.props.navigation;
         if (this.state.newFirstName.trim() === ''){
             alert('Vänligen fyll i ditt förnamn!');
             return;
@@ -56,6 +63,7 @@ export default class AddWorker extends Component {
         } 
         if(this.state.newEmail.trim() === ''){
             alert('Vänligen fyll i din e-post!');
+            
             return;
         }
         workerRef.push({
@@ -65,10 +73,12 @@ export default class AddWorker extends Component {
           email: this.state.newEmail
         });
         alert('Du har lagt till en ny stjärna!');
+        navigate('Home');
       }
     
 
     render() {
+        
         return(
 
             
@@ -124,20 +134,6 @@ export default class AddWorker extends Component {
                             <Text style={styles.buttonTextStyle}> Skapa Stjärna</Text>
                             </TouchableOpacity>
               
-{/*                     <TextInput style={styles.inputStyle} placeholder='Förnamn' returnKeyType='next'/>
-                    <TextInput style={styles.inputStyle} placeholder='Efternamn' returnKeyType='next'/>
-                    <TextInput style={styles.inputStyle} placeholder='Mobil' returnKeyType='next'/>
-                    <TextInput style={styles.inputStyle} placeholder='E-post' returnKeyType='next'/>
-                    
-                    
-                    
-
-                    <TouchableOpacity style={styles.buttonStyle}  
-                    onPress={() => {Alert.alert('Du har lagt till en ny arbetare!');}}>
-                    <Text style={styles.buttonTextStyle}> Skapa Stjärna</Text>
-                    </TouchableOpacity> */}
-
-                    
             </View> 
            
             
