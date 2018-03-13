@@ -9,6 +9,7 @@ import firebase from 'react-native-firebase';
 export default class Home extends Component {
     static navigationOptions = {
         title: 'Home',
+        headerMode: 'float',
       };
 
       render() {
