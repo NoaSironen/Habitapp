@@ -8,10 +8,9 @@ export default class Home extends Component {
       render() {
         return(
 
-            <View style={styles.container}>
+           <View style={styles.container}>
             <Image style={styles.picture} source={require('../images/HabitApp.png')} />
-            </View>
-
+           </View>
         )
     }
 }

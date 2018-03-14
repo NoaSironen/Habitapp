@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity } from 'react-native';
 import firebase from 'react-native-firebase';
 import {StackNavigator, DrawerNavigator, NavigationAction} from 'react-navigation';
-import { Icon } from 'react-native-elements';
+
 import ChooseRegistration from './components/ChooseRegistration';
 import AddWorker from './components/AddWorker';
 import Home from './components/Home';
@@ -31,5 +31,17 @@ const Navigation = DrawerNavigator({
     title: 'Choose Registraton',
   },
 });
+
+class MyHomeScreen extends React.Component {
+
+  render() {
+    return (
+      <Button
+        onPress={() => this.props.navigation.navigate('AddWorker')}
+        title="Go to notifications"
+      />
+    );
+  }
+}
 
 export default Navigation;

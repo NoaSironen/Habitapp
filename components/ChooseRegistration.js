@@ -29,8 +29,6 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       fontSize: 25,
       marginBottom: 20,
-     // paddingHorizontal: 10,
-    //  backgroundColor: '#e5e6e8',
 
   },
   headerStyle: {

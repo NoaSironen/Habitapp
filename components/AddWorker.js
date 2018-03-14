@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {AppRegistry, View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView} from 'react-native';
-// import { Button } from 'react-native-elements';
 import ChooseRegistration from './ChooseRegistration';
 
 import firebase from 'react-native-firebase';
@@ -9,10 +8,6 @@ const rootRef = firebase.database().ref();
 const workerRef = rootRef.child('workers');
 
 export default class AddWorker extends Component {
-
-/*     static navigationOptions = {
-        title: 'AddWorker',
-      }; */
 
     constructor(props) {
         super(props);
