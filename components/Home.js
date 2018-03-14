@@ -1,32 +1,22 @@
 import React, {Component} from 'react';
-import {AppRegistry, View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Image} from 'react-native';
-// import { Button } from 'react-native-elements';
-import ChooseRegistration from './ChooseRegistration';
-import {StackNavigator} from 'react-navigation';
-import AddWorker from './AddWorker';
+import {View, Text, TextInput, StyleSheet, Image} from 'react-native';
+import {StackNavigator, NavigationAction} from 'react-navigation';
 import firebase from 'react-native-firebase';
 
 export default class Home extends Component {
-    static navigationOptions = {
-        title: 'Home',
-        headerMode: 'float',
-      };
 
       render() {
-        const { navigate } = this.props.navigation;
         return(
 
-            
             <View style={styles.container}>
             <Image style={styles.picture} source={require('../images/HabitApp.png')} />
-            </View> 
-           
-            
-            
+            </View>
+
         )
     }
 }
-    const styles = StyleSheet.create({
+    
+const styles = StyleSheet.create({
 
     container: {
         justifyContent: 'center',
@@ -44,8 +34,6 @@ export default class Home extends Component {
         textAlign: 'center',
         fontSize: 25,
         marginBottom: 20,
-       // paddingHorizontal: 10,
-      //  backgroundColor: '#e5e6e8',
 
     },
     headerStyle: {
@@ -53,14 +41,4 @@ export default class Home extends Component {
         fontSize: 20,
         margin: 20,
     },
-    buttonStyle: {
-        
-        alignItems: 'center',
-        backgroundColor: '#275770',
-        padding: 20,
-    },
-    buttonTextStyle: {
-        color: '#FFFFFF',
-        fontSize: 25,
-    }
 }) 
