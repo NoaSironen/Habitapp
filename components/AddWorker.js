@@ -121,6 +121,8 @@ export default class AddWorker extends Component {
                     <TextInput style={styles.inputStyle} 
                     placeholder='E-post' 
                     returnKeyType='next'
+                    keyboardType='email-address'
+                    autoCapitalize='none'
                     onChangeText={
                         (text) => {
                         this.setState({ newEmail: text});
