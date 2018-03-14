@@ -6,9 +6,6 @@ import AddWorker from './AddWorker';
 
 
 export default class ChooseRegistration extends Component {
-/*   static navigationOptions = {
-    title: 'ChooseRegistration',
-  }; */
 
   render() {
     return (
@@ -17,9 +14,7 @@ export default class ChooseRegistration extends Component {
         <Text> Choose Registration</Text>
       </View>
     );
-  }
-
-  
+  } 
 }
 
 const styles = StyleSheet.create({
