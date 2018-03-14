@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity } from 'react-native';
 import firebase from 'react-native-firebase';
+import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 import {StackNavigator} from 'react-navigation';
 import AddWorker from './AddWorker';
 
@@ -8,10 +9,12 @@ import AddWorker from './AddWorker';
 export default class ChooseRegistration extends Component {
 
   render() {
+
     return (
 
       <View>
-        <Text> Choose Registration</Text>
+        <Text style={styles.headerStyle}>Choose Registration</Text>
+
       </View>
     );
   } 
