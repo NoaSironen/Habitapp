@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
 import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity, KeyboardAvoidingView, StatusBar} from 'react-native';
 import firebase from 'react-native-firebase';
-// import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 import {StackNavigator} from 'react-navigation';
-
-
-
 
 export default class LogInScreen extends Component {
       constructor(props) {
