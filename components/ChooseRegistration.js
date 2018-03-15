@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity} from 'react-native';
 import firebase from 'react-native-firebase';
-// import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 import {StackNavigator} from 'react-navigation';
 import AddWorker from './AddWorker';
 
