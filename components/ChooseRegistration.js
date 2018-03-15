@@ -81,9 +81,7 @@ export default class ChooseRegistration extends Component {
                             </TouchableOpacity>
       </View>
     );
-  }
-
-  
+  } 
 }
 
 const styles = StyleSheet.create({
