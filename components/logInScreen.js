@@ -8,7 +8,7 @@ import ChooseRegistration from './ChooseRegistration';
 
 
 
-export default class logInScreen extends Component {
+export default class LogInScreen extends Component {
       constructor(props) {
       super(props);
       this.unsubscriber = null;
@@ -68,7 +68,7 @@ export default class logInScreen extends Component {
                       <Text style={styles.buttonTextStyle}>Logga in</Text>
                       </TouchableOpacity>
 
-                        <TouchableHighlight style={styles.headerStyle} onPress={() => navigate('Home')}>Registrera dig</TouchableHighlight>
+                        <Text style={styles.headerStyle} onPress={() => navigate('ChooseRegistration')}>Registrera dig</Text>
       </View>
     );
   }
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       fontSize: 20,
       margin: 20,
-      highLightStyle: 'blue',
+
   },
   buttonStyle: {
       marginHorizontal: 40,
