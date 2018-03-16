@@ -4,8 +4,8 @@ import firebase from 'react-native-firebase';
 import {StackNavigator} from 'react-navigation';
 import AddWorker from './AddWorker';
 
-const rootRef = firebase.database().ref();
-const userRef = rootRef.child('users');
+/* const rootRef = firebase.database().ref();
+const userRef = rootRef.child('users'); */
 
 
 export default class ChooseRegistration extends Component {
@@ -18,54 +18,10 @@ export default class ChooseRegistration extends Component {
         typedPassword: '',
         user: null,
         typedPhoneNumber: '',
-
-        users: [],
-        newPhoneNumber: '',
-        newEmail: '',
-        loading: false,
-
-        typedPhoneNumber: '',
       };
     } 
-/*       componentDidMount() {
-      userRef.on('value', (childSnapshot) => {
-        const users= [];
-        childSnapshot.forEach((doc) => {
-          users.push({
-            key: doc.key,
-            phoneNumber: doc.toJSON().phoneNumber,
-            email: doc.toJSON().newEmail
-          });
-          this.setState({
-            users: users.sort((a, b) => {
-              return (a.email < b.email);
-            }),
-            loading: false,
-          });
-        });
-      });
-    }
 
-    onPressAdd = () => {
-      const { navigate } = this.props.navigation;
-      if (this.state.newPhoneNumber.trim() === ''){
-          alert('Vänligen fyll i ditt telefonnummer!');
-          return;
-      } 
-      if(this.state.newEmail.trim() === ''){
-          alert('Vänligen fyll i din e-post!');
-          
-          return;
-      }
-      userRef.push({
-        phoneNumber: this.state.newPhoneNumber,
-        email: this.state.newEmail
-      });
-     // alert('Du har lagt till en ny stjärna!');
-     // navigate('Home');
-    }
-
-     onRegister = () => {
+/*      onRegister = () => {
       const { navigate } = this.props.navigation;
       firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
       .then((loggedInUser) => {
@@ -75,7 +31,7 @@ export default class ChooseRegistration extends Component {
         console.log('Register failed with error: ${error}');
         navigate('AddUserProfile');
       };
-    }  */
+    }   */
 
   render() {
     const { navigate } = this.props.navigation;
@@ -120,12 +76,12 @@ export default class ChooseRegistration extends Component {
                     <View style={styles.buttonLayout}>
                             <TouchableOpacity 
                             style={styles.buttonStyle} 
-                            onPress={() => navigate('RegisterUserProfile', {
+                             onPress={() => navigate('RegisterUserProfile', {
                               typedEmail: this.state.typedEmail, 
                               typedPassword: this.state.typedPassword, 
                               typedPhoneNumber: this.state.typedPhoneNumber 
-                              })}>
-                            {/* onPress={this.onRegister}>  */} 
+                              })}> 
+                              {/* onPress={this.onRegister}>   */}
                             <Text style={styles.buttonTextStyle}>NÄSTA</Text>
                             </TouchableOpacity>
                     </View>

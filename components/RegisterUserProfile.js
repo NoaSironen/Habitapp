@@ -45,11 +45,7 @@ export default class RegisterUserProfile extends Component {
                         this.setState({ typedLastName: text });
                       }
                     }
-                  />
-                   <Text>Email: {this.state.typedEmail}</Text> 
-                   <Text>Mobil: {this.state.typedPhoneNumber}</Text> 
-                   <Text>Lösen: {this.state.typedPassword}</Text> 
-
+                  /> 
                     <View style={styles.buttonLayout}>
                             <TouchableOpacity style={styles.buttonStyle}
                               onPress={() => navigate('RegisterUserPaymentCard', {

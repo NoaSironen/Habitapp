@@ -4,23 +4,83 @@ import firebase from 'react-native-firebase';
 import {StackNavigator} from 'react-navigation';
 import AddWorker from './AddWorker';
 
+const rootRef = firebase.database().ref();
+const userRef = rootRef.child('users');
 
 export default class RegisterUserPaymentCard extends Component {
       constructor(props) {
       super(props);
       this.unsubscriber = null;
       this.state = {
+        isAuthenticated: false,
+        user: null,
         typedEmail: this.props.navigation.state.params.typedEmail,
         typedPhoneNumber: this.props.navigation.state.params.typedPhoneNumber,
         typedPassword: this.props.navigation.state.params.typedPassword,
         typedFirstName: this.props.navigation.state.params.typedFirstName,
         typedLastName: this.props.navigation.state.params.typedLastName,
-        typedCardNumber: '',
+        typedPaymentCardNumber: '',
+        users: [],
       };
     } 
+    componentDidMount() {
+      userRef.on('value', (childSnapshot) => {
+        const users= [];
+        childSnapshot.forEach((doc) => {
+          users.push({
+            key: doc.key,
+            firstName: doc.toJSON().firstName,
+            lastName: doc.toJSON().lastName,
+            phoneNumber: doc.toJSON().phoneNumber,
+            paymentCardNumber: doc.toJSON().paymentCardNumber,
+            email: doc.toJSON().typedEmail
+          });
+          this.setState({
+            users: users.sort((a, b) => {
+              return (a.email < b.email);
+            }),
+            loading: false,
+          });
+        });
+      });
+    }
+    onPressAdd = () => {
+      const { navigate } = this.props.navigation;
+      if (this.state.typedPaymentCardNumber.trim() === ''){
+          alert('Vänligen fyll i ditt kortnummer!');
+          return;
+      } 
+      userRef.push({
+        firstName: this.state.typedFirstName,
+        lastName: this.state.typedLastName,
+        phoneNumber: this.state.typedPhoneNumber,
+        paymentCardNumber: this.state.typedPaymentCardNumber,
+        email: this.state.typedEmail
+      });
+      firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
+      .then((loggedInUser) => {
+        this.setState({user: loggedInUser})
+        console.log('Register with user : ${JSON.stringify(loggedInUser.toJSON())}');
+      }).catch = (error) => {
+        console.log('Register failed with error: ${error}');
+        navigate('AddUserProfile');
+      };
+     // alert('Du har lagt till en ny stjärna!');
+     // navigate('Home');
+    }
+/*     onRegister = () => {
+      const { navigate } = this.props.navigation;
+      firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
+      .then((loggedInUser) => {
+        this.setState({user: loggedInUser})
+        console.log('Register with user : ${JSON.stringify(loggedInUser.toJSON())}');
+      }).catch = (error) => {
+        console.log('Register failed with error: ${error}');
+        navigate('AddUserProfile');
+      };
+    }   */
 
   render() {
-
     return (
 
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
@@ -32,19 +92,13 @@ export default class RegisterUserPaymentCard extends Component {
                     keyboardType='numeric'
                     onChangeText={
                       (text) => {
-                        this.setState({ typedCardNumber: text });
+                        this.setState({ typedPaymentCardNumber: text });
                       }
                     }
                   />
-                   <Text>Email: {this.state.typedEmail}</Text> 
-                   <Text>Mobil: {this.state.typedPhoneNumber}</Text> 
-                   <Text>Lösen: {this.state.typedPassword}</Text> 
-                   <Text>Förnamn: {this.state.typedFirstName}</Text>
-                   <Text>Efternamn: {this.state.typedLastName}</Text>
-
                     <View style={styles.buttonLayout}>
                             <TouchableOpacity style={styles.buttonStyle}
-                            onPress={this.onRegister}>  
+                            onPress={this.onPressAdd}>  
                             <Text style={styles.buttonTextStyle}>KLAR</Text>
                             </TouchableOpacity>
                     </View>
@@ -90,8 +144,6 @@ const styles = StyleSheet.create({
       marginHorizontal: 20,
       alignItems: 'center',
       backgroundColor: '#161616',
-      height: 75,
-      width: 150,
       marginVertical: 20,
       borderRadius: 2,
   },
@@ -102,6 +154,6 @@ const styles = StyleSheet.create({
       fontSize: 22,
   },
   buttonLayout: {
-    alignItems: 'flex-end',
+    //alignItems: 'flex-end',
   }
 }) 
