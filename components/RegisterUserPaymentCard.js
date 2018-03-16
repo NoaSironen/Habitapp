@@ -21,6 +21,7 @@ export default class RegisterUserPaymentCard extends Component {
         typedLastName: this.props.navigation.state.params.typedLastName,
         typedPaymentCardNumber: '',
         users: [],
+        UID: firebase.auth().currentUser.uid,
       };
     } 
     componentDidMount() {
@@ -28,7 +29,7 @@ export default class RegisterUserPaymentCard extends Component {
         const users= [];
         childSnapshot.forEach((doc) => {
           users.push({
-            key: doc.key,
+            key: doc.toJSON().UID,
             firstName: doc.toJSON().firstName,
             lastName: doc.toJSON().lastName,
             phoneNumber: doc.toJSON().phoneNumber,
@@ -57,28 +58,16 @@ export default class RegisterUserPaymentCard extends Component {
         paymentCardNumber: this.state.typedPaymentCardNumber,
         email: this.state.typedEmail
       });
+
       firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
       .then((loggedInUser) => {
         this.setState({user: loggedInUser})
         console.log('Register with user : ${JSON.stringify(loggedInUser.toJSON())}');
       }).catch = (error) => {
         console.log('Register failed with error: ${error}');
-        navigate('AddUserProfile');
       };
-     // alert('Du har lagt till en ny stjärna!');
-     // navigate('Home');
+      navigate('Home');
     }
-/*     onRegister = () => {
-      const { navigate } = this.props.navigation;
-      firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
-      .then((loggedInUser) => {
-        this.setState({user: loggedInUser})
-        console.log('Register with user : ${JSON.stringify(loggedInUser.toJSON())}');
-      }).catch = (error) => {
-        console.log('Register failed with error: ${error}');
-        navigate('AddUserProfile');
-      };
-    }   */
 
   render() {
     return (
@@ -102,8 +91,6 @@ export default class RegisterUserPaymentCard extends Component {
                             <Text style={styles.buttonTextStyle}>KLAR</Text>
                             </TouchableOpacity>
                     </View>
-                   
-
       </KeyboardAvoidingView>
     );
   } 
@@ -115,26 +102,13 @@ const styles = StyleSheet.create({
     flex: 1,
    // backgroundColor: '#133547',
   },
-/*   halfView: {
-    flexDirection: 'row',
-    marginHorizontal: 20,
-    borderWidth: 1,
-  }, */
+
   inputStyle: {
       height: 70,
       fontSize: 22,
       marginHorizontal: 20,
       marginVertical: 3,
-     // marginRight: 50,      
-      
-     // paddingHorizontal: 10,
-    //  backgroundColor: '#e5e6e8',
   },
-/*   nameInputStyle: {
-    height: 70,
-    width: 185,
-    fontSize: 22,  
-}, */
   headerStyle: {
       textAlign: 'center',
       fontSize: 20,
