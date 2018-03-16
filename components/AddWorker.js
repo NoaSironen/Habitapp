@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {AppRegistry, View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView} from 'react-native';
-import ChooseRegistration from './ChooseRegistration';
+import { View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView} from 'react-native';
 
 import firebase from 'react-native-firebase';
 
@@ -71,11 +70,9 @@ export default class AddWorker extends Component {
         navigate('Home');
       }
     
-
     render() {
         
         return(
-
             
             <View style={styles.container}>
                <Text style={styles.headerStyle}>LÄGG TILL STJÄRNA</Text>
@@ -130,11 +127,7 @@ export default class AddWorker extends Component {
                             onPress={this.onPressAdd}>
                             <Text style={styles.buttonTextStyle}> Skapa Stjärna</Text>
                             </TouchableOpacity>
-              
-            </View> 
-           
-            
-            
+            </View>   
         )
     }
 }
@@ -169,7 +162,6 @@ export default class AddWorker extends Component {
         color: '#FFFFFF',
         fontSize: 25,
     }
-}) 
-AppRegistry.registerComponent('AddWorker', () => AddWorker ); // This line should maybe be removed because of the import in index.js
+});
 
 

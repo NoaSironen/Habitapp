@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, View, Image } from 'react-native';
+import { TouchableOpacity, View, Image, StyleSheet } from 'react-native';
 import { DrawerNavigator, StackNavigator } from 'react-navigation';
 import Home from "./Home";
 import AddWorker from './AddWorker';
@@ -13,7 +13,7 @@ export const StackNav = StackNavigator ({
           title: 'Home',
           params: navigation.state.params,
           headerLeft: (
-            <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')}>
+            <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')} style={styles.HamburgerButton}>
               <Image source={require('../images/HamburgerIcon.png')}/>
             </TouchableOpacity>
           )
@@ -63,8 +63,8 @@ export const DrawerMenu = DrawerNavigator ({
     },
   });
 
-/*   const styles = StyleSheet.create ({
+  const styles = StyleSheet.create ({
     HamburgerButton: {
       paddingLeft: 10,
     }
-  }) */
+  })
