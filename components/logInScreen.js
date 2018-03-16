@@ -73,9 +73,11 @@ export default class LogInScreen extends Component {
                       onPress={this.onLogin}>  
                       <Text style={styles.buttonTextStyle}>Logga in</Text>
                       </TouchableOpacity>
-
-                        <Text style={styles.linkStyle} onPress={() => navigate('ChooseRegistration')}> Registrera dig </Text>
-      </KeyboardAvoidingView>
+                        
+                        <TouchableOpacity onPress={() => navigate('ChooseRegistration')}>
+                        <Text style={styles.linkStyle}> Registrera dig </Text>
+                        </TouchableOpacity>
+        </KeyboardAvoidingView>
     );
   }
 

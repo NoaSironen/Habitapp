@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity} from 'react-native';
+import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
 import firebase from 'react-native-firebase';
-// import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 import {StackNavigator} from 'react-navigation';
 import AddWorker from './AddWorker';
+
+const rootRef = firebase.database().ref();
+const userRef = rootRef.child('users');
 
 
 export default class ChooseRegistration extends Component {
@@ -15,53 +17,98 @@ export default class ChooseRegistration extends Component {
         typedEmail: '',
         typedPassword: '',
         user: null,
+        typedPhoneNumber: '',
 
+        users: [],
+        newPhoneNumber: '',
+        newEmail: '',
+        loading: false,
+
+        typedPhoneNumber: '',
       };
     } 
-    onRegister = () => {
+/*       componentDidMount() {
+      userRef.on('value', (childSnapshot) => {
+        const users= [];
+        childSnapshot.forEach((doc) => {
+          users.push({
+            key: doc.key,
+            phoneNumber: doc.toJSON().phoneNumber,
+            email: doc.toJSON().newEmail
+          });
+          this.setState({
+            users: users.sort((a, b) => {
+              return (a.email < b.email);
+            }),
+            loading: false,
+          });
+        });
+      });
+    }
+
+    onPressAdd = () => {
+      const { navigate } = this.props.navigation;
+      if (this.state.newPhoneNumber.trim() === ''){
+          alert('Vänligen fyll i ditt telefonnummer!');
+          return;
+      } 
+      if(this.state.newEmail.trim() === ''){
+          alert('Vänligen fyll i din e-post!');
+          
+          return;
+      }
+      userRef.push({
+        phoneNumber: this.state.newPhoneNumber,
+        email: this.state.newEmail
+      });
+     // alert('Du har lagt till en ny stjärna!');
+     // navigate('Home');
+    }
+
+     onRegister = () => {
+      const { navigate } = this.props.navigation;
       firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
       .then((loggedInUser) => {
         this.setState({user: loggedInUser})
         console.log('Register with user : ${JSON.stringify(loggedInUser.toJSON())}');
       }).catch = (error) => {
         console.log('Register failed with error: ${error}');
+        navigate('AddUserProfile');
       };
-    }
-    onLogin = () => {
-      firebase.auth().signInAndRetrieveDataWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
-      .then((loggedInUser) => {
-        this.setState({user: loggedInUser})
-        console.log('Register with user : ${JSON.stringify(loggedInUser.toJSON())}');
-      }).catch = (error) => {
-        console.log('Register failed with error: ${error}');
-      };
-
-    }
+    }  */
 
   render() {
-
+    const { navigate } = this.props.navigation;
     return (
 
-      <View>
-        <Text style={styles.headerStyle}>Choose Registration</Text>
-                  
+      <KeyboardAvoidingView behavior='padding' style={styles.container}>
+        <Text style={styles.headerStyle}>REGISTRERING</Text>
+
                    <TextInput style={styles.inputStyle} 
-                    placeholder='Fyll i din E-postadress' 
+                    placeholder='E-postadress' 
                     returnKeyType='next'
                     keyboardType='email-address'
                     autoCapitalize='none'
-                    underlineColorAndroid='transparent'
                     onChangeText={
                       (text) => {
                         this.setState({ typedEmail: text });
                       }
                     }
                   />
+                    <TextInput style={styles.inputStyle} 
+                    placeholder='Mobilnummer' 
+                    keyboardType='phone-pad'
+                    returnKeyType='next'
+                    onChangeText={
+                      (text) => {
+                        this.setState({ typedPhoneNumber: text });
+                      }
+                    }
+                  />
 
                   <TextInput style={styles.inputStyle} 
-                    placeholder='Fyll i ditt lösenord' 
+                    placeholder='Lösenord' 
                     keyboardType='default'
-                    underlineColorAndroid='transparent'
                     secureTextEntry={true}
                     onChangeText={
                       (text) => {
@@ -70,16 +117,20 @@ export default class ChooseRegistration extends Component {
                     } 
                   /> 
 
-                            <TouchableOpacity style={styles.buttonStyle}
-                            onPress={this.onRegister}>  
-                            <Text style={styles.buttonTextStyle}>Registrera dig</Text>
+                    <View style={styles.buttonLayout}>
+                            <TouchableOpacity 
+                            style={styles.buttonStyle} 
+                            onPress={() => navigate('RegisterUserProfile', {
+                              typedEmail: this.state.typedEmail, 
+                              typedPassword: this.state.typedPassword, 
+                              typedPhoneNumber: this.state.typedPhoneNumber 
+                              })}>
+                            {/* onPress={this.onRegister}>  */} 
+                            <Text style={styles.buttonTextStyle}>NÄSTA</Text>
                             </TouchableOpacity>
+                    </View>
 
-                            <TouchableOpacity style={styles.buttonStyle}
-                            onPress={this.onLogin}>  
-                            <Text style={styles.buttonTextStyle}>Logga in</Text>
-                            </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     );
   } 
 }
@@ -87,38 +138,50 @@ export default class ChooseRegistration extends Component {
 const styles = StyleSheet.create({
 
   container: {
-  
-     
+    flex: 1,
+   // backgroundColor: '#133547',
   },
+/*   halfView: {
+    flexDirection: 'row',
+    marginHorizontal: 20,
+    borderWidth: 1,
+  }, */
   inputStyle: {
       height: 70,
-      alignItems: 'center',
-      textAlign: 'center',
       fontSize: 22,
-      marginHorizontal: 40,
-      marginVertical: 10,
-      borderWidth: 1, 
-      padding: 10,
-      
+      marginHorizontal: 20,
+      marginVertical: 3,
+     // marginRight: 50,      
       
      // paddingHorizontal: 10,
     //  backgroundColor: '#e5e6e8',
-
   },
+/*   nameInputStyle: {
+    height: 70,
+    width: 185,
+    fontSize: 22,  
+}, */
   headerStyle: {
       textAlign: 'center',
       fontSize: 20,
-      margin: 20,
+      margin: 10,
   },
   buttonStyle: {
-      marginHorizontal: 40,
+      marginHorizontal: 20,
       alignItems: 'center',
-      backgroundColor: '#275770',
-      padding: 20,
-      marginVertical: 10,
+      backgroundColor: '#161616',
+      height: 75,
+      width: 150,
+      marginVertical: 20,
+      borderRadius: 2,
   },
   buttonTextStyle: {
+      marginVertical: 20,
+      textAlign: 'center',
       color: '#FFFFFF',
-      fontSize: 25,
+      fontSize: 22,
+  },
+  buttonLayout: {
+    alignItems: 'flex-end',
   }
 }) 
