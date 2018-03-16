@@ -4,87 +4,61 @@ import firebase from 'react-native-firebase';
 import {StackNavigator} from 'react-navigation';
 import AddWorker from './AddWorker';
 
-/* const rootRef = firebase.database().ref();
-const userRef = rootRef.child('users'); */
 
-
-export default class ChooseRegistration extends Component {
+export default class RegisterUserProfile extends Component {
       constructor(props) {
       super(props);
       this.unsubscriber = null;
       this.state = {
-        isAuthenticated: false,
-        typedEmail: '',
-        typedPassword: '',
-        user: null,
-        typedPhoneNumber: '',
+        typedEmail: this.props.navigation.state.params.typedEmail,
+        typedPhoneNumber: this.props.navigation.state.params.typedPhoneNumber,
+        typedPassword: this.props.navigation.state.params.typedPassword,
+        typedFirstName: '',
+        typedLastName: '',
       };
     } 
-
-/*      onRegister = () => {
-      const { navigate } = this.props.navigation;
-      firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
-      .then((loggedInUser) => {
-        this.setState({user: loggedInUser})
-        console.log('Register with user : ${JSON.stringify(loggedInUser.toJSON())}');
-      }).catch = (error) => {
-        console.log('Register failed with error: ${error}');
-        navigate('AddUserProfile');
-      };
-    }   */
 
   render() {
     const { navigate } = this.props.navigation;
     return (
 
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
-        <Text style={styles.headerStyle}>REGISTRERING</Text>
-
+        <Text style={styles.headerStyle}>SKAPA PROFIL</Text>
+          
                    <TextInput style={styles.inputStyle} 
-                    placeholder='E-postadress' 
+                    placeholder='Förnamn' 
                     returnKeyType='next'
-                    keyboardType='email-address'
-                    autoCapitalize='none'
-                    onChangeText={
-                      (text) => {
-                        this.setState({ typedEmail: text });
-                      }
-                    }
-                  />
-                    <TextInput style={styles.inputStyle} 
-                    placeholder='Mobilnummer' 
-                    keyboardType='phone-pad'
-                    returnKeyType='next'
-                    onChangeText={
-                      (text) => {
-                        this.setState({ typedPhoneNumber: text });
-                      }
-                    }
-                  />
-
-                  <TextInput style={styles.inputStyle} 
-                    placeholder='Lösenord' 
                     keyboardType='default'
-                    secureTextEntry={true}
                     onChangeText={
                       (text) => {
-                        this.setState({ typedPassword: text });
+                        this.setState({ typedFirstName: text });
                       }
-                    } 
+                    }
+                    
+                  />
+                   <TextInput style={styles.inputStyle} 
+                    placeholder='Efternamn' 
+                    returnKeyType='default'
+                    keyboardType='default'
+                    onChangeText={
+                      (text) => {
+                        this.setState({ typedLastName: text });
+                      }
+                    }
                   /> 
-
                     <View style={styles.buttonLayout}>
-                            <TouchableOpacity 
-                            style={styles.buttonStyle} 
-                             onPress={() => navigate('RegisterUserProfile', {
-                              typedEmail: this.state.typedEmail, 
-                              typedPassword: this.state.typedPassword, 
-                              typedPhoneNumber: this.state.typedPhoneNumber 
-                              })}> 
-                              {/* onPress={this.onRegister}>   */}
+                            <TouchableOpacity style={styles.buttonStyle}
+                              onPress={() => navigate('RegisterUserPaymentCard', {
+                                typedEmail: this.state.typedEmail, 
+                                typedPassword: this.state.typedPassword, 
+                                typedPhoneNumber: this.state.typedPhoneNumber,
+                                typedFirstName: this.state.typedFirstName,
+                                typedLastName: this.state.typedLastName 
+                                })}>
                             <Text style={styles.buttonTextStyle}>NÄSTA</Text>
                             </TouchableOpacity>
                     </View>
+                   
 
       </KeyboardAvoidingView>
     );
