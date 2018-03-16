@@ -21,7 +21,7 @@ export default class RegisterUserPaymentCard extends Component {
         typedLastName: this.props.navigation.state.params.typedLastName,
         typedPaymentCardNumber: '',
         users: [],
-        UID: firebase.auth().currentUser.uid,
+
       };
     } 
     componentDidMount() {
@@ -29,7 +29,7 @@ export default class RegisterUserPaymentCard extends Component {
         const users= [];
         childSnapshot.forEach((doc) => {
           users.push({
-            key: doc.toJSON().UID,
+            key: doc.key,
             firstName: doc.toJSON().firstName,
             lastName: doc.toJSON().lastName,
             phoneNumber: doc.toJSON().phoneNumber,
