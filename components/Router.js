@@ -1,22 +1,25 @@
-import React from 'react';
-import { TouchableOpacity, View, Image } from 'react-native';
-import { DrawerNavigator, StackNavigator } from 'react-navigation';
+import React, {Component} from 'react';
+import { TouchableOpacity, View, Image, StyleSheet, Text } from 'react-native';
+import { DrawerNavigator, StackNavigator, SafeAreaView, DrawerItems, ScrollView  } from 'react-navigation'; // Remove SafeaAweaView & DrawerItems if CustomDrawerHeader is moved to seperate file!
 import Home from "./Home";
 import AddWorker from './AddWorker';
 import ChooseRegistration from './ChooseRegistration';
 import LogInScreen from './LogInScreen';
 import RegisterUserProfile from './RegisterUserProfile';
 import RegisterUserPaymentCard from './RegisterUserPaymentCard';
+import DrawerHeader from './DrawerHeader';
 
-export const StackNav = StackNavigator ({
+ const StackNav = StackNavigator ({
     Home: { 
       screen: Home,
       navigationOptions: ({ navigation }) => ({
           title: 'Home',
-          params: navigation.state.params,
+          //params: navigation.state.params, //Not needed apparently?
           headerLeft: (
-            <TouchableOpacity onPress={() => navigation.navigate('DrawerOpen')}>
-              <Image source={require('../images/HamburgerIcon.png')}/>
+            <TouchableOpacity 
+            style={styles.HamburgerButton} 
+            onPress={() => navigation.navigate('DrawerOpen')}>
+            <Image source={require('../images/HamburgerIcon.png')}/>
             </TouchableOpacity>
           )
       })
@@ -51,7 +54,7 @@ export const StackNav = StackNavigator ({
           title: '3 av 3',
       }
     },
-  });
+});
 
 export const DrawerMenu = DrawerNavigator ({
     Home: { 
@@ -74,11 +77,18 @@ export const DrawerMenu = DrawerNavigator ({
       navigationOptions: {
           title: 'Log In',
       }
-    },
+    },  }, { 
+      contentComponent: props => <DrawerHeader {...props} />
   });
 
-/*   const styles = StyleSheet.create ({
+
+
+const styles = StyleSheet.create ({
     HamburgerButton: {
       paddingLeft: 10,
-    }
-  }) */
+    },
+    DrawerHeader: {
+      flex: 1,
+      
+    },
+  });
