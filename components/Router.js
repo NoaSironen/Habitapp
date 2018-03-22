@@ -7,7 +7,7 @@ import ChooseRegistration from './ChooseRegistration';
 import LogInScreen from './LogInScreen';
 import RegisterUserProfile from './RegisterUserProfile';
 import RegisterUserPaymentCard from './RegisterUserPaymentCard';
-import DrawerHeader from './DrawerHeader';
+import CustomDrawer from './CustomDrawer';
 import HamburgerButton from './HamburgerButton';
 
 
@@ -16,7 +16,6 @@ import HamburgerButton from './HamburgerButton';
       screen: Home,
       navigationOptions: ({ navigation }) => ({
           title: 'Home',
-          //params: navigation.state.params, //Not needed apparently?
           headerLeft: (
             <HamburgerButton navigation={ navigation }/>
           )
@@ -76,10 +75,9 @@ export const DrawerMenu = DrawerNavigator ({
           title: 'Log In',
       }
     },  }, { 
-      contentComponent: props => <DrawerHeader {...props} />
+      contentComponent: CustomDrawer,
+      drawerWidth: 300,
   });
-
-
 
 const styles = StyleSheet.create ({
     DrawerHeader: {

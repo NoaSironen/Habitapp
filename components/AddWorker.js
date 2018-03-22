@@ -131,7 +131,8 @@ export default class AddWorker extends Component {
         )
     }
 }
-    const styles = StyleSheet.create({
+    
+const styles = StyleSheet.create({
 
     container: {
     
@@ -143,9 +144,6 @@ export default class AddWorker extends Component {
         textAlign: 'center',
         fontSize: 25,
         marginBottom: 20,
-       // paddingHorizontal: 10,
-      //  backgroundColor: '#e5e6e8',
-
     },
     headerStyle: {
         textAlign: 'center',
@@ -161,7 +159,5 @@ export default class AddWorker extends Component {
     buttonTextStyle: {
         color: '#FFFFFF',
         fontSize: 25,
-    }
+    },
 });
-
-
