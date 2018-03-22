@@ -57,6 +57,7 @@ import DrawerHeader from './DrawerHeader';
 });
 
 export const DrawerMenu = DrawerNavigator ({
+  
     Home: { 
       screen: StackNav,
     },
@@ -77,8 +78,15 @@ export const DrawerMenu = DrawerNavigator ({
       navigationOptions: {
           title: 'Log In',
       }
-    },  }, { 
-      contentComponent: props => <DrawerHeader {...props} />
+    },
+        LogOutScreen: { 
+      screen: LogInScreen,
+      navigationOptions: {
+          title: 'Log Out'
+      }
+    },
+    }, { 
+ //     contentComponent: props => <DrawerHeader {...props} />
   });
 
 
