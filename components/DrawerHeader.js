@@ -17,6 +17,8 @@ export default class CustomDrawerHeader extends Component {
 const styles = StyleSheet.create ({
   drawerContainer: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#4e556d',
   }
 })
