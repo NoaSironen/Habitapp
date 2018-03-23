@@ -59,7 +59,7 @@ export default class RegisterUserPaymentCard extends Component {
         email: this.state.typedEmail
       });
 
-      firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
+      firebase.auth().createUserWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
       .then((loggedInUser) => {
         this.setState({user: loggedInUser})
         console.log('Register with user : ${JSON.stringify(loggedInUser.toJSON())}');
