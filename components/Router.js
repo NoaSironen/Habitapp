@@ -7,20 +7,17 @@ import ChooseRegistration from './ChooseRegistration';
 import LogInScreen from './LogInScreen';
 import RegisterUserProfile from './RegisterUserProfile';
 import RegisterUserPaymentCard from './RegisterUserPaymentCard';
-import DrawerHeader from './DrawerHeader';
+import CustomDrawer from './CustomDrawer';
+import HamburgerButton from './HamburgerButton';
+
 
  const StackNav = StackNavigator ({
     Home: { 
       screen: Home,
       navigationOptions: ({ navigation }) => ({
           title: 'Home',
-          //params: navigation.state.params, //Not needed apparently?
           headerLeft: (
-            <TouchableOpacity 
-            style={styles.HamburgerButton} 
-            onPress={() => navigation.navigate('DrawerOpen')}>
-            <Image source={require('../images/HamburgerIcon.png')}/>
-            </TouchableOpacity>
+            <HamburgerButton navigation={ navigation }/>
           )
       })
     },
@@ -89,14 +86,8 @@ export const DrawerMenu = DrawerNavigator ({
  //     contentComponent: props => <DrawerHeader {...props} />
   });
 
-
-
 const styles = StyleSheet.create ({
-    HamburgerButton: {
-      paddingLeft: 10,
-    },
     DrawerHeader: {
       flex: 1,
-      
     },
   });

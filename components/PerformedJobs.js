@@ -1,6 +1,6 @@
-import React from 'react';
-import {AppRegistry, View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView} from 'react-native';
-// Denna funktionalitet ska ligga på en knapp senare när arbetaren klickar i "jobb klart!"
+import React, {Component} from 'react';
+import { View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView} from 'react-native';
+// Denna funktionalitet(hela filen) ska ligga på en knapp senare när arbetaren klickar i "jobb klart!" 
 import firebase from 'react-native-firebase';
 
 const rootRef = firebase.database().ref();
@@ -64,5 +64,19 @@ export default class AddPerformedJobs extends Component {
             customerLastName: this.state.customerLastName,
         });
         alert ('Ny beskrivning tillagd!')
+        }
+
+        render() {
+            return(
+                <KeyboardAvoidingView style={styles.container}>
+                    <TextInput
+                        placeholder = 'Worker FirstName'
+                        returnKeyType = 'next'
+                        onChangeText={(text) =>{
+                            this.setState({workerFirstName})
+                        }}
+                    />
+                </KeyboardAvoidingView>
+            )
         }
     }
