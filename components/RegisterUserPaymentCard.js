@@ -21,6 +21,7 @@ export default class RegisterUserPaymentCard extends Component {
         typedLastName: this.props.navigation.state.params.typedLastName,
         typedPaymentCardNumber: '',
         users: [],
+        defaultProfilePicture: '../images/ProfileTemplate.png',
 
       };
     } 
@@ -34,7 +35,8 @@ export default class RegisterUserPaymentCard extends Component {
             lastName: doc.toJSON().lastName,
             phoneNumber: doc.toJSON().phoneNumber,
             paymentCardNumber: doc.toJSON().paymentCardNumber,
-            email: doc.toJSON().typedEmail
+            email: doc.toJSON().typedEmail,
+            profilePicture: doc.toJSON().defaultProfilePicture
           });
           this.setState({
             users: users.sort((a, b) => {
@@ -56,10 +58,11 @@ export default class RegisterUserPaymentCard extends Component {
         lastName: this.state.typedLastName,
         phoneNumber: this.state.typedPhoneNumber,
         paymentCardNumber: this.state.typedPaymentCardNumber,
-        email: this.state.typedEmail
+        email: this.state.typedEmail,
+        profilePicture: this.state.defaultProfilePicture
       });
 
-      firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
+      firebase.auth().createUserWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
       .then((loggedInUser) => {
         this.setState({user: loggedInUser})
         console.log('Register with user : ${JSON.stringify(loggedInUser.toJSON())}');
