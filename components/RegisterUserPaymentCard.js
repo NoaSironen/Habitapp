@@ -21,9 +21,10 @@ export default class RegisterUserPaymentCard extends Component {
         typedLastName: this.props.navigation.state.params.typedLastName,
         typedPaymentCardNumber: '',
         users: [],
-
+        defaultProfilePicture: '../images/ProfileTemplate.png'
       };
-    } 
+    }
+    
     componentDidMount() {
       userRef.on('value', (childSnapshot) => {
         const users= [];
@@ -34,7 +35,8 @@ export default class RegisterUserPaymentCard extends Component {
             lastName: doc.toJSON().lastName,
             phoneNumber: doc.toJSON().phoneNumber,
             paymentCardNumber: doc.toJSON().paymentCardNumber,
-            email: doc.toJSON().typedEmail
+            email: doc.toJSON().typedEmail,
+            profilePicture: doc.toJSON().defaultProfilePicture
           });
           this.setState({
             users: users.sort((a, b) => {
@@ -50,13 +52,14 @@ export default class RegisterUserPaymentCard extends Component {
       if (this.state.typedPaymentCardNumber.trim() === ''){
           alert('Vänligen fyll i ditt kortnummer!');
           return;
-      } 
+      }
       userRef.push({
         firstName: this.state.typedFirstName,
         lastName: this.state.typedLastName,
         phoneNumber: this.state.typedPhoneNumber,
         paymentCardNumber: this.state.typedPaymentCardNumber,
-        email: this.state.typedEmail
+        email: this.state.typedEmail,
+        profilePicture: this.state.defaultProfilePicture
       });
 
       firebase.auth().createUserWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
