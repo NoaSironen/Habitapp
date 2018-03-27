@@ -43,7 +43,7 @@ class DrawerHeader extends Component {
       
     }); */
 
-    var user = firebase.auth().currentUser;
+/*     var user = firebase.auth().currentUser;
     var name, email, photoUrl, uid, emailVerified;
 
     if (user != null) {
@@ -53,7 +53,7 @@ class DrawerHeader extends Component {
       emailVerified = user.emailVerified;
       uid = user.uid;
       console.log(email);
-    }
+    } */
 
   }
   render () {
