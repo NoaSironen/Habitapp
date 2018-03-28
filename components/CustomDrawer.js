@@ -7,11 +7,8 @@ import AddWorker from './AddWorker';
 import ChooseRegistration from './ChooseRegistration';
 import LogInScreen from './LogInScreen';
 import RegisterUserPaymentCard from './RegisterUserPaymentCard';
-<<<<<<< HEAD
 import firebase from 'react-native-firebase';
-=======
 import UserDetails from './UserDetails';
->>>>>>> 9dab054b2fba89cd7f35e0c6c6df0ca21ed16c31
 
 class DrawerHeader extends Component {
 /*   constructor(props) {
