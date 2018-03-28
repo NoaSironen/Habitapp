@@ -10,23 +10,6 @@ import RegisterUserProfile from './RegisterUserProfile';
 import RegisterUserPaymentCard from './RegisterUserPaymentCard';
 import firebase from 'react-native-firebase';
 
-
-/* var rootref = firebase.database().ref('users/profilePicture');
-rootref.set('hello')
-  .then(function(){
-    return rootref.once('value');
-  })
-  .then(function(snapshot){
-    var data = snapshot.val();
-    console.log(data);
-  }) */
-
-/* rootref.once('value')
-  .then(function(snapshot){
-    var profilePic = snapshot.child('profilePicture').val();
-    console.log(profilePic);
-  }) */
-
 class DrawerHeader extends Component {
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
@@ -34,26 +17,19 @@ class DrawerHeader extends Component {
     });
     this.props.navigation.dispatch(navigateAction);
 
-/*     firebase.auth().onAuthStateChanged( firebaseUser => {
-      if (firebaseUser) {
-        console.log(firebaseUser);
+    var firebaseRef = firebase.database().ref().child('users');
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        firebaseRef.on('child_added', userDataSnapshot => {
+          var firstName = userDataSnapshot.child('firstName').val();
+          var lastName = userDataSnapshot.child('lastName').val();
+          console.log(firstName + ' ' + lastName);
+        })
       } else {
-        console.log('not logged in');
+        console.log("Not signed in")
       }
-      
-    }); */
-
-    var user = firebase.auth().currentUser;
-    var name, email, photoUrl, uid, emailVerified;
-
-    if (user != null) {
-      name = name.displayName;
-      email = user.email;
-      photoUrl = user.photoURL;
-      emailVerified = user.emailVerified;
-      uid = user.uid;
-      console.log(email);
-    }
+    });
 
   }
   render () {
