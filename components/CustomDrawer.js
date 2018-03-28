@@ -1,31 +1,58 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet, ScrollView, Image} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Navigator } from 'react-native';
 import { DrawerNavigator, SafeAreaView, DrawerItems, NavigationActions } from 'react-navigation';
 import Home from "./Home";
 import AddWorker from './AddWorker';
 import ChooseRegistration from './ChooseRegistration';
 import LogInScreen from './LogInScreen';
-import RegisterUserProfile from './RegisterUserProfile';
 import RegisterUserPaymentCard from './RegisterUserPaymentCard';
 import firebase from 'react-native-firebase';
+<<<<<<< HEAD
+=======
+import UserDetails from './UserDetails';
+>>>>>>> f390c0a2f719de5edde20a912dd8b5da90a7cfb7
 
 class DrawerHeader extends Component {
+/*   constructor(props) {
+    super(props);
+    this.state={
+      profilePicture: this.props.navigation.state.params.profilePicture,
+    }
+  } */
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
     });
     this.props.navigation.dispatch(navigateAction);
 
+<<<<<<< HEAD
     var user = firebase.auth().currentUser;
     var name, email, photoUrl, uid, emailVerified;
+=======
+    var firebaseRef = firebase.database().ref().child('users');
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        firebaseRef.on('child_added', userDataSnapshot => {
+          var firstName = userDataSnapshot.child('firstName').val();
+          var lastName = userDataSnapshot.child('lastName').val();
+          console.log(firstName + ' ' + lastName);
+        })
+      } else {
+        console.log("Not signed in")
+      }
+    });
+>>>>>>> f390c0a2f719de5edde20a912dd8b5da90a7cfb7
 
   }
   render () {
     return(
       <View style={styles.container}>
               <View style={styles.imageContainer}>
-          <Image style={styles.templateImage} source={require('../images/ProfileTemplate.png')}/>
+              <TouchableOpacity onPress={this.navigateToScreen('UserDetails')}>
+          {/* <Image style={styles.templateImage} source={require(profilePicture)}/> */}
+          </TouchableOpacity>
         </View>
         <ScrollView>
         <View>

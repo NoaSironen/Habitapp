@@ -21,7 +21,8 @@ export default class RegisterUserPaymentCard extends Component {
         typedLastName: this.props.navigation.state.params.typedLastName,
         typedPaymentCardNumber: '',
         users: [],
-        defaultProfilePicture: '../images/ProfileTemplate.png'
+        defaultProfilePicture: '../images/ProfileTemplate.png',
+
       };
     }
     
