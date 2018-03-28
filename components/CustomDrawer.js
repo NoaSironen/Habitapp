@@ -8,10 +8,7 @@ import ChooseRegistration from './ChooseRegistration';
 import LogInScreen from './LogInScreen';
 import RegisterUserPaymentCard from './RegisterUserPaymentCard';
 import firebase from 'react-native-firebase';
-<<<<<<< HEAD
-=======
 import UserDetails from './UserDetails';
->>>>>>> f390c0a2f719de5edde20a912dd8b5da90a7cfb7
 
 class DrawerHeader extends Component {
 /*   constructor(props) {
@@ -26,10 +23,6 @@ class DrawerHeader extends Component {
     });
     this.props.navigation.dispatch(navigateAction);
 
-<<<<<<< HEAD
-    var user = firebase.auth().currentUser;
-    var name, email, photoUrl, uid, emailVerified;
-=======
     var firebaseRef = firebase.database().ref().child('users');
 
     firebase.auth().onAuthStateChanged(function(user) {
@@ -43,7 +36,6 @@ class DrawerHeader extends Component {
         console.log("Not signed in")
       }
     });
->>>>>>> f390c0a2f719de5edde20a912dd8b5da90a7cfb7
 
   }
   render () {
