@@ -54,6 +54,7 @@ import HamburgerButton from './HamburgerButton';
 });
 
 export const DrawerMenu = DrawerNavigator ({
+  
     Home: { 
       screen: StackNav,
     },
@@ -74,9 +75,15 @@ export const DrawerMenu = DrawerNavigator ({
       navigationOptions: {
           title: 'Log In',
       }
-    },  }, { 
-      contentComponent: CustomDrawer,
-      drawerWidth: 300,
+    },
+        LogOutScreen: { 
+      screen: LogInScreen,
+      navigationOptions: {
+          title: 'Log Out'
+      }
+    },
+    }, { 
+ //     contentComponent: props => <DrawerHeader {...props} />
   });
 
 const styles = StyleSheet.create ({
