@@ -8,15 +8,9 @@ import ChooseRegistration from './ChooseRegistration';
 import LogInScreen from './LogInScreen';
 import RegisterUserPaymentCard from './RegisterUserPaymentCard';
 import firebase from 'react-native-firebase';
-import UserDetails from './UserDetails';
 
 class DrawerHeader extends Component {
-/*   constructor(props) {
-    super(props);
-    this.state={
-      profilePicture: this.props.navigation.state.params.profilePicture,
-    }
-  } */
+
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
@@ -30,6 +24,7 @@ class DrawerHeader extends Component {
         firebaseRef.on('child_added', userDataSnapshot => {
           var firstName = userDataSnapshot.child('firstName').val();
           var lastName = userDataSnapshot.child('lastName').val();
+          var profilePicture = userDataSnapshot.child('profilePicture');
           console.log(firstName + ' ' + lastName);
         })
       } else {

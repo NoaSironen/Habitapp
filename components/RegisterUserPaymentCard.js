@@ -66,9 +66,9 @@ export default class RegisterUserPaymentCard extends Component {
       firebase.auth().createUserWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
       .then((loggedInUser) => {
         this.setState({user: loggedInUser})
-        console.log('Register with user : ${JSON.stringify(loggedInUser.toJSON())}');
+        //console.log('Register with user : ${JSON.stringify(loggedInUser.toJSON())}'); // För testning eller vad är dessa consollogs för?
       }).catch = (error) => {
-        console.log('Register failed with error: ${error}');
+        //console.log('Register failed with error: ${error}');
       };
       navigate('Home');
     }
