@@ -14,17 +14,17 @@ export default class LogInScreen extends Component {
         user: null,
 
       };
-    } 
+    }
 
     onLogin = () => {
       const { navigate } = this.props.navigation;
-      firebase.auth().signInAndRetrieveDataWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
+      firebase.auth().signInWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
       .then((loggedInUser) => {
         this.setState({user: loggedInUser})
-        console.log('Register with user : ${JSON.stringify(loggedInUser.toJSON())}');
+        //console.log('Login with user : ${JSON.stringify(loggedInUser.toJSON())}'); if it is for testing then remove after test is done or comment out.
         navigate('Home');
       }).catch = (error) => {
-        console.log('Register failed with error: ${error}');
+        //console.log('Login failed with error: ${error}'); if it is for testing then remove after test is done or comment out.
         
       };
     }

@@ -7,31 +7,40 @@ import AddWorker from './AddWorker';
 import ChooseRegistration from './ChooseRegistration';
 import LogInScreen from './LogInScreen';
 import RegisterUserPaymentCard from './RegisterUserPaymentCard';
-import UserDetails from './UserDetails';
+import firebase from 'react-native-firebase';
 
-class DrawerHeader extends Component {
-/*   constructor(props) {
-    super(props);
-    this.state={
-      profilePicture: this.props.navigation.state.params.profilePicture,
-    }
-  } */
+export default class DrawerHeader extends Component {
+
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
     });
     this.props.navigation.dispatch(navigateAction);
+
+    var firebaseRef = firebase.database().ref().child('users');
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        firebaseRef.on('child_added', userDataSnapshot => {
+          var firstName = userDataSnapshot.child('firstName').val();
+          var lastName = userDataSnapshot.child('lastName').val();
+          var profilePicture = userDataSnapshot.child('profilePicture');
+          console.log(firstName + ' ' + lastName);
+        })
+      } else {
+        console.log("Not signed in")
+      }
+    }); 
+
   }
   render () {
     return(
       <View style={styles.container}>
               <View style={styles.imageContainer}>
-              <TouchableOpacity onPress={this.navigateToScreen('UserDetails')}>
-          {/* <Image style={styles.templateImage} source={require(profilePicture)}/> */}
-          </TouchableOpacity>
+              <Image style={styles.templateImage} source={require('../images/ProfileTemplate.png')}/>
         </View>
         <ScrollView>
-          <View>
+        <View>
               <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Home')}>
               Home
               </Text>
@@ -86,4 +95,4 @@ const styles = StyleSheet.create ({
   }
 });
 
-export default DrawerHeader;
+//export default DrawerHeader;
