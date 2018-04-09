@@ -83,7 +83,8 @@ export const DrawerMenu = DrawerNavigator ({
       }
     },
     }, { 
- //     contentComponent: props => <DrawerHeader {...props} />
+      contentComponent: CustomDrawer,
+      drawerWidth: 300,
   });
 
 const styles = StyleSheet.create ({

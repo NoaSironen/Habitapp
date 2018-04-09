@@ -9,7 +9,7 @@ import LogInScreen from './LogInScreen';
 import RegisterUserPaymentCard from './RegisterUserPaymentCard';
 import firebase from 'react-native-firebase';
 
-class DrawerHeader extends Component {
+export default class DrawerHeader extends Component {
 
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
@@ -30,16 +30,14 @@ class DrawerHeader extends Component {
       } else {
         console.log("Not signed in")
       }
-    });
+    }); 
 
   }
   render () {
     return(
       <View style={styles.container}>
               <View style={styles.imageContainer}>
-              <TouchableOpacity onPress={this.navigateToScreen('UserDetails')}>
-          {/* <Image style={styles.templateImage} source={require(profilePicture)}/> */}
-          </TouchableOpacity>
+              <Image style={styles.templateImage} source={require('../images/ProfileTemplate.png')}/>
         </View>
         <ScrollView>
         <View>
@@ -97,4 +95,4 @@ const styles = StyleSheet.create ({
   }
 });
 
-export default DrawerHeader;
+//export default DrawerHeader;
