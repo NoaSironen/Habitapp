@@ -7,6 +7,7 @@ import AddWorker from './AddWorker';
 import ChooseRegistration from './ChooseRegistration';
 import LogInScreen from './LogInScreen';
 import RegisterUserPaymentCard from './RegisterUserPaymentCard';
+import ChangeUserInfo from './ChangeUserInfo';
 import firebase from 'react-native-firebase';
 
 export default class DrawerHeader extends Component {
@@ -37,7 +38,9 @@ export default class DrawerHeader extends Component {
     return(
       <View style={styles.container}>
               <View style={styles.imageContainer}>
+              <TouchableOpacity onPress={this.navigateToScreen('ChangeUserInfo')} >
               <Image style={styles.templateImage} source={require('../images/ProfileTemplate.png')}/>
+              </TouchableOpacity>
         </View>
         <ScrollView>
         <View>
@@ -52,6 +55,9 @@ export default class DrawerHeader extends Component {
               </Text>
               <Text style={styles.navItemStyle} onPress={this.navigateToScreen('LogInScreen')}>
                 Login
+              </Text>
+              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('LogOutScreen')}>
+                Log out
               </Text>
           </View>
         </ScrollView>

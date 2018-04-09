@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, TextInput, StyleSheet, Image} from 'react-native';
+import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
 import {StackNavigator, NavigationAction} from 'react-navigation';
 import firebase from 'react-native-firebase';
 
