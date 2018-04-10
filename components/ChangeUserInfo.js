@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
+import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity, FlatList, KeyboardAvoidingView} from 'react-native';
 import {StackNavigator, NavigationAction} from 'react-navigation';
 import firebase from 'react-native-firebase';
 
@@ -21,8 +21,32 @@ export default class ChangeUserInfo extends Component {
 
 
         <KeyboardAvoidingView behavior='padding' style={styles.container}>
-                <Text style={styles.headerStyle}>DINA UPPGIFTER</Text>
-          
+        
+        <View style={styles.logoContainer}>
+        <Image style={styles.picture} source={require('../images/ProfileTemplate.png')} />
+        </View>
+                <View style={styles.linkLayout}> 
+                    <TouchableOpacity style={styles.linkStyle}>
+                        <Text style={styles.linkText}> BYT BANKKORT |</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.linkStyle}>
+                        <Text style={styles.linkText}>| BYT LÖSENORD </Text>
+                    </TouchableOpacity> 
+                </View> 
+                {/* <Text style={styles.headerStyle}>DINA UPPGIFTER</Text> */}
+                
+                <TextInput style={styles.inputStyle} 
+                    placeholder='E-postadress' 
+                    returnKeyType='next'
+                    keyboardType='email-address'
+                    autoCapitalize='none'
+                    onChangeText={
+                      (text) => {
+                        this.setState({ typedEmail: text });
+                      }
+                    }
+                  />
                    <TextInput style={styles.inputStyle} 
                     placeholder='Förnamn' 
                     returnKeyType='next'
@@ -33,12 +57,34 @@ export default class ChangeUserInfo extends Component {
                       }
                     }
                   />
-                    
+                  
+                   <TextInput style={styles.inputStyle} 
+                    placeholder='Efternamn' 
+                    returnKeyType='next'
+                    keyboardType='default'
+                    onChangeText={
+                      (text) => {
+                        this.setState({ typedLastName: text });
+                      }
+                    }
+                  />
+            
+                    <TextInput style={styles.inputStyle} 
+                    placeholder='Mobilnummer' 
+                    keyboardType='phone-pad'
+                    returnKeyType='next'
+                    onChangeText={
+                      (text) => {
+                        this.setState({ typedPhoneNumber: text });
+                      }
+                    }
+                  />
+
                     <TouchableOpacity style={styles.buttonStyle}  
-                            onPress={this.onPressAdd}>
-                            <Text style={styles.buttonTextStyle}> SPARA </Text>
+                        onPress={this.onPressAdd}>
+                        <Text style={styles.buttonTextStyle}> SPARA </Text>
                     </TouchableOpacity>
-                    
+
          </KeyboardAvoidingView>
       )
   }
@@ -48,49 +94,49 @@ const styles = StyleSheet.create({
 
     container: {
       flex: 1,
+      margin: 20,
      // backgroundColor: '#133547',
     },
-  /*   halfView: {
-      flexDirection: 'row',
-      marginHorizontal: 20,
-      borderWidth: 1,
-    }, */
     inputStyle: {
         height: 70,
         fontSize: 22,
-        marginHorizontal: 20,
         marginVertical: 3,
-       // marginRight: 50,      
-        
-       // paddingHorizontal: 10,
-      //  backgroundColor: '#e5e6e8',
+        alignItems: 'center',
+        textAlign: 'center',
     },
-  /*   nameInputStyle: {
-      height: 70,
-      width: 185,
-      fontSize: 22,  
-  }, */
     headerStyle: {
         textAlign: 'center',
         fontSize: 20,
         margin: 10,
     },
     buttonStyle: {
-        marginHorizontal: 20,
         alignItems: 'center',
         backgroundColor: '#161616',
-        height: 75,
-        width: 150,
+        padding: 20,
+    },
+    linkText: {
+        fontSize: 20,
+        
+    },
+    linkStyle: {
         marginVertical: 20,
-        borderRadius: 2,
+      }, 
+    linkLayout: {
+        justifyContent: 'space-between',
+        flexDirection: 'row',
     },
     buttonTextStyle: {
-        marginVertical: 20,
-        textAlign: 'center',
         color: '#FFFFFF',
         fontSize: 22,
     },
-    buttonLayout: {
-      alignItems: 'flex-end',
+    logoContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 20,
+    },
+    picture: {
+        width: 100,
+        height:100,
+        borderRadius:100,
     }
   }) 
