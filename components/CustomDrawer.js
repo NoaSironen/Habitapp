@@ -9,7 +9,7 @@ import LogInScreen from './LogInScreen';
 import RegisterUserPaymentCard from './RegisterUserPaymentCard';
 import firebase from 'react-native-firebase';
 
-function getName() {
+/* function getName() {
 var database = firebase.database();
 var name = database.ref('users');
 name.on('value', gotName, errorName);
@@ -24,7 +24,7 @@ function gotName(data){
 function errName(err){
   console.log('Error!');
 }
-}
+} */
 
 
 export default class DrawerHeader extends Component {
@@ -45,11 +45,6 @@ export default class DrawerHeader extends Component {
       console.error('Sign Out Error', error);
     })
     };
-
-
-
-
-
 
   render () {
     return(
@@ -117,5 +112,3 @@ const styles = StyleSheet.create ({
     paddingVertical: 10,
   }
 });
-
-//export default DrawerHeader;
