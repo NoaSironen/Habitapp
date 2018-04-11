@@ -7,7 +7,7 @@ const HamburgerButton = (props) => (
       <Image source={require('../images/HamburgerIcon.png')}/>
     </TouchableOpacity>
   )
-
+  
   const styles = StyleSheet.create ({
     HamburgerButton: {
       paddingLeft: 10,

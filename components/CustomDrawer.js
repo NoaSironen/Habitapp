@@ -9,30 +9,27 @@ import LogInScreen from './LogInScreen';
 import RegisterUserPaymentCard from './RegisterUserPaymentCard';
 import firebase from 'react-native-firebase';
 
-export default class DrawerHeader extends Component {
+class DrawerHeader extends Component {
+
 
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
     });
     this.props.navigation.dispatch(navigateAction);
-
-    var firebaseRef = firebase.database().ref().child('users');
-
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        firebaseRef.on('child_added', userDataSnapshot => {
-          var firstName = userDataSnapshot.child('firstName').val();
-          var lastName = userDataSnapshot.child('lastName').val();
-          var profilePicture = userDataSnapshot.child('profilePicture');
-          console.log(firstName + ' ' + lastName);
-        })
-      } else {
-        console.log("Not signed in")
-      }
-    }); 
-
   }
+  
+  logOut = () => {
+    firebase.auth().signOut().then(function() {
+      this.navigateToScreen('LogInScreen');
+      console.log('Signed Out');
+    }).catch(function(error) {
+      console.error('Sign Out Error', error);
+    })
+    };
+
+
+  
   render () {
     return(
       <View style={styles.container}>
@@ -53,6 +50,11 @@ export default class DrawerHeader extends Component {
               <Text style={styles.navItemStyle} onPress={this.navigateToScreen('LogInScreen')}>
                 Login
               </Text>
+              <TouchableOpacity onPress={this.logOut}>
+              <Text style={styles.navItemStyle}>
+                Log out
+              </Text>
+              </TouchableOpacity>
           </View>
         </ScrollView>
         <View style={styles.footerContainer}>
@@ -95,4 +97,4 @@ const styles = StyleSheet.create ({
   }
 });
 
-//export default DrawerHeader;
+export default DrawerHeader;

@@ -24,7 +24,7 @@ export default class LogInScreen extends Component {
         //console.log('Login with user : ${JSON.stringify(loggedInUser.toJSON())}'); if it is for testing then remove after test is done or comment out.
         navigate('Home');
       }).catch = (error) => {
-        //console.log('Login failed with error: ${error}'); if it is for testing then remove after test is done or comment out.
+        console.log('Login failed with error: ${error}'); //if it is for testing then remove after test is done or comment out.
         
       };
     }
