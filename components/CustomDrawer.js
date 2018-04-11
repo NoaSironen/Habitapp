@@ -9,7 +9,25 @@ import LogInScreen from './LogInScreen';
 import RegisterUserPaymentCard from './RegisterUserPaymentCard';
 import firebase from 'react-native-firebase';
 
-class DrawerHeader extends Component {
+function getName() {
+var database = firebase.database();
+var name = database.ref('users');
+name.on('value', gotName, errorName);
+
+function gotName(data){
+  //console.log(data.val());
+  var name = data.val();
+  var keys = Object.keys(name);
+  console.log(keys);
+}
+
+function errName(err){
+  console.log('Error!');
+}
+}
+
+
+export default class DrawerHeader extends Component {
 
 
   navigateToScreen = (route) => () => {
@@ -29,7 +47,10 @@ class DrawerHeader extends Component {
     };
 
 
-  
+
+
+
+
   render () {
     return(
       <View style={styles.container}>
@@ -97,4 +118,4 @@ const styles = StyleSheet.create ({
   }
 });
 
-export default DrawerHeader;
+//export default DrawerHeader;
