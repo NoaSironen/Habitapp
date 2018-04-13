@@ -10,6 +10,7 @@ import RegisterUserPaymentCard from './RegisterUserPaymentCard';
 import CustomDrawer from './CustomDrawer';
 import HamburgerButton from './HamburgerButton';
 import ChangeUserInfo from './ChangeUserInfo';
+import CreateNewUid from './CreateNewUid';
 
  const StackNav = StackNavigator ({
     Home: { 
@@ -49,6 +50,12 @@ import ChangeUserInfo from './ChangeUserInfo';
       screen: RegisterUserPaymentCard,
       navigationOptions: {
           title: '3 av 3',
+      }
+    },
+    CreateNewUid: { 
+      screen: CreateNewUid,
+      navigationOptions: {
+          
       }
     },
 });
