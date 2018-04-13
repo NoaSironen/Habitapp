@@ -39,20 +39,6 @@ export default class RegisterUserPaymentCard extends Component {
       }).catch = (error) => {
         //console.log('Register failed with error: ${error}');
       };
-/*        var user = firebase.auth().currentUser;
-      var uid;
-
-      if (user != null) {
-        uid = user.uid;
-      } 
-      userRef.child(uid).set({
-        email: this.state.typedEmail,
-        firstName: this.state.typedFirstName,
-        lastName: this.state.typedLastName,
-        phoneNumber: this.state.typedPhoneNumber,
-        paymentCardNumber: this.state.typedPaymentCardNumber,
-        profilePicture: this.state.defaultProfilePicture
-      })   */
       navigate('CreateNewUid', {
         typedEmail: this.state.typedEmail, 
         typedPassword: this.state.typedPassword, 

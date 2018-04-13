@@ -21,7 +21,7 @@ export default class CreateNewUid extends Component {
           defaultProfilePicture: '../images/ProfileTemplate.png',
         };
       }
-      onPressAdd = () =>  {
+       onPressAdd = () => {
         const { navigate } = this.props.navigation;
         var user = firebase.auth().currentUser;
         var uid;
@@ -38,7 +38,7 @@ export default class CreateNewUid extends Component {
           profilePicture: this.state.defaultProfilePicture
         })
         navigate('Home'); 
-      } 
+      }  
       render () {
         return(
 
@@ -46,7 +46,7 @@ export default class CreateNewUid extends Component {
                             <TouchableOpacity style={styles.buttonStyle}
                             onPress={this.onPressAdd}>  
                             <Text style={styles.buttonTextStyle}>KLAR</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> 
               </View>
 
         )
