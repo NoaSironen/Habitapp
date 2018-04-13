@@ -21,7 +21,7 @@ export default class CreateNewUid extends Component {
           defaultProfilePicture: '../images/ProfileTemplate.png',
         };
       }
-       onPressAdd = () => {
+       createDatabaseContent = () => {
         const { navigate } = this.props.navigation;
         var user = firebase.auth().currentUser;
         var uid;
@@ -42,21 +42,34 @@ export default class CreateNewUid extends Component {
       render () {
         return(
 
-            <View>
-                            <TouchableOpacity style={styles.buttonStyle}
-                            onPress={this.onPressAdd}>  
-                            <Text style={styles.buttonTextStyle}>KLAR</Text>
-                            </TouchableOpacity> 
+            <View style={styles.container}>
+                <View style={styles.logoContainer}>
+                <Image style={styles.picture} source={require('../images/HabitApp.png')} />
+                </View>
+                <Text style={styles.headerStyle}>WELCOME</Text>
+                <Text style={styles.headerStyle}>TO HABITAPP</Text>
+                {this.createDatabaseContent()}
+                           
               </View>
 
         )
       }
     }
     const styles = StyleSheet.create({
-
         container: {
-          flex: 1,
-         // backgroundColor: '#133547',
+            flex: 1,
+            backgroundColor: '#133547',
+         },
+         logoContainer: {
+             alignItems: 'center',
+             justifyContent: 'center',
+             marginVertical: 20,
+         },
+         picture: {
+            marginTop: 20,
+            width: 100,
+            height:100,
+            borderRadius:100,
         },
       
         inputStyle: {
