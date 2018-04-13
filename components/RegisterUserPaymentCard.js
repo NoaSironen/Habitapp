@@ -21,47 +21,16 @@ export default class RegisterUserPaymentCard extends Component {
         typedLastName: this.props.navigation.state.params.typedLastName,
         typedPaymentCardNumber: '',
         users: [],
-        defaultProfilePicture: '../images/ProfileTemplate.png',
 
       };
     }
-    
-    componentDidMount() {
-      userRef.on('value', (childSnapshot) => {
-        const users= [];
-        childSnapshot.forEach((doc) => {
-          users.push({
-            key: doc.key,
-            firstName: doc.toJSON().firstName,
-            lastName: doc.toJSON().lastName,
-            phoneNumber: doc.toJSON().phoneNumber,
-            paymentCardNumber: doc.toJSON().paymentCardNumber,
-            email: doc.toJSON().typedEmail,
-            profilePicture: doc.toJSON().defaultProfilePicture
-          });
-          this.setState({
-            users: users.sort((a, b) => {
-              return (a.email < b.email);
-            }),
-            loading: false,
-          });
-        });
-      });
-    }
+
     onPressAdd = () => {
       const { navigate } = this.props.navigation;
       if (this.state.typedPaymentCardNumber.trim() === ''){
           alert('Vänligen fyll i ditt kortnummer!');
           return;
       }
-      userRef.push({
-        firstName: this.state.typedFirstName,
-        lastName: this.state.typedLastName,
-        phoneNumber: this.state.typedPhoneNumber,
-        paymentCardNumber: this.state.typedPaymentCardNumber,
-        email: this.state.typedEmail,
-        profilePicture: this.state.defaultProfilePicture
-      });
 
       firebase.auth().createUserWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
       .then((loggedInUser) => {
@@ -70,7 +39,14 @@ export default class RegisterUserPaymentCard extends Component {
       }).catch = (error) => {
         console.log('Register failed with error: ${error}');
       };
-      navigate('Home');
+      navigate('CreateNewUid', {
+        typedEmail: this.state.typedEmail, 
+        typedPassword: this.state.typedPassword, 
+        typedPhoneNumber: this.state.typedPhoneNumber,
+        typedFirstName: this.state.typedFirstName,
+        typedLastName: this.state.typedLastName,
+        typedPaymentCardNumber: this.state.typedPaymentCardNumber
+        })
     }
 
   render() {

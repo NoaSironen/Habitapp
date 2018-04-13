@@ -9,7 +9,8 @@ import RegisterUserProfile from './RegisterUserProfile';
 import RegisterUserPaymentCard from './RegisterUserPaymentCard';
 import CustomDrawer from './CustomDrawer';
 import HamburgerButton from './HamburgerButton';
-
+import ChangeUserInfo from './ChangeUserInfo';
+import CreateNewUid from './CreateNewUid';
 
  const StackNav = StackNavigator ({
     Home: { 
@@ -51,6 +52,12 @@ import HamburgerButton from './HamburgerButton';
           title: '3 av 3',
       }
     },
+    CreateNewUid: { 
+      screen: CreateNewUid,
+      navigationOptions: {
+          
+      }
+    },
 });
 
 export const DrawerMenu = DrawerNavigator ({
@@ -74,6 +81,12 @@ export const DrawerMenu = DrawerNavigator ({
       screen: LogInScreen,
       navigationOptions: {
           title: 'Log In',
+      }
+    },
+    ChangeUserInfo: { 
+      screen: ChangeUserInfo,
+      navigationOptions: {
+          title: '',
       }
     },
         LogOutScreen: { 

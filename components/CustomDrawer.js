@@ -7,50 +7,58 @@ import AddWorker from './AddWorker';
 import ChooseRegistration from './ChooseRegistration';
 import LogInScreen from './LogInScreen';
 import RegisterUserPaymentCard from './RegisterUserPaymentCard';
+import ChangeUserInfo from './ChangeUserInfo';
 import firebase from 'react-native-firebase';
-
-/* function getName() {
-var database = firebase.database();
-var name = database.ref('users');
-name.on('value', gotName, errorName);
-
-function gotName(data){
-  //console.log(data.val());
-  var name = data.val();
-  var keys = Object.keys(name);
-  console.log(keys);
-}
-
-function errName(err){
-  console.log('Error!');
-}
-} */
-
 
 export default class DrawerHeader extends Component {
 
+  navigateToScreenLogOut = (route) => () => {
+    const navigateAction = NavigationActions.navigate({
+      routeName: route
+    });
+    firebase.auth().signOut().then(function() {
+      console.log('Signed Out!')
+    }).catch(function(error){
+      console.log('Not Signed Out')
+    });
+    this.props.navigation.dispatch(navigateAction);
+   
+  }
 
+    
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
     });
     this.props.navigation.dispatch(navigateAction);
+   
+
+/*     firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var firebaseRef = firebase.database().ref().child('users').child('-L9eon_pGtTuj8-1_KXz');
+
+        firebaseRef.on('value', userDataSnapshot => {
+          var email = userDataSnapshot.child('email').val();
+          var firstName = userDataSnapshot.child('firstName').val();
+          var lastName = userDataSnapshot.child('lastName').val();
+          var profilePicture = userDataSnapshot.child('profilePicture');
+          console.log(firstName + ' ' + lastName);
+          console.log(user);
+        })
+      } else {
+        console.log("Not signed in")
+      }
+    });  */
+
   }
   
-  logOut = () => {
-    firebase.auth().signOut().then(function() {
-      this.navigateToScreen('LogInScreen');
-      console.log('Signed Out');
-    }).catch(function(error) {
-      console.error('Sign Out Error', error);
-    })
-    };
-
   render () {
     return(
       <View style={styles.container}>
               <View style={styles.imageContainer}>
+              <TouchableOpacity onPress={this.navigateToScreen('ChangeUserInfo')} >
               <Image style={styles.templateImage} source={require('../images/ProfileTemplate.png')}/>
+              </TouchableOpacity>
         </View>
         <ScrollView>
         <View>
@@ -66,11 +74,9 @@ export default class DrawerHeader extends Component {
               <Text style={styles.navItemStyle} onPress={this.navigateToScreen('LogInScreen')}>
                 Login
               </Text>
-              <TouchableOpacity onPress={this.logOut}>
-              <Text style={styles.navItemStyle}>
+              <Text style={styles.navItemStyle}  onPress={this.navigateToScreenLogOut('LogOutScreen')}>
                 Log out
               </Text>
-              </TouchableOpacity>
           </View>
         </ScrollView>
         <View style={styles.footerContainer}>
