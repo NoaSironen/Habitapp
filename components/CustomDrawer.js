@@ -51,6 +51,7 @@ export default class DrawerHeader extends Component {
     });  */
 
   }
+  
   render () {
     return(
       <View style={styles.container}>
@@ -117,5 +118,3 @@ const styles = StyleSheet.create ({
     paddingVertical: 10,
   }
 });
-
-//export default DrawerHeader;
