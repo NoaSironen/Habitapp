@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import { View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView } from 'react-native';
 // Denna funktionalitet(hela filen) ska ligga på en knapp senare när arbetaren klickar i "jobb klart!" 
 import firebase from 'react-native-firebase';
 
@@ -38,23 +38,23 @@ export default class AddPerformedJobs extends Component {
     }
     onPressAdd = () => { //Validation so that no fields are empty.
         if (this.state.description.trim() === '') {
-            alert ('Vänligen fyll i beskrivning')
+            alert('Vänligen fyll i beskrivning')
             return;
         }
         if (this.state.workerFirstName.trim() === '') {
-            alert ('Vänligen fyll i arbetarens namn')
+            alert('Vänligen fyll i arbetarens namn')
             return;
         }
         if (this.state.workerLastName.trim() === '') {
-            alert ('Vänligen fyll i arbetarens efternamn')
+            alert('Vänligen fyll i arbetarens efternamn')
             return;
         }
-        if (this.state.customerFirstName.trim () === '') {
-            alert ('Vänligen fyll i kundens namn')
+        if (this.state.customerFirstName.trim() === '') {
+            alert('Vänligen fyll i kundens namn')
             return;
         }
         if (this.state.customerLastName.trim() === '') {
-            alert ('Vänligen fyll i kundens efternamn')
+            alert('Vänligen fyll i kundens efternamn')
         }
         performedJobsRef.push({
             description: this.state.description,
@@ -63,20 +63,20 @@ export default class AddPerformedJobs extends Component {
             customerFirstName: this.state.customerFirstName,
             customerLastName: this.state.customerLastName,
         });
-        alert ('Ny beskrivning tillagd!')
-        }
-
-        render() {
-            return(
-                <KeyboardAvoidingView style={styles.container}>
-                    <TextInput
-                        placeholder = 'Worker FirstName'
-                        returnKeyType = 'next'
-                        onChangeText={(text) =>{
-                            this.setState({workerFirstName})
-                        }}
-                    />
-                </KeyboardAvoidingView>
-            )
-        }
+        alert('Ny beskrivning tillagd!')
     }
+
+    render() {
+        return (
+            <KeyboardAvoidingView style={styles.container}>
+                <TextInput
+                    placeholder='Worker FirstName'
+                    returnKeyType='next'
+                    onChangeText={(text) => {
+                        this.setState({ workerFirstName })
+                    }}
+                />
+            </KeyboardAvoidingView>
+        )
+    }
+}

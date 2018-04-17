@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import firebase from 'react-native-firebase';
-import {StackNavigator} from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import AddWorker from './AddWorker';
 
 const rootRef = firebase.database().ref();
@@ -12,91 +12,91 @@ export default class CreateNewUid extends Component {
         super(props);
         this.unsubscriber = null;
         this.state = {
-          typedEmail: this.props.navigation.state.params.typedEmail,
-          typedPhoneNumber: this.props.navigation.state.params.typedPhoneNumber,
-          typedPassword: this.props.navigation.state.params.typedPassword,
-          typedFirstName: this.props.navigation.state.params.typedFirstName,
-          typedLastName: this.props.navigation.state.params.typedLastName,
-          typedPaymentCardNumber: this.props.navigation.state.params.typedPaymentCardNumber,
-          defaultProfilePicture: '../images/ProfileTemplate.png',
+            typedEmail: this.props.navigation.state.params.typedEmail,
+            typedPhoneNumber: this.props.navigation.state.params.typedPhoneNumber,
+            typedPassword: this.props.navigation.state.params.typedPassword,
+            typedFirstName: this.props.navigation.state.params.typedFirstName,
+            typedLastName: this.props.navigation.state.params.typedLastName,
+            typedPaymentCardNumber: this.props.navigation.state.params.typedPaymentCardNumber,
+            defaultProfilePicture: '../images/ProfileTemplate.png',
         };
-      }
-       createDatabaseContent = () => {
+    }
+    createDatabaseContent = () => {
         const { navigate } = this.props.navigation;
         var user = firebase.auth().currentUser;
         var uid;
-  
+
         if (user != null) {
-          uid = user.uid;
-        } 
+            uid = user.uid;
+        }
         userRef.child(uid).set({
-          email: this.state.typedEmail,
-          firstName: this.state.typedFirstName,
-          lastName: this.state.typedLastName,
-          phoneNumber: this.state.typedPhoneNumber,
-          paymentCardNumber: this.state.typedPaymentCardNumber,
-          profilePicture: this.state.defaultProfilePicture
+            email: this.state.typedEmail,
+            firstName: this.state.typedFirstName,
+            lastName: this.state.typedLastName,
+            phoneNumber: this.state.typedPhoneNumber,
+            paymentCardNumber: this.state.typedPaymentCardNumber,
+            profilePicture: this.state.defaultProfilePicture
         })
-        navigate('Home'); 
-      }  
-      render () {
-        return(
+        navigate('Home');
+    }
+    render() {
+        return (
 
             <View style={styles.container}>
                 <View style={styles.logoContainer}>
-                <Image style={styles.picture} source={require('../images/HabitApp.png')} />
+                    <Image style={styles.picture} source={require('../images/HabitApp.png')} />
                 </View>
                 <Text style={styles.headerStyle}>WELCOME</Text>
                 <Text style={styles.headerStyle}>TO HABITAPP</Text>
                 {this.createDatabaseContent()}
-                           
-              </View>
+
+            </View>
 
         )
-      }
     }
-    const styles = StyleSheet.create({
-        container: {
-            flex: 1,
-            backgroundColor: '#133547',
-         },
-         logoContainer: {
-             alignItems: 'center',
-             justifyContent: 'center',
-             marginVertical: 20,
-         },
-         picture: {
-            marginTop: 20,
-            width: 100,
-            height:100,
-            borderRadius:100,
-        },
-      
-        inputStyle: {
-            height: 70,
-            fontSize: 22,
-            marginHorizontal: 20,
-            marginVertical: 3,
-        },
-        headerStyle: {
-            textAlign: 'center',
-            fontSize: 20,
-            margin: 10,
-        },
-        buttonStyle: {
-            marginHorizontal: 20,
-            alignItems: 'center',
-            backgroundColor: '#161616',
-            marginVertical: 20,
-            borderRadius: 2,
-        },
-        buttonTextStyle: {
-            marginVertical: 20,
-            textAlign: 'center',
-            color: '#FFFFFF',
-            fontSize: 22,
-        },
-        buttonLayout: {
-          //alignItems: 'flex-end',
-        }
-      }) 
+}
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#133547',
+    },
+    logoContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 20,
+    },
+    picture: {
+        marginTop: 20,
+        width: 100,
+        height: 100,
+        borderRadius: 100,
+    },
+
+    inputStyle: {
+        height: 70,
+        fontSize: 22,
+        marginHorizontal: 20,
+        marginVertical: 3,
+    },
+    headerStyle: {
+        textAlign: 'center',
+        fontSize: 20,
+        margin: 10,
+    },
+    buttonStyle: {
+        marginHorizontal: 20,
+        alignItems: 'center',
+        backgroundColor: '#161616',
+        marginVertical: 20,
+        borderRadius: 2,
+    },
+    buttonTextStyle: {
+        marginVertical: 20,
+        textAlign: 'center',
+        color: '#FFFFFF',
+        fontSize: 22,
+    },
+    buttonLayout: {
+        //alignItems: 'flex-end',
+    }
+}) 

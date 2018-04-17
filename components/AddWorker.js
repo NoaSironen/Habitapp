@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import { View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView } from 'react-native';
 
 import firebase from 'react-native-firebase';
 
@@ -11,131 +11,131 @@ export default class AddWorker extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-          workers: [],
-          newFirstName: '',
-          newLastName: '',
-          newPhoneNumber: '',
-          newEmail: '',
-          loading: false,
+            workers: [],
+            newFirstName: '',
+            newLastName: '',
+            newPhoneNumber: '',
+            newEmail: '',
+            loading: false,
         });
-      }
-    
-      componentDidMount() {
+    }
+
+    componentDidMount() {
         workerRef.on('value', (childSnapshot) => {
-          const workers= [];
-          childSnapshot.forEach((doc) => {
-            workers.push({
-              key: doc.key,
-              firstName: doc.toJSON().firstName,
-              lastName: doc.toJSON().lastName,
-              phoneNumber: doc.toJSON().phoneNumber,
-              email: doc.toJSON().newEmail
+            const workers = [];
+            childSnapshot.forEach((doc) => {
+                workers.push({
+                    key: doc.key,
+                    firstName: doc.toJSON().firstName,
+                    lastName: doc.toJSON().lastName,
+                    phoneNumber: doc.toJSON().phoneNumber,
+                    email: doc.toJSON().newEmail
+                });
+                this.setState({
+                    workers: workers.sort((a, b) => {
+                        return (a.firstName < b.firstName);
+                    }),
+                    loading: false,
+                });
             });
-            this.setState({
-              workers: workers.sort((a, b) => {
-                return (a.firstName < b.firstName);
-              }),
-              loading: false,
-            });
-          });
         });
-      }
-    
-      onPressAdd = () => {
+    }
+
+    onPressAdd = () => {
         const { navigate } = this.props.navigation;
-        if (this.state.newFirstName.trim() === ''){
+        if (this.state.newFirstName.trim() === '') {
             alert('Vänligen fyll i ditt förnamn!');
             return;
         }
-        if (this.state.newLastName.trim() === ''){
+        if (this.state.newLastName.trim() === '') {
             alert('Vänligen fyll i ditt efternamn!');
             return;
         }
-        if (this.state.newPhoneNumber.trim() === ''){
+        if (this.state.newPhoneNumber.trim() === '') {
             alert('Vänligen fyll i ditt telefonnummer!');
             return;
-        } 
-        if(this.state.newEmail.trim() === ''){
+        }
+        if (this.state.newEmail.trim() === '') {
             alert('Vänligen fyll i din e-post!');
-            
+
             return;
         }
         workerRef.push({
-          firstName: this.state.newFirstName,
-          lastName: this.state.newLastName,
-          phoneNumber: this.state.newPhoneNumber,
-          email: this.state.newEmail
+            firstName: this.state.newFirstName,
+            lastName: this.state.newLastName,
+            phoneNumber: this.state.newPhoneNumber,
+            email: this.state.newEmail
         });
         alert('Du har lagt till en ny stjärna!');
         navigate('Home');
-      }
-    
+    }
+
     render() {
-        
-        return(
-            
+
+        return (
+
             <View style={styles.container}>
-               <Text style={styles.headerStyle}>LÄGG TILL STJÄRNA</Text>
+                <Text style={styles.headerStyle}>LÄGG TILL STJÄRNA</Text>
 
-                    <TextInput style={styles.inputStyle} 
-                    placeholder='Förnamn' 
+                <TextInput style={styles.inputStyle}
+                    placeholder='Förnamn'
                     returnKeyType='next'
                     onChangeText={
                         (text) => {
-                        this.setState({ newFirstName: text});
+                            this.setState({ newFirstName: text });
                         }
                     }
-                    value={this.state.newFirstName} 
-                    />
-                    
-                    <TextInput style={styles.inputStyle} 
-                    placeholder='Efternamn' 
+                    value={this.state.newFirstName}
+                />
+
+                <TextInput style={styles.inputStyle}
+                    placeholder='Efternamn'
                     returnKeyType='next'
                     onChangeText={
                         (text) => {
-                        this.setState({ newLastName: text});
+                            this.setState({ newLastName: text });
                         }
                     }
-                    value={this.state.newLastName} 
-                    />
+                    value={this.state.newLastName}
+                />
 
-                    <TextInput style={styles.inputStyle} 
-                    placeholder='Mobilnummer' 
+                <TextInput style={styles.inputStyle}
+                    placeholder='Mobilnummer'
                     returnKeyType='next'
                     onChangeText={
                         (text) => {
-                        this.setState({ newPhoneNumber: text});
+                            this.setState({ newPhoneNumber: text });
                         }
                     }
-                    value={this.state.newPhoneNumber} 
-                    />
+                    value={this.state.newPhoneNumber}
+                />
 
-                    <TextInput style={styles.inputStyle} 
-                    placeholder='E-post' 
+                <TextInput style={styles.inputStyle}
+                    placeholder='E-post'
                     returnKeyType='next'
                     keyboardType='email-address'
                     autoCapitalize='none'
                     onChangeText={
                         (text) => {
-                        this.setState({ newEmail: text});
+                            this.setState({ newEmail: text });
                         }
                     }
-                    value={this.state.newEmail} 
-                    />
+                    value={this.state.newEmail}
+                />
 
-                            <TouchableOpacity style={styles.buttonStyle}  
-                            onPress={this.onPressAdd}>
-                            <Text style={styles.buttonTextStyle}> Skapa Stjärna</Text>
-                            </TouchableOpacity>
-            </View>   
+                <TouchableOpacity style={styles.buttonStyle}
+                    onPress={this.onPressAdd}>
+                    <Text style={styles.buttonTextStyle}> Skapa Stjärna</Text>
+                </TouchableOpacity>
+            </View>
         )
     }
 }
-    
+
 const styles = StyleSheet.create({
 
     container: {
-    
+
         margin: 20,
     },
     inputStyle: {
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
         margin: 20,
     },
     buttonStyle: {
-        
+
         alignItems: 'center',
         backgroundColor: '#275770',
         padding: 20,

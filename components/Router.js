@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { TouchableOpacity, View, Image, StyleSheet, Text } from 'react-native';
-import { DrawerNavigator, StackNavigator, SafeAreaView, DrawerItems, ScrollView  } from 'react-navigation'; // Remove SafeaAweaView & DrawerItems if CustomDrawerHeader is moved to seperate file!
+import { DrawerNavigator, StackNavigator, SafeAreaView, DrawerItems, ScrollView } from 'react-navigation'; // Remove SafeaAweaView & DrawerItems if CustomDrawerHeader is moved to seperate file!
 import Home from "./Home";
 import AddWorker from './AddWorker';
 import ChooseRegistration from './ChooseRegistration';
@@ -12,96 +12,96 @@ import HamburgerButton from './HamburgerButton';
 import ChangeUserInfo from './ChangeUserInfo';
 import CreateNewUid from './CreateNewUid';
 
- const StackNav = StackNavigator ({
-    Home: { 
-      screen: Home,
-      navigationOptions: ({ navigation }) => ({
-          title: 'Home',
-          headerLeft: (
-            <HamburgerButton navigation={ navigation }/>
-          )
-      })
-    },
-    AddWorker: { 
-      screen: AddWorker,
-      navigationOptions: {
-          title: 'Add Worker',
-      }
-    },
-    ChooseRegistration: { 
-      screen: ChooseRegistration,
-      navigationOptions: {
-          title: '1 av 3',
-      }
-    },
-    LogInScreen: { 
-      screen: LogInScreen,
-      navigationOptions: {
-          title: 'Log In',
-      }
-    },
-    RegisterUserProfile: { 
-      screen: RegisterUserProfile,
-      navigationOptions: {
-          title: '2 av 3',
-      }
-    },
-    RegisterUserPaymentCard: { 
-      screen: RegisterUserPaymentCard,
-      navigationOptions: {
-          title: '3 av 3',
-      }
-    },
-    CreateNewUid: { 
-      screen: CreateNewUid,
-      navigationOptions: {
-          
-      }
-    },
+const StackNav = StackNavigator({
+  Home: {
+    screen: Home,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Home',
+      headerLeft: (
+        <HamburgerButton navigation={navigation} />
+      )
+    })
+  },
+  AddWorker: {
+    screen: AddWorker,
+    navigationOptions: {
+      title: 'Add Worker',
+    }
+  },
+  ChooseRegistration: {
+    screen: ChooseRegistration,
+    navigationOptions: {
+      title: '1 av 3',
+    }
+  },
+  LogInScreen: {
+    screen: LogInScreen,
+    navigationOptions: {
+      title: 'Log In',
+    }
+  },
+  RegisterUserProfile: {
+    screen: RegisterUserProfile,
+    navigationOptions: {
+      title: '2 av 3',
+    }
+  },
+  RegisterUserPaymentCard: {
+    screen: RegisterUserPaymentCard,
+    navigationOptions: {
+      title: '3 av 3',
+    }
+  },
+  CreateNewUid: {
+    screen: CreateNewUid,
+    navigationOptions: {
+
+    }
+  },
 });
 
-export const DrawerMenu = DrawerNavigator ({
-  
-    Home: { 
-      screen: StackNav,
-    },
-    AddWorker: { 
-      screen: AddWorker,
-      navigationOptions: {
-          title: 'Add Worker',
-      }
-    },
-    ChooseRegistration: { 
-      screen: ChooseRegistration,
-      navigationOptions: {
-          title: 'Registration'
-      }
-    },
-    LogInScreen: { 
-      screen: LogInScreen,
-      navigationOptions: {
-          title: 'Log In',
-      }
-    },
-    ChangeUserInfo: { 
-      screen: ChangeUserInfo,
-      navigationOptions: {
-          title: '',
-      }
-    },
-        LogOutScreen: { 
-      screen: LogInScreen,
-      navigationOptions: {
-          title: 'Log Out'
-      }
-    },
-    }, { 
-      contentComponent: CustomDrawer,
-      drawerWidth: 300,
+export const DrawerMenu = DrawerNavigator({
+
+  Home: {
+    screen: StackNav,
+  },
+  AddWorker: {
+    screen: AddWorker,
+    navigationOptions: {
+      title: 'Add Worker',
+    }
+  },
+  ChooseRegistration: {
+    screen: ChooseRegistration,
+    navigationOptions: {
+      title: 'Registration'
+    }
+  },
+  LogInScreen: {
+    screen: LogInScreen,
+    navigationOptions: {
+      title: 'Log In',
+    }
+  },
+  ChangeUserInfo: {
+    screen: ChangeUserInfo,
+    navigationOptions: {
+      title: '',
+    }
+  },
+  LogOutScreen: {
+    screen: LogInScreen,
+    navigationOptions: {
+      title: 'Log Out'
+    }
+  },
+}, {
+    contentComponent: CustomDrawer,
+    drawerWidth: 300,
   });
 
-const styles = StyleSheet.create ({
-    DrawerHeader: {
-      flex: 1,
-    },
-  });
+const styles = StyleSheet.create({
+  DrawerHeader: {
+    flex: 1,
+  },
+});

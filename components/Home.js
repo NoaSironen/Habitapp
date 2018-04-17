@@ -1,25 +1,20 @@
-import React, {Component} from 'react';
-import {View, Text, TextInput, StyleSheet, Image} from 'react-native';
-import {StackNavigator, NavigationAction} from 'react-navigation';
+import React, { Component } from 'react';
+import { View, Text, TextInput, StyleSheet, Image } from 'react-native';
+import { StackNavigator, NavigationAction } from 'react-navigation';
 import firebase from 'react-native-firebase';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import Map from './Map'; 
-
-
+import Map from './Map';
 
 export default class Home extends Component {
-
-
-      render() {
-        return(
-
-           <View style={styles.container}>
-            <Map/>
-           </View>
+    render() {
+        return (
+            <View style={styles.container}>
+                <Map />
+            </View>
         )
     }
 }
-    
+
 const styles = StyleSheet.create({
 
     container: {
@@ -30,7 +25,7 @@ const styles = StyleSheet.create({
         right: 0,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        
+
     },
     inputStyle: {
         height: 60,
@@ -45,4 +40,4 @@ const styles = StyleSheet.create({
         fontSize: 20,
         margin: 20,
     },
-}) 
+});
