@@ -13,7 +13,7 @@ import firebase from 'react-native-firebase';
 var database = firebase.database();
 
 export default class DrawerHeader extends Component {
-
+  
   navigateToScreenLogOut = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
@@ -34,12 +34,13 @@ export default class DrawerHeader extends Component {
   }
 
   render() {
+    var { params } = this.props.navigation.state;
+    var itemId = params ? params.itemId : null;
     return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <TouchableOpacity onPress={this.navigateToScreen('ChangeUserInfo')} >
             <Image style={styles.templateImage} source={require('../images/ProfileTemplate.png')} />
-
           </TouchableOpacity>
         </View>
         <ScrollView>
@@ -62,7 +63,7 @@ export default class DrawerHeader extends Component {
           </View>
         </ScrollView>
         <View style={styles.footerContainer}>
-          <Text>This is my fixed footer</Text>
+          <Text>Footer</Text>
         </View>
       </View>
     )
@@ -86,7 +87,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5
   },
   footerContainer: {
-    padding: 20,
+    alignItems: 'center',
+    padding: 10,
     backgroundColor: 'white'
   },
   templateImage: {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity, KeyboardAvoidingView, StatusBar } from 'react-native';
 import firebase from 'react-native-firebase';
 import { StackNavigator } from 'react-navigation';
+import CustomDrawer from './CustomDrawer';
 
 export default class LogInScreen extends Component {
     constructor(props) {
@@ -23,15 +24,11 @@ export default class LogInScreen extends Component {
             .then((loggedInUser) => {
                 this.setState({ user: loggedInUser })
                 //console.log('Login with user : ${JSON.stringify(loggedInUser.toJSON())}');
-                navigate('Home', {
-                    firstName: this.state.firstName,
-                    lastName: this.state.lastName,
-                });
+                navigate('Home')
             }).catch = (error) => {
                 // console.log('Login failed with error: ${error}');
-
             };
-        firebase.auth().onAuthStateChanged(function (user) {
+/*         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 var firebaseRef = firebase.database().ref('users').child(user.uid);
 
@@ -41,11 +38,11 @@ export default class LogInScreen extends Component {
                     var profilePicture = userDataSnapshot.child('profilePicture');
                     console.log(firstName + ' ' + lastName);
                     console.log(user);
-                })
+                });
             } else {
                 console.log("Not signed in")
             }
-        });
+        }); */
     }
 
     render() {
@@ -95,8 +92,6 @@ export default class LogInScreen extends Component {
             </KeyboardAvoidingView>
         );
     }
-
-
 }
 
 const styles = StyleSheet.create({

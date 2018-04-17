@@ -55,7 +55,6 @@ const StackNav = StackNavigator({
   CreateNewUid: {
     screen: CreateNewUid,
     navigationOptions: {
-
     }
   },
 });
