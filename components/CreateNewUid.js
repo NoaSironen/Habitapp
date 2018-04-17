@@ -23,6 +23,7 @@ export default class CreateNewUid extends Component {
       }
        createDatabaseContent = () => {
         const { navigate } = this.props.navigation;
+        
         var user = firebase.auth().currentUser;
         var uid;
   
@@ -38,6 +39,7 @@ export default class CreateNewUid extends Component {
           profilePicture: this.state.defaultProfilePicture
         })
         navigate('Home'); 
+         
       }  
       render () {
         return(
@@ -46,10 +48,14 @@ export default class CreateNewUid extends Component {
                 <View style={styles.logoContainer}>
                 <Image style={styles.picture} source={require('../images/HabitApp.png')} />
                 </View>
-                <Text style={styles.headerStyle}>WELCOME</Text>
-                <Text style={styles.headerStyle}>TO HABITAPP</Text>
-                {this.createDatabaseContent()}
-                           
+                <Text style={styles.headerStyle}>GODKÄNNANDE AV VILLKOR</Text>
+                <Text style={styles.textStyle}>Som registrerad användare av Habitapp godkänner jag härmed
+                att betalningar dras från mitt registrerade kontokort efter utfört arbete.</Text>
+                    
+                    <TouchableOpacity style={styles.buttonStyle}
+                        onPress={this.createDatabaseContent}>
+                        <Text style={styles.buttonTextStyle}>ACCEPTERA</Text>                  
+                    </TouchableOpacity>    
               </View>
 
         )
@@ -82,11 +88,19 @@ export default class CreateNewUid extends Component {
             textAlign: 'center',
             fontSize: 20,
             margin: 10,
+            color: '#FFFFFF',
+
+        },
+        textStyle: {
+            textAlign: 'center',
+            fontSize: 20,
+            margin: 10,
+            color: '#FFFFFF',
         },
         buttonStyle: {
             marginHorizontal: 20,
             alignItems: 'center',
-            backgroundColor: '#161616',
+            backgroundColor: '#275770',
             marginVertical: 20,
             borderRadius: 2,
         },
