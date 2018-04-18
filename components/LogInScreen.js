@@ -13,8 +13,6 @@ export default class LogInScreen extends Component {
             typedEmail: '',
             typedPassword: '',
             user: null,
-            firstName: '',
-            lastName: '',
         };
     }
 
@@ -28,7 +26,7 @@ export default class LogInScreen extends Component {
             }).catch = (error) => {
                 console.log('Login failed with error: ${error}');
             };
-        /*         firebase.auth().onAuthStateChanged(function (user) {
+/*                   firebase.auth().onAuthStateChanged(function (user) {
                     if (user) {
                         var firebaseRef = firebase.database().ref('users').child(user.uid);
         
