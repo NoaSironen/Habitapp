@@ -3,7 +3,7 @@ import { TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { DrawerNavigator } from 'react-navigation';
 import firebase from 'react-native-firebase';
 
-firebase.auth().onAuthStateChanged(function (user) {
+/* firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
       var firebaseRef = firebase.database().ref('users').child(user.uid);
 
@@ -18,10 +18,10 @@ firebase.auth().onAuthStateChanged(function (user) {
   } else {
       console.log("Not signed in")
   }
-});
+}); */
 
 const HamburgerButton = (props) => (
-  <TouchableOpacity style={styles.HamburgerButton} onPress={() => { props.navigation.navigate('DrawerOpen', {itemId: 15}) }} >
+  <TouchableOpacity style={styles.HamburgerButton} onPress={() => { props.navigation.navigate('DrawerOpen')}} >
     <Image source={require('../images/HamburgerIcon.png')} />
   </TouchableOpacity>
 )

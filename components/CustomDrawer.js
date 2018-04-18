@@ -34,8 +34,6 @@ export default class DrawerHeader extends Component {
   }
 
   render() {
-    var { params } = this.props.navigation.state;
-    var itemId = params ? params.itemId : null;
     return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
