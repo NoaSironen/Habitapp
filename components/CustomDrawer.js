@@ -32,23 +32,23 @@ export default class DrawerHeader extends Component {
     });
     this.props.navigation.dispatch(navigateAction);
    
-
-/*     firebase.auth().onAuthStateChanged(function(user) {
+ 
+/*      firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        var firebaseRef = firebase.database().ref().child('users').child('-L9eon_pGtTuj8-1_KXz');
+        var firebaseRef = firebase.database().ref().child('positions');
 
-        firebaseRef.on('value', userDataSnapshot => {
-          var email = userDataSnapshot.child('email').val();
-          var firstName = userDataSnapshot.child('firstName').val();
-          var lastName = userDataSnapshot.child('lastName').val();
-          var profilePicture = userDataSnapshot.child('profilePicture');
-          console.log(firstName + ' ' + lastName);
-          console.log(user);
+        firebaseRef.once('value', function(userDataSnapshot) {
+          userDataSnapshot.forEach(function(child) {
+          var workerLatitude = child.child('coords').child('latitude').val();
+          var workerLongitude = child.child('coords').child('longitude').val();
+         // console.log(workerLatitude); 
+          console.log(workerLatitude);
+          })
         })
       } else {
         console.log("Not signed in")
       }
-    });  */
+    });    */
 
   }
   render () {

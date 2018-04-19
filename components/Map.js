@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
-import {View, Text, TextInput, StyleSheet, Dimensions} from 'react-native';
+import {View, Image, Text, TextInput, StyleSheet, Dimensions} from 'react-native';
 import {StackNavigator, NavigationAction} from 'react-navigation';
 import firebase from 'react-native-firebase';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import HamburgerButton from './HamburgerButton';
+
+const rootRef = firebase.database().ref();
+const workerRef = rootRef.child('positions');
 
 const {width, height} = Dimensions.get('window')
 
@@ -27,7 +31,9 @@ constructor(props) {
     markerPosition : {
       latitude: 0,
       longitude: 0
-    }
+    },
+    workerMarker : []
+    
   }
 }
 
@@ -276,14 +282,48 @@ componentDidMount(){
       longitudeDelta: LONGITUDE_DELTA,
       latitudeDelta: LATITUDE_DELTA
     }
+
     this.setState({initialPosition: lastRegion})
     this.setState({markerPosition: lastRegion})
+
+    var user = firebase.auth().currentUser;
+    var uid;
+
+    if (user != null) {
+      uid = user.uid;
+    } 
+    workerRef.child(uid).set({
+        latitude: lat,
+        longitude: long,
+      timestamp: Math.floor(Date.now() / 1000),
+    });
+
+  })
+
+}
+componentWillMount(){
+  var that = this;
+  let firebaseRef = firebase.database().ref().child('positions');
+  var finished = [];
+
+  firebaseRef.once('value', snapshot => {
+    snapshot.forEach(function(data) {
+    let result = data.val();
+    result['key'] = data.key;
+    finished.push(result);
+})
+  }).then(function(){
+    that.setState({
+      workerMarker: finished
+    })
   })
 }
 
 componentWillUnmount() {
   navigator.geolocation.clearWatch(this.watchID)
 }
+
+
       render() {
         return(
 
@@ -291,7 +331,7 @@ componentWillUnmount() {
             <MapView style={styles.map}
                 customMapStyle={this.mapStyle}
                 region={this.state.initialPosition}>
-
+          
                 <MapView.Marker 
                 coordinate={this.state.markerPosition}>
                 <View style={styles.radius}>
@@ -299,12 +339,28 @@ componentWillUnmount() {
                 </View>
                 </View>
                 </MapView.Marker>
+                 { this.state.workerMarker.map(function(x){
+                   return(
+                   <MapView.Marker
+                   title={'Arbetare'}
+                   description={'Jag är en arbetare'}
+                   key={x.key}
+                   image={require('../images/Star.png')}
+                   coordinate={{
+                    latitude: x.latitude,
+                    longitude: x.longitude
+                   }}>
+                   </MapView.Marker>
+                   )
+                 })} 
             </MapView>
            </View>
         )
     }
 }
-    
+
+
+
 const styles = StyleSheet.create({
 
     container: {
@@ -343,6 +399,11 @@ const styles = StyleSheet.create({
       borderRadius: 20 / 2,
       overflow: 'hidden',
       backgroundColor: '#007AFF'
+    },
+    workerMarker: {
+      height: 10,
+      width: 10,
+
     },
     inputStyle: {
         height: 60,

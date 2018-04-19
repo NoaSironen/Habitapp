@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import { View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView} from 'react-native';
-
+import { View, Text, TextInput, Alert, TouchableOpacity, Dimensions, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import {StackNavigator, NavigationAction} from 'react-navigation';
 import firebase from 'react-native-firebase';
 
 const rootRef = firebase.database().ref();
@@ -11,38 +12,19 @@ export default class AddWorker extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-          workers: [],
-          newFirstName: '',
-          newLastName: '',
-          newPhoneNumber: '',
-          newEmail: '',
+          defaultProfilePicture: '../images/ProfileTemplate.png',
           loading: false,
         });
       }
-    
-      componentDidMount() {
-        workerRef.on('value', (childSnapshot) => {
-          const workers= [];
-          childSnapshot.forEach((doc) => {
-            workers.push({
-              key: doc.key,
-              firstName: doc.toJSON().firstName,
-              lastName: doc.toJSON().lastName,
-              phoneNumber: doc.toJSON().phoneNumber,
-              email: doc.toJSON().newEmail
-            });
-            this.setState({
-              workers: workers.sort((a, b) => {
-                return (a.firstName < b.firstName);
-              }),
-              loading: false,
-            });
-          });
-        });
-      }
-    
+  
       onPressAdd = () => {
         const { navigate } = this.props.navigation;
+        var user = firebase.auth().currentUser;
+        var uid;
+  
+        if (user != null) {
+          uid = user.uid;
+        } 
         if (this.state.newFirstName.trim() === ''){
             alert('Vänligen fyll i ditt förnamn!');
             return;
@@ -60,16 +42,18 @@ export default class AddWorker extends Component {
             
             return;
         }
-        workerRef.push({
+        workerRef.child(uid).set({
           firstName: this.state.newFirstName,
           lastName: this.state.newLastName,
           phoneNumber: this.state.newPhoneNumber,
-          email: this.state.newEmail
+          email: this.state.newEmail,
+          profilePicture: this.state.defaultProfilePicture,
         });
+
         alert('Du har lagt till en ny stjärna!');
         navigate('Home');
       }
-    
+
     render() {
         
         return(
