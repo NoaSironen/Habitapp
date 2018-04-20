@@ -4,6 +4,7 @@ import firebase from 'react-native-firebase';
 import { StackNavigator } from 'react-navigation';
 import AddWorker from './AddWorker';
 
+
 const rootRef = firebase.database().ref();
 const userRef = rootRef.child('users');
 

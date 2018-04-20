@@ -1,8 +1,18 @@
+<<<<<<< HEAD
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, Dimensions } from 'react-native';
 import { StackNavigator, NavigationAction } from 'react-navigation';
+=======
+import React, {Component} from 'react';
+import {View, Image, Text, TextInput, StyleSheet, Dimensions} from 'react-native';
+import {StackNavigator, NavigationAction} from 'react-navigation';
+>>>>>>> f42370090abdebd6e0d888d9fdfbc329d3df6b94
 import firebase from 'react-native-firebase';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import HamburgerButton from './HamburgerButton';
+
+const rootRef = firebase.database().ref();
+const workerRef = rootRef.child('positions');
 
 const { width, height } = Dimensions.get('window')
 
@@ -17,6 +27,7 @@ export default class Map extends Component {
   constructor(props) {
     super(props)
 
+<<<<<<< HEAD
     this.state = {
       initialPosition: {
         latitude: 0,
@@ -29,6 +40,21 @@ export default class Map extends Component {
         longitude: 0
       }
     }
+=======
+  this.state = {
+    initialPosition: {
+      latitude: 0,
+      longitude: 0,
+      latitudeDelta: 0,
+      longitudeDelta: 0
+    },
+    markerPosition : {
+      latitude: 0,
+      longitude: 0
+    },
+    workerMarker : []
+    
+>>>>>>> f42370090abdebd6e0d888d9fdfbc329d3df6b94
   }
 
   mapStyle = [
@@ -270,6 +296,7 @@ export default class Map extends Component {
       var lat = parseFloat(position.coords.latitude)
       var long = parseFloat(position.coords.longitude)
 
+<<<<<<< HEAD
       var lastRegion = {
         latitude: lat,
         longitude: long,
@@ -315,6 +342,143 @@ const styles = StyleSheet.create({
     right: 0,
     justifyContent: 'flex-end',
     alignItems: 'center',
+=======
+    var lastRegion = {
+      latitude: lat,
+      longitude: long,
+      longitudeDelta: LONGITUDE_DELTA,
+      latitudeDelta: LATITUDE_DELTA
+    }
+
+    this.setState({initialPosition: lastRegion})
+    this.setState({markerPosition: lastRegion})
+
+    var user = firebase.auth().currentUser;
+    var uid;
+
+    if (user != null) {
+      uid = user.uid;
+    } 
+    workerRef.child(uid).set({
+        latitude: lat,
+        longitude: long,
+      timestamp: Math.floor(Date.now() / 1000),
+    });
+
+  })
+
+}
+componentWillMount(){
+  var that = this;
+  let firebaseRef = firebase.database().ref().child('positions');
+  var finished = [];
+
+  firebaseRef.once('value', snapshot => {
+    snapshot.forEach(function(data) {
+    let result = data.val();
+    result['key'] = data.key;
+    finished.push(result);
+})
+  }).then(function(){
+    that.setState({
+      workerMarker: finished
+    })
+  })
+}
+
+componentWillUnmount() {
+  navigator.geolocation.clearWatch(this.watchID)
+}
+
+
+      render() {
+        return(
+
+           <View style={styles.container}>
+            <MapView style={styles.map}
+                customMapStyle={this.mapStyle}
+                region={this.state.initialPosition}>
+          
+                <MapView.Marker 
+                coordinate={this.state.markerPosition}>
+                <View style={styles.radius}>
+                <View style={styles.marker}>
+                </View>
+                </View>
+                </MapView.Marker>
+                 { this.state.workerMarker.map(function(x){
+                   return(
+                   <MapView.Marker
+                   title={'Arbetare'}
+                   description={'Jag är en arbetare'}
+                   key={x.key}
+                   image={require('../images/Star.png')}
+                   coordinate={{
+                    latitude: x.latitude,
+                    longitude: x.longitude
+                   }}>
+                   </MapView.Marker>
+                   )
+                 })} 
+            </MapView>
+           </View>
+        )
+    }
+}
+
+
+
+const styles = StyleSheet.create({
+
+    container: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        
+    },
+    map: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
+    },
+    radius: {
+        height: 50,
+        width: 50,
+        borderRadius: 50 / 2,
+        overflow: 'hidden',
+        backgroundColor: 'rgba(0, 112, 255, 0.1)',
+        borderWidth: 1,
+        borderColor: 'rgba(0, 112, 255, 0.3)',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    marker: {
+      height: 20,
+      width: 20,
+      borderWidth: 3,
+      borderColor: 'white',
+      borderRadius: 20 / 2,
+      overflow: 'hidden',
+      backgroundColor: '#007AFF'
+    },
+    workerMarker: {
+      height: 10,
+      width: 10,
+
+    },
+    inputStyle: {
+        height: 60,
+        alignItems: 'center',
+        textAlign: 'center',
+        fontSize: 25,
+        marginBottom: 20,
+>>>>>>> f42370090abdebd6e0d888d9fdfbc329d3df6b94
 
   },
   map: {

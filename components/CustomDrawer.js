@@ -31,6 +31,7 @@ export default class DrawerHeader extends Component {
       routeName: route
     });
     this.props.navigation.dispatch(navigateAction);
+
   }
 
   render() {

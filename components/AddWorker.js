@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 import React, { Component } from 'react';
 import { View, Text, TextInput, Alert, TouchableOpacity, StyleSheet, KeyboardAvoidingView } from 'react-native';
 
+=======
+import React, {Component} from 'react';
+import { View, Text, TextInput, Alert, TouchableOpacity, Dimensions, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import {StackNavigator, NavigationAction} from 'react-navigation';
+>>>>>>> f42370090abdebd6e0d888d9fdfbc329d3df6b94
 import firebase from 'react-native-firebase';
 
 const rootRef = firebase.database().ref();
@@ -11,6 +18,7 @@ export default class AddWorker extends Component {
     constructor(props) {
         super(props);
         this.state = ({
+<<<<<<< HEAD
             workers: [],
             newFirstName: '',
             newLastName: '',
@@ -44,6 +52,22 @@ export default class AddWorker extends Component {
     onPressAdd = () => {
         const { navigate } = this.props.navigation;
         if (this.state.newFirstName.trim() === '') {
+=======
+          defaultProfilePicture: '../images/ProfileTemplate.png',
+          loading: false,
+        });
+      }
+  
+      onPressAdd = () => {
+        const { navigate } = this.props.navigation;
+        var user = firebase.auth().currentUser;
+        var uid;
+  
+        if (user != null) {
+          uid = user.uid;
+        } 
+        if (this.state.newFirstName.trim() === ''){
+>>>>>>> f42370090abdebd6e0d888d9fdfbc329d3df6b94
             alert('Vänligen fyll i ditt förnamn!');
             return;
         }
@@ -60,15 +84,29 @@ export default class AddWorker extends Component {
 
             return;
         }
+<<<<<<< HEAD
         workerRef.push({
             firstName: this.state.newFirstName,
             lastName: this.state.newLastName,
             phoneNumber: this.state.newPhoneNumber,
             email: this.state.newEmail
+=======
+        workerRef.child(uid).set({
+          firstName: this.state.newFirstName,
+          lastName: this.state.newLastName,
+          phoneNumber: this.state.newPhoneNumber,
+          email: this.state.newEmail,
+          profilePicture: this.state.defaultProfilePicture,
+>>>>>>> f42370090abdebd6e0d888d9fdfbc329d3df6b94
         });
+
         alert('Du har lagt till en ny stjärna!');
         navigate('Home');
+<<<<<<< HEAD
     }
+=======
+      }
+>>>>>>> f42370090abdebd6e0d888d9fdfbc329d3df6b94
 
     render() {
 
