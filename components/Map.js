@@ -297,11 +297,25 @@ componentDidMount(){
         longitude: long,
       timestamp: Math.floor(Date.now() / 1000),
     });
-
+    var that = this;
+    let firebaseRef = firebase.database().ref().child('positions');
+    var finished = [];
+  
+    firebaseRef.once('value', snapshot => {
+      snapshot.forEach(function(data) {
+      let result = data.val();
+      result['key'] = data.key;
+      finished.push(result);
+  })
+    }).then(function(){
+      that.setState({
+        workerMarker: finished
+      })
+    })
   })
 
 }
-componentWillMount(){
+/* componentWillMount(){
   var that = this;
   let firebaseRef = firebase.database().ref().child('positions');
   var finished = [];
@@ -317,7 +331,7 @@ componentWillMount(){
       workerMarker: finished
     })
   })
-}
+} */
 
 componentWillUnmount() {
   navigator.geolocation.clearWatch(this.watchID)
