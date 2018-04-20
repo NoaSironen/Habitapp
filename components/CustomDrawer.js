@@ -13,7 +13,7 @@ import firebase from 'react-native-firebase';
 var database = firebase.database();
 
 export default class DrawerHeader extends Component {
-  
+
   navigateToScreenLogOut = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
@@ -61,7 +61,7 @@ export default class DrawerHeader extends Component {
           </View>
         </ScrollView>
         <View style={styles.footerContainer}>
-          <Text>Footer</Text>
+          <Text>{this.props.fullName}</Text>
         </View>
       </View>
     )
