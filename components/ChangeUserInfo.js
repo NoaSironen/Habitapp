@@ -2,89 +2,132 @@ import React, { Component } from 'react';
 import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity, FlatList, KeyboardAvoidingView } from 'react-native';
 import { StackNavigator, NavigationAction } from 'react-navigation';
 import firebase from 'react-native-firebase';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
 export default class ChangeUserInfo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isAuthenticated: false,
-      typedFirstName: '',
-      user: null,
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+          userInfo : [],
+          img: '../images/ProfileTemplate.png',
+        }
+      } 
+componentDidMount(){
 
-  render() {
-    return (
-      <KeyboardAvoidingView behavior='padding' style={styles.container}>
+  var user = firebase.auth().currentUser;
+  var uid;
 
-        <View style={styles.logoContainer}>
-          <Image style={styles.picture} source={require('../images/ProfileTemplate.png')} />
-        </View>
-        <View style={styles.linkLayout}>
-          <TouchableOpacity style={styles.linkStyle}>
-            <Text style={styles.linkText}> BYT BANKKORT |</Text>
-          </TouchableOpacity>
+  if (user != null) {
+    uid = user.uid;
+  } 
 
-          <TouchableOpacity style={styles.linkStyle}>
-            <Text style={styles.linkText}>| BYT LÖSENORD </Text>
-          </TouchableOpacity>
-        </View>
-        {/* <Text style={styles.headerStyle}>DINA UPPGIFTER</Text> */}
+  var that = this;
+  let firebaseRef = firebase.database().ref().child('users/' + uid);
+  
+  var finished = [];
 
-        <TextInput style={styles.inputStyle}
-          placeholder='E-postadress'
-          returnKeyType='next'
-          keyboardType='email-address'
-          autoCapitalize='none'
-          onChangeText={
-            (text) => {
-              this.setState({ typedEmail: text });
-            }
-          }
-        />
-        <TextInput style={styles.inputStyle}
-          placeholder='Förnamn'
-          returnKeyType='next'
-          keyboardType='default'
-          onChangeText={
-            (text) => {
-              this.setState({ typedFirstName: text });
-            }
-          }
-        />
+  firebaseRef.once('value', snapshot => {
+    let result = snapshot.val();
+    result['key'] = snapshot.key;
+    finished.push(result);
+    that.setState({
+      userInfo: finished
+    })
+  })
+}
+    render() {
+      return(
 
-        <TextInput style={styles.inputStyle}
-          placeholder='Efternamn'
-          returnKeyType='next'
-          keyboardType='default'
-          onChangeText={
-            (text) => {
-              this.setState({ typedLastName: text });
-            }
-          }
-        />
+        <KeyboardAvoidingView behavior='padding' style={styles.container}>
+          { this.state.userInfo.map(function(loggedInUser){
+            return(
+              <View style={styles.logoContainer}>
+                <Image style={styles.picture}  source={{uri: loggedInUser.profilePicture}}  />
+              </View>
+            )
+          })} 
+          
+                <View style={styles.linkLayout}> 
+                    <TouchableOpacity style={styles.linkStyle}>
+                        <Text style={styles.linkText}> BYT BANKKORT |</Text>
+                    </TouchableOpacity>
 
-        <TextInput style={styles.inputStyle}
-          placeholder='Mobilnummer'
-          keyboardType='phone-pad'
-          returnKeyType='next'
-          onChangeText={
-            (text) => {
-              this.setState({ typedPhoneNumber: text });
-            }
-          }
-        />
+                    <TouchableOpacity style={styles.linkStyle}>
+                        <Text style={styles.linkText}>| BYT LÖSENORD </Text>
+                    </TouchableOpacity> 
+                </View> 
 
-        <TouchableOpacity style={styles.buttonStyle}
-          onPress={this.onPressAdd}>
-          <Text style={styles.buttonTextStyle}> SPARA </Text>
-        </TouchableOpacity>
+                { this.state.userInfo.map(function(loggedInUser){
+                   return(
+                    <TextInput style={styles.inputStyle} 
+                    key={loggedInUser.key}
+                    value={loggedInUser.email}
+                    returnKeyType='next'
+                    keyboardType='email-address'
+                    autoCapitalize='none'
+                    onChangeText={
+                      (text) => {
+                        this.setState({ typedEmail: text });
+                      }
+                    }
+                  />
+                  )
+                })} 
+                
+                { this.state.userInfo.map(function(loggedInUser){
+                   return(
+                   <TextInput style={styles.inputStyle} 
+                   value={loggedInUser.firstName}
+                    returnKeyType='next'
+                    keyboardType='default'
+                    onChangeText={
+                      (text) => {
+                        this.setState({ typedFirstName: text });
+                      }
+                    }
+                  />
+                  )
+                })} 
+                  { this.state.userInfo.map(function(loggedInUser){
+                    return(
+                   <TextInput style={styles.inputStyle} 
+                   value={loggedInUser.lastName}
+                    returnKeyType='next'
+                    keyboardType='default'
+                    onChangeText={
+                      (text) => {
+                        this.setState({ typedLastName: text });
+                      }
+                    }
+                  />
+                    )
+                  })} 
+                  { this.state.userInfo.map(function(loggedInUser){
+                    return(
+                    <TextInput style={styles.inputStyle} 
+                    value={loggedInUser.phoneNumber} 
+                    keyboardType='phone-pad'
+                    returnKeyType='next'
+                    onChangeText={
+                      (text) => {
+                        this.setState({ typedPhoneNumber: text });
+                      }
+                    }
+                  />
+                    )
+                  })} 
+                    <TouchableOpacity style={styles.buttonStyle}  
+                        onPress={this.onPressAdd}>
+                        <Text style={styles.buttonTextStyle}> SPARA </Text>
+                    </TouchableOpacity>
 
       </KeyboardAvoidingView>
     )
   }
+
 }
 
+  
 const styles = StyleSheet.create({
 
   container: {
