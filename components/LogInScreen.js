@@ -14,6 +14,7 @@ export default class LogInScreen extends Component {
             typedPassword: '',
             user: null,
         };
+
     }
     // Logs in user with Email and password
     onLogin = () => {
@@ -26,21 +27,6 @@ export default class LogInScreen extends Component {
             }).catch = (error) => {
                 console.log('Login failed with error: ${error}');
             };
-
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                var firebaseRef = firebase.database().ref('users').child(user.uid); // Reference to the JSON object in the database
-                firebaseRef.on('value', userDataSnapshot => { // snapshot of the value on that refernce
-                    var firstName = userDataSnapshot.child('firstName').val(); // retreive value from the snapshot on the specified child, in this case firstname
-                    var lastName = userDataSnapshot.child('lastName').val(); // Se above comment
-                    var profilePicture = userDataSnapshot.child('profilePicture'); // se above comment
-                    var fullName = firstName + ' ' + lastName; // Combine first+lastname to fullName variable
-                    console.log(fullName);
-                });
-            } else {
-                console.log("Not signed in")
-            }
-        });
     }
 
     render() {
