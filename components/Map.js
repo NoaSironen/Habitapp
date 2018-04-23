@@ -315,28 +315,10 @@ componentDidMount(){
   })
 
 }
-/* componentWillMount(){
-  var that = this;
-  let firebaseRef = firebase.database().ref().child('positions');
-  var finished = [];
-
-  firebaseRef.once('value', snapshot => {
-    snapshot.forEach(function(data) {
-    let result = data.val();
-    result['key'] = data.key;
-    finished.push(result);
-})
-  }).then(function(){
-    that.setState({
-      workerMarker: finished
-    })
-  })
-} */
 
 componentWillUnmount() {
   navigator.geolocation.clearWatch(this.watchID)
 }
-
 
       render() {
         return(

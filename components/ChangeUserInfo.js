@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity, FlatList, KeyboardAvoidingView} from 'react-native';
 import {StackNavigator, NavigationAction} from 'react-navigation';
 import firebase from 'react-native-firebase';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
 
 
@@ -9,22 +10,45 @@ export default class ChangeUserInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          isAuthenticated: false,
-          typedFirstName: '',
-          user: null,
-        };
+          userInfo : [],
+          img: '../images/ProfileTemplate.png',
+        }
       } 
+componentDidMount(){
 
+  var user = firebase.auth().currentUser;
+  var uid;
 
+  if (user != null) {
+    uid = user.uid;
+  } 
+
+  var that = this;
+  let firebaseRef = firebase.database().ref().child('users/' + uid);
+  
+  var finished = [];
+
+  firebaseRef.once('value', snapshot => {
+    let result = snapshot.val();
+    result['key'] = snapshot.key;
+    finished.push(result);
+    that.setState({
+      userInfo: finished
+    })
+  })
+}
     render() {
       return(
 
-
         <KeyboardAvoidingView behavior='padding' style={styles.container}>
-        
-        <View style={styles.logoContainer}>
-        <Image style={styles.picture} source={require('../images/ProfileTemplate.png')} />
-        </View>
+          { this.state.userInfo.map(function(loggedInUser){
+            return(
+              <View style={styles.logoContainer}>
+                <Image style={styles.picture}  source={{uri: loggedInUser.profilePicture}}  />
+              </View>
+            )
+          })} 
+          
                 <View style={styles.linkLayout}> 
                     <TouchableOpacity style={styles.linkStyle}>
                         <Text style={styles.linkText}> BYT BANKKORT |</Text>
@@ -34,10 +58,12 @@ export default class ChangeUserInfo extends Component {
                         <Text style={styles.linkText}>| BYT LÖSENORD </Text>
                     </TouchableOpacity> 
                 </View> 
-                {/* <Text style={styles.headerStyle}>DINA UPPGIFTER</Text> */}
-                
-                <TextInput style={styles.inputStyle} 
-                    placeholder='E-postadress' 
+
+                { this.state.userInfo.map(function(loggedInUser){
+                   return(
+                    <TextInput style={styles.inputStyle} 
+                    key={loggedInUser.key}
+                    value={loggedInUser.email}
                     returnKeyType='next'
                     keyboardType='email-address'
                     autoCapitalize='none'
@@ -47,8 +73,13 @@ export default class ChangeUserInfo extends Component {
                       }
                     }
                   />
+                  )
+                })} 
+                
+                { this.state.userInfo.map(function(loggedInUser){
+                   return(
                    <TextInput style={styles.inputStyle} 
-                    placeholder='Förnamn' 
+                   value={loggedInUser.firstName}
                     returnKeyType='next'
                     keyboardType='default'
                     onChangeText={
@@ -57,9 +88,12 @@ export default class ChangeUserInfo extends Component {
                       }
                     }
                   />
-                  
+                  )
+                })} 
+                  { this.state.userInfo.map(function(loggedInUser){
+                    return(
                    <TextInput style={styles.inputStyle} 
-                    placeholder='Efternamn' 
+                   value={loggedInUser.lastName}
                     returnKeyType='next'
                     keyboardType='default'
                     onChangeText={
@@ -68,9 +102,12 @@ export default class ChangeUserInfo extends Component {
                       }
                     }
                   />
-            
+                    )
+                  })} 
+                  { this.state.userInfo.map(function(loggedInUser){
+                    return(
                     <TextInput style={styles.inputStyle} 
-                    placeholder='Mobilnummer' 
+                    value={loggedInUser.phoneNumber} 
                     keyboardType='phone-pad'
                     returnKeyType='next'
                     onChangeText={
@@ -79,7 +116,8 @@ export default class ChangeUserInfo extends Component {
                       }
                     }
                   />
-
+                    )
+                  })} 
                     <TouchableOpacity style={styles.buttonStyle}  
                         onPress={this.onPressAdd}>
                         <Text style={styles.buttonTextStyle}> SPARA </Text>
@@ -88,7 +126,9 @@ export default class ChangeUserInfo extends Component {
          </KeyboardAvoidingView>
       )
   }
+
 }
+
   
 const styles = StyleSheet.create({
 
