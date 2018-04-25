@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Image, Text, TextInput, StyleSheet, Dimensions} from 'react-native';
+import {View, Image, Text, TextInput, StyleSheet, Dimensions, Alert} from 'react-native';
 import {StackNavigator, NavigationAction} from 'react-navigation';
 import firebase from 'react-native-firebase';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
@@ -38,7 +38,7 @@ constructor(props) {
 }
 
 /*     mapStyle = */
-    
+
     watchID: ?number = null // It is correct and it compiles, just a VS Code bug. 
 
 componentDidMount(){
@@ -106,7 +106,17 @@ componentDidMount(){
 componentWillUnmount() {
   navigator.geolocation.clearWatch(this.watchID)
 }
-
+showWorkerInfo = () => {
+  Alert.alert(
+    'Johan Strand',
+    '',
+  [
+    {text: 'GÅ VIDARE', onPress: () => navigate('LogInScreen')},
+    {text: 'LETA VIDARE', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+  ],
+  { cancelable: true }
+)
+}
       render() {
         return(
 
@@ -125,14 +135,14 @@ componentWillUnmount() {
                  { this.state.workerMarker.map(function(x){
                    return(
                    <MapView.Marker
-                   title={'Arbetare'}
-                   description={'Jag är en arbetare'}
+                    onPress={(event) => this.showWorkerInfo(event)}
                    key={x.key}
                    image={require('../images/Star.png')}
                    coordinate={{
                     latitude: x.latitude,
                     longitude: x.longitude
                    }}>
+                   
                    </MapView.Marker>
                    )
                  })} 
@@ -142,7 +152,17 @@ componentWillUnmount() {
     }
 }
 
-
+showWorkerInfo = () => {
+  Alert.alert(
+    'Johan Strand',
+    '',
+  [
+    {text: 'GÅ VIDARE', onPress: () => navigate('LogInScreen')},
+    {text: 'LETA VIDARE', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+  ],
+  { cancelable: true }
+)
+}
 
 const styles = StyleSheet.create({
 
