@@ -13,7 +13,6 @@ export default class CreateNewUid extends Component {
         super(props);
         this.unsubscriber = null;
         this.state = {
-          typedEmail: this.props.navigation.state.params.typedEmail,
           typedPhoneNumber: this.props.navigation.state.params.typedPhoneNumber,
           typedPassword: this.props.navigation.state.params.typedPassword,
           typedFirstName: this.props.navigation.state.params.typedFirstName,
@@ -32,7 +31,6 @@ export default class CreateNewUid extends Component {
           uid = user.uid;
         } 
         userRef.child(uid).set({
-          email: this.state.typedEmail,
           firstName: this.state.typedFirstName,
           lastName: this.state.typedLastName,
           phoneNumber: this.state.typedPhoneNumber,

@@ -10,7 +10,48 @@ import RegisterUserPaymentCard from './RegisterUserPaymentCard';
 import ChangeUserInfo from './ChangeUserInfo';
 import firebase from 'react-native-firebase';
 
+
 export default class DrawerHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fullNameState: '',
+      uidState: '',
+    };
+  } 
+getUid () {
+    
+  var user = firebase.auth().currentUser;
+  var uid;
+
+  if (user != null) {
+    uid = user.uid;
+  } 
+  console.log(uid);
+      this.setState({
+        uidState: uid
+      })
+    }
+
+  componentDidMount(){
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user){
+        var that = this;
+        let firebaseRef = firebase.database().ref('users').child(user.uid);
+
+
+
+    firebaseRef.once('value', snapshot => {
+    let dbFirstName = snapshot.child('firstName').val();
+    let dbLastName = snapshot.child('lastName').val();
+    that.setState({ 
+      fullNameState: dbFirstName + ' ' + dbLastName
+    })
+  })  
+}
+})
+}
 
   navigateToScreenLogOut = (route) => () => {
     const navigateAction = NavigationActions.navigate({
@@ -31,26 +72,8 @@ export default class DrawerHeader extends Component {
       routeName: route
     });
     this.props.navigation.dispatch(navigateAction);
-   
- 
-/*      firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        var firebaseRef = firebase.database().ref().child('positions');
-
-        firebaseRef.once('value', function(userDataSnapshot) {
-          userDataSnapshot.forEach(function(child) {
-          var workerLatitude = child.child('coords').child('latitude').val();
-          var workerLongitude = child.child('coords').child('longitude').val();
-         // console.log(workerLatitude); 
-          console.log(workerLatitude);
-          })
-        })
-      } else {
-        console.log("Not signed in")
-      }
-    });    */
-
   }
+
   render () {
     return(
       <View style={styles.container}>
@@ -79,7 +102,7 @@ export default class DrawerHeader extends Component {
           </View>
         </ScrollView>
         <View style={styles.footerContainer}>
-          <Text>This is my fixed footer</Text>
+          <Text>Detta är: {this.state.fullNameState}</Text>
         </View>
       </View>
     )

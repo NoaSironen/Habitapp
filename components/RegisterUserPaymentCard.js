@@ -40,7 +40,6 @@ export default class RegisterUserPaymentCard extends Component {
         //console.log('Register failed with error: ${error}');
       };
       navigate('CreateNewUid', {
-        typedEmail: this.state.typedEmail, 
         typedPassword: this.state.typedPassword, 
         typedPhoneNumber: this.state.typedPhoneNumber,
         typedFirstName: this.state.typedFirstName,

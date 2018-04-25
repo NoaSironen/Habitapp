@@ -21,6 +21,7 @@ export default class LogInScreen extends Component {
       firebase.auth().signInWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
       .then((loggedInUser) => {
         this.setState({user: loggedInUser})
+        console.log({})
         console.log('Login with user : ${JSON.stringify(loggedInUser.toJSON())}');
         navigate('Home');
       }).catch = (error) => {
