@@ -11,52 +11,60 @@ import CustomDrawer from './CustomDrawer';
 import HamburgerButton from './HamburgerButton';
 import ChangeUserInfo from './ChangeUserInfo';
 import CreateNewUid from './CreateNewUid';
+import ChangeUserPassword from './ChangeUserPassword';
 
-const StackNav = StackNavigator({
-  Home: {
-    screen: Home,
-    navigationOptions: ({ navigation }) => ({
-      title: 'Home',
-      headerLeft: (
-        <HamburgerButton navigation={navigation} />
-      )
-    })
-  },
-  AddWorker: {
-    screen: AddWorker,
-    navigationOptions: {
-      title: 'Add Worker',
-    }
-  },
-  ChooseRegistration: {
-    screen: ChooseRegistration,
-    navigationOptions: {
-      title: '1 av 3',
-    }
-  },
-  LogInScreen: {
-    screen: LogInScreen,
-    navigationOptions: {
-      title: 'Log In',
-    }
-  },
-  RegisterUserProfile: {
-    screen: RegisterUserProfile,
-    navigationOptions: {
-      title: '2 av 3',
-    }
-  },
-  RegisterUserPaymentCard: {
-    screen: RegisterUserPaymentCard,
-    navigationOptions: {
-      title: '3 av 3',
-    }
-  },
-  CreateNewUid: {
-    screen: CreateNewUid,
-    navigationOptions: {
-    }
-  },
+ const StackNav = StackNavigator ({
+    Home: { 
+      screen: Home,
+      navigationOptions: ({ navigation }) => ({
+          title: 'Home',
+          headerLeft: (
+            <HamburgerButton navigation={ navigation }/>
+          )
+      })
+    },
+    AddWorker: { 
+      screen: AddWorker,
+      navigationOptions: {
+          title: 'Add Worker',
+      }
+    },
+    ChooseRegistration: { 
+      screen: ChooseRegistration,
+      navigationOptions: {
+          title: '1 av 3',
+      }
+    },
+    LogInScreen: { 
+      screen: LogInScreen,
+      navigationOptions: {
+          title: 'Log In',
+      }
+    },
+    RegisterUserProfile: { 
+      screen: RegisterUserProfile,
+      navigationOptions: {
+          title: '2 av 3',
+      }
+    },
+    RegisterUserPaymentCard: { 
+      screen: RegisterUserPaymentCard,
+      navigationOptions: {
+          title: '3 av 3',
+      }
+    },
+    ChangeUserPassword: { 
+      screen: ChangeUserPassword,
+      navigationOptions: {
+          title: 'TILLBAKA',
+      }
+    },
+    CreateNewUid: { 
+      screen: CreateNewUid,
+      navigationOptions: {
+          
+      }
+    },
 });
 
 export const DrawerMenu = DrawerNavigator({

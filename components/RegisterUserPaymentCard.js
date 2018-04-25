@@ -39,15 +39,14 @@ export default class RegisterUserPaymentCard extends Component {
       }).catch = (error) => {
         console.log('Register failed with error: ${error}');
       };
-    navigate('CreateNewUid', {
-      typedEmail: this.state.typedEmail,
-      typedPassword: this.state.typedPassword,
-      typedPhoneNumber: this.state.typedPhoneNumber,
-      typedFirstName: this.state.typedFirstName,
-      typedLastName: this.state.typedLastName,
-      typedPaymentCardNumber: this.state.typedPaymentCardNumber
-    })
-  }
+      navigate('CreateNewUid', {
+        typedPassword: this.state.typedPassword, 
+        typedPhoneNumber: this.state.typedPhoneNumber,
+        typedFirstName: this.state.typedFirstName,
+        typedLastName: this.state.typedLastName,
+        typedPaymentCardNumber: this.state.typedPaymentCardNumber
+        })
+    }
 
   render() {
     return (

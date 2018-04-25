@@ -10,16 +10,48 @@ import RegisterUserPaymentCard from './RegisterUserPaymentCard';
 import ChangeUserInfo from './ChangeUserInfo';
 import firebase from 'react-native-firebase';
 
-var database = firebase.database();
 
-export default class CustomDrawer extends Component {
-
+export default class DrawerHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userInfoState: [],
+      fullNameState: '',
+      uidState: '',
+    };
+  } 
+getUid () {
+    
+  var user = firebase.auth().currentUser;
+  var uid;
+
+  if (user != null) {
+    uid = user.uid;
+  } 
+  console.log(uid);
+      this.setState({
+        uidState: uid
+      })
     }
-  }
+
+  componentDidMount(){
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user){
+        var that = this;
+        let firebaseRef = firebase.database().ref('users').child(user.uid);
+
+
+
+    firebaseRef.once('value', snapshot => {
+    let dbFirstName = snapshot.child('firstName').val();
+    let dbLastName = snapshot.child('lastName').val();
+    that.setState({ 
+      fullNameState: dbFirstName + ' ' + dbLastName
+    })
+  })  
+}
+})
+}
 
   navigateToScreenLogOut = (route) => () => {
     const navigateAction = NavigationActions.navigate({
@@ -40,38 +72,8 @@ export default class CustomDrawer extends Component {
     this.props.navigation.dispatch(navigateAction);
   }
 
-  componentDidMount() {
-
-    //RetreiveFullName = () => {
-    // Retreives the currently logged in users firstname, lastname and profilepicture
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        var firebaseRef = firebase.database().ref('users').child(user.uid);
-        var userInfoArray = [];
-        firebaseRef.on('value', userDataSnapshot => {
-          var firstName = userDataSnapshot.child('firstName').val();
-          var lastName = userDataSnapshot.child('lastName').val();
-          var profilePicture = userDataSnapshot.child('profilePicture');
-          var fullName = firstName + ' ' + lastName;
-
-          var userInfo = userDataSnapshot.val();
-          userInfo['key'] = userDataSnapshot.key;
-          console.log(userInfo);
-          userInfoArray.push(userInfo);
-
-          this.setState({
-            userInfoState: userInfoArray
-          });
-        });
-      } else {
-        console.log("Not signed in")
-      }
-    });
-    //}
-  }
-
-  render() {
-    return (
+  render () {
+    return(
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <TouchableOpacity onPress={this.navigateToScreen('ChangeUserInfo')} >
@@ -108,7 +110,7 @@ export default class CustomDrawer extends Component {
           </View>
         </ScrollView>
         <View style={styles.footerContainer}>
-          <Text>Footer</Text>
+          <Text>Detta är: {this.state.fullNameState}</Text>
         </View>
       </View>
     )

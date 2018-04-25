@@ -13,13 +13,12 @@ export default class CreateNewUid extends Component {
         super(props);
         this.unsubscriber = null;
         this.state = {
-            typedEmail: this.props.navigation.state.params.typedEmail,
-            typedPhoneNumber: this.props.navigation.state.params.typedPhoneNumber,
-            typedPassword: this.props.navigation.state.params.typedPassword,
-            typedFirstName: this.props.navigation.state.params.typedFirstName,
-            typedLastName: this.props.navigation.state.params.typedLastName,
-            typedPaymentCardNumber: this.props.navigation.state.params.typedPaymentCardNumber,
-            defaultProfilePicture: '../images/ProfileTemplate.png',
+          typedPhoneNumber: this.props.navigation.state.params.typedPhoneNumber,
+          typedPassword: this.props.navigation.state.params.typedPassword,
+          typedFirstName: this.props.navigation.state.params.typedFirstName,
+          typedLastName: this.props.navigation.state.params.typedLastName,
+          typedPaymentCardNumber: this.props.navigation.state.params.typedPaymentCardNumber,
+          defaultProfilePicture: '../images/ProfileTemplate.png',
         };
     }
     createDatabaseContent = () => {
@@ -32,12 +31,11 @@ export default class CreateNewUid extends Component {
             uid = user.uid;
         }
         userRef.child(uid).set({
-            email: this.state.typedEmail,
-            firstName: this.state.typedFirstName,
-            lastName: this.state.typedLastName,
-            phoneNumber: this.state.typedPhoneNumber,
-            paymentCardNumber: this.state.typedPaymentCardNumber,
-            profilePicture: this.state.defaultProfilePicture
+          firstName: this.state.typedFirstName,
+          lastName: this.state.typedLastName,
+          phoneNumber: this.state.typedPhoneNumber,
+          paymentCardNumber: this.state.typedPaymentCardNumber,
+          profilePicture: this.state.defaultProfilePicture
         })
         navigate('Home'); 
          
