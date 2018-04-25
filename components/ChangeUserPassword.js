@@ -11,13 +11,39 @@ export default class ChangeUserPassword extends Component {
       constructor(props) {
       super(props);
       this.state = {
-        oldPassword: '',
         newPassword: '',
         repetedNewPassword: '',
       };
     } 
-componentDidMount() {
-    
+changePassword = () => {
+  const { navigate } = this.props.navigation;
+  
+  var user = firebase.auth().currentUser;
+  var newPassword = this.state.newPassword;
+  if(newPassword.length < 6){
+    Alert.alert('Lösenordet måste vara minst 6 tecken')
+  }
+  else
+  if(this.state.newPassword === this.state.repetedNewPassword) {
+    user.updatePassword(newPassword).then(function() {
+      Alert.alert('Ditt lösenord är nu ändrat!')
+        navigate('Home')
+      }).catch(function(error) {
+        Alert.alert(
+          'Du måste logga in på nytt för att byta lösenord.',
+          'Vill du göra det?',
+          [
+            {text: 'Ja', onPress: () => navigate('LogInScreen')},
+            {text: 'Nej', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+          ],
+          { cancelable: true }
+        )
+      }); 
+
+  
+  }else{
+    Alert.alert('Dina inmatade lösenord överensstämmer inte med varandra.')
+  }
 }
 
   render() {
@@ -29,7 +55,7 @@ componentDidMount() {
 
                   <TextInput style={styles.inputStyle} 
                     placeholder='Nytt lösenord'
-                    value=''
+                    //value=''
                     keyboardType='default'
                     secureTextEntry={true}
                     onChangeText={
@@ -54,8 +80,7 @@ componentDidMount() {
                     <View style={styles.buttonLayout}>
                             <TouchableOpacity 
                             style={styles.buttonStyle} 
-                             onPress={() => navigate('Home')}>
-                              {/* onPress={this.onRegister}>   */}
+                             onPress={this.changePassword}>
                             <Text style={styles.buttonTextStyle}>SPARA</Text>
                             </TouchableOpacity>
                     </View>

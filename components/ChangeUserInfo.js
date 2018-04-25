@@ -74,13 +74,12 @@ updateUserContent = () => {
     paymentCardNumber: this.state.paymentCardNumberState,
     profilePicture: this.state.profilePictureState
   })
-  Alert.alert('Du har nu uppdaterat dina uppgifter!'); 
-  navigate('Home');
   user.updateEmail(this.state.emailState).then(function() {
-    
+    Alert.alert('Du har nu uppdaterat dina uppgifter!'); 
+    navigate('Home');
   }).catch(function(error) {
   Alert.alert(
-    'Du måste logga in på nytt för att byta lösenord.',
+    'Du måste logga in på nytt för att byta emailadress.',
     'Vill du göra det?',
     [
       {text: 'Ja', onPress: () => navigate('LogInScreen')},
