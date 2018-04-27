@@ -14,21 +14,18 @@ export default class LogInScreen extends Component {
             typedPassword: '',
             user: null,
         };
-
     }
     // Logs in user with Email and password
     onLogin = () => {
-      const { navigate } = this.props.navigation;
-      firebase.auth().signInWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
-      .then((loggedInUser) => {
-        this.setState({user: loggedInUser})
-        console.log({})
-        console.log('Login with user : ${JSON.stringify(loggedInUser.toJSON())}');
-        navigate('Home');
-      }).catch = (error) => {
-        console.log('Login failed with error: ${error}');
-
-      };
+        const { navigate } = this.props.navigation;
+        firebase.auth().signInWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
+            .then((loggedInUser) => {
+                this.setState({ user: loggedInUser })
+                console.log('Login successfull!');
+                navigate('Home');
+            }).catch = (error) => {
+                console.log('Login failed with error:' + error);
+            };
     }
 
     render() {

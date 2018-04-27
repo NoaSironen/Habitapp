@@ -10,48 +10,35 @@ import RegisterUserPaymentCard from './RegisterUserPaymentCard';
 import ChangeUserInfo from './ChangeUserInfo';
 import firebase from 'react-native-firebase';
 
+export default class CustomDrawer extends Component {
 
-export default class DrawerHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
       fullNameState: '',
-      uidState: '',
+      dbprofilePictureState: '',
     };
-  } 
-getUid () {
-    
-  var user = firebase.auth().currentUser;
-  var uid;
+  }
 
-  if (user != null) {
-    uid = user.uid;
-  } 
-  console.log(uid);
-      this.setState({
-        uidState: uid
-      })
-    }
+  componentDidMount() {
 
-  componentDidMount(){
-
+    // Retreives first and last name from database and then concatenates it to one variable for printing in drawer
     firebase.auth().onAuthStateChanged((user) => {
-      if (user){
+      if (user) {
         var that = this;
         let firebaseRef = firebase.database().ref('users').child(user.uid);
 
-
-
-    firebaseRef.once('value', snapshot => {
-    let dbFirstName = snapshot.child('firstName').val();
-    let dbLastName = snapshot.child('lastName').val();
-    that.setState({ 
-      fullNameState: dbFirstName + ' ' + dbLastName
+        firebaseRef.once('value', snapshot => {
+          let dbFirstName = snapshot.child('firstName').val();
+          let dbLastName = snapshot.child('lastName').val()
+          that.setState({
+            fullNameState: dbFirstName + ' ' + dbLastName,
+            dbprofilePictureState: dbprofilePicture,
+          })
+        })
+      }
     })
-  })  
-}
-})
-}
+  }
 
   navigateToScreenLogOut = (route) => () => {
     const navigateAction = NavigationActions.navigate({
@@ -72,23 +59,16 @@ getUid () {
     this.props.navigation.dispatch(navigateAction);
   }
 
-  render () {
-    return(
+  render() {
+    return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <TouchableOpacity onPress={this.navigateToScreen('ChangeUserInfo')} >
             <Image style={styles.templateImage} source={require('../images/ProfileTemplate.png')} />
           </TouchableOpacity>
-
-          {this.state.userInfoState.map(function (userName) {
-            return (
-              <Text>
-                {userName.firstName}
-                {userName.LastName}
-              </Text>
-            )
-          })}
-
+          <Text style={styles.userName}>
+            {this.state.fullNameState}
+          </Text>
         </View>
         <ScrollView>
           <View>
@@ -110,20 +90,16 @@ getUid () {
           </View>
         </ScrollView>
         <View style={styles.footerContainer}>
-          <Text>Detta är: {this.state.fullNameState}</Text>
+          <Text>Habitapp</Text>
         </View>
       </View>
     )
   };
 }
 
-/* DrawerHeader.propTypes = {
-  navigation: PropTypes.object
-}; */
-
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 20,
+    paddingTop: 15,
     flex: 1
   },
   navItemStyle: {
@@ -146,6 +122,8 @@ const styles = StyleSheet.create({
   imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  userName: {
     paddingVertical: 10,
   }
 });
