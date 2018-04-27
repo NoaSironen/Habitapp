@@ -3,6 +3,7 @@ import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, Touchabl
 import {StackNavigator, NavigationAction} from 'react-navigation';
 import firebase from 'react-native-firebase';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import ProfilePicture from './ProfilePicture'
 
 const rootRef = firebase.database().ref();
 const userRef = rootRef.child('users');
@@ -99,7 +100,9 @@ updateUserContent = () => {
 
             
               <View style={styles.logoContainer}>
+              <TouchableOpacity onPress={this.navigateToScreen('ChangeProfilePicture')}>
               <Image style={styles.picture} source={require('../images/ProfileTemplate.png')} />
+              </TouchableOpacity>
                 {/* <Image style={styles.picture}  source={{uri: '.' + loggedInUser.profilePicture}}  /> */}
               </View>
             
