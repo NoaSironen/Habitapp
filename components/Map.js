@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Image, Text, TextInput, StyleSheet, Dimensions, Alert, Modal, TouchableHighlight} from 'react-native';
+import {View, Image, Text, TextInput, StyleSheet, Dimensions, Alert, Modal, TouchableOpacity} from 'react-native';
 import {StackNavigator, NavigationAction} from 'react-navigation';
 import firebase from 'react-native-firebase';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
@@ -117,29 +117,10 @@ componentWillUnmount() {
             modalVisible : true
           })
         }
+        
         return(
 
            <View style={styles.container}>
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            alert('Modal has been closed.');
-          }}>
-          <View style={{marginTop: 22}}>
-            <View>
-              <Text>KALLE BENGTSSON</Text>
-
-              <TouchableHighlight
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}>
-                <Text>Hide Modal</Text>
-              </TouchableHighlight>
-            </View>
-          </View>
-        </Modal>
 
             <MapView style={styles.map}
                 customMapStyle={this.mapStyle}
@@ -167,6 +148,53 @@ componentWillUnmount() {
                    )
                  })} 
             </MapView>
+
+            <Modal
+                hardwareAccelerated={true}
+                animationType="fade"
+                transparent={true}
+                visible={this.state.modalVisible}
+                onRequestClose={() => {
+                  alert('Rutan stängdes ner.');
+                }}>
+                <View style={styles.popUp}>
+                <View style={styles.logoContainer}>
+                  <Image style={styles.picture} source={require('../images/ProfileTemplate.png')} />
+                  </View>
+                  <View style={styles.infoText}>
+                    <Text style={styles.largeText}>
+                      KALLE BENGTSSON 
+                    </Text>
+                    <Text style={styles.largeText}>
+                      SNITTBETYG: 3,6
+                    </Text>
+                    </View>
+
+                    <View style={styles.modalButtons}>
+                    <TouchableOpacity style={styles.buttonStyle}
+                      onPress={() => {
+                        this.setModalVisible(!this.state.modalVisible);
+                      }}>
+                      <Text style={styles.buttonTextStyle}>GÅ VIDARE</Text>
+                    </TouchableOpacity>
+                  
+                  
+
+                  
+                            <TouchableOpacity 
+                            style={styles.buttonStyle} 
+                            onPress={() => {
+                              this.setModalVisible(!this.state.modalVisible);
+                            }}> 
+                            <Text style={styles.buttonTextStyle}>LETA VIDARE</Text>
+                            </TouchableOpacity>
+
+
+                    </View>
+                </View>
+              </Modal>
+
+
            </View>
         )
     }
@@ -229,4 +257,61 @@ const styles = StyleSheet.create({
         fontSize: 20,
         margin: 20,
     },
+    largeText: {
+      fontSize: 16,
+      marginTop: 10,
+      marginHorizontal: 20
+    },
+    mediumText: {
+      fontSize: 14,
+
+    },
+    popUp: {
+      marginTop: 120,
+      height: 400,
+      marginBottom: 70,
+      marginLeft: 10,
+      marginRight: 10,
+      padding: 20,
+      backgroundColor: '#ffffff',
+      borderWidth: 0.5,
+      borderColor: '#8e8e8e',
+      borderRadius: 50,
+    },
+    logoContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+     
+  },
+    picture: {
+      width: 100,
+      height:100,
+      borderRadius: 100,
+},
+buttonStyle: {
+  marginHorizontal: 20,
+  alignItems: 'center',
+  backgroundColor: '#161616',
+  height: 45,
+  width: 150,
+  marginVertical: 141,
+  borderRadius: 35,
+},
+buttonTextStyle: {
+  marginVertical: 10,
+  textAlign: 'center',
+  color: '#FFFFFF',
+  fontSize: 18,
+},
+modalButtons: {
+  marginTop: 38,
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'row',
+},
+infoText: {
+  flexDirection: 'row',
+
+  //justifyContent: 'space-between',
+}
 }) 
