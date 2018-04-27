@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Image, Text, TextInput, StyleSheet, Dimensions, Alert} from 'react-native';
+import {View, Image, Text, TextInput, StyleSheet, Dimensions, Alert, Modal, TouchableHighlight} from 'react-native';
 import {StackNavigator, NavigationAction} from 'react-navigation';
 import firebase from 'react-native-firebase';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
@@ -32,6 +32,7 @@ constructor(props) {
       latitude: 0,
       longitude: 0
     },
+    modalVisible: false,
     workerMarker : []
     
   }
@@ -102,25 +103,44 @@ componentDidMount(){
   })
 
 }
+setModalVisible(visible) {
+  this.setState({modalVisible: visible});
+}
 
 componentWillUnmount() {
   navigator.geolocation.clearWatch(this.watchID)
 }
-showWorkerInfo = () => {
-  Alert.alert(
-    'Johan Strand',
-    '',
-  [
-    {text: 'GÅ VIDARE', onPress: () => navigate('LogInScreen')},
-    {text: 'LETA VIDARE', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-  ],
-  { cancelable: true }
-)
-}
+
       render() {
+        showWorkerInfo = () => {
+          this.setState({
+            modalVisible : true
+          })
+        }
         return(
 
            <View style={styles.container}>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            alert('Modal has been closed.');
+          }}>
+          <View style={{marginTop: 22}}>
+            <View>
+              <Text>KALLE BENGTSSON</Text>
+
+              <TouchableHighlight
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}>
+                <Text>Hide Modal</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </Modal>
+
             <MapView style={styles.map}
                 customMapStyle={this.mapStyle}
                 region={this.state.initialPosition}>
@@ -150,18 +170,6 @@ showWorkerInfo = () => {
            </View>
         )
     }
-}
-
-showWorkerInfo = () => {
-  Alert.alert(
-    'Johan Strand',
-    '',
-  [
-    {text: 'GÅ VIDARE', onPress: () => navigate('LogInScreen')},
-    {text: 'LETA VIDARE', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-  ],
-  { cancelable: true }
-)
 }
 
 const styles = StyleSheet.create({
