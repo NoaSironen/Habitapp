@@ -59,6 +59,12 @@ import ChangeUserPassword from './ChangeUserPassword';
           title: 'TILLBAKA',
       }
     },
+    ChangeUserInfo: {
+      screen: ChangeUserInfo,
+      navigationOptions: {
+        title: '',
+      }
+    },
     CreateNewUid: { 
       screen: CreateNewUid,
       navigationOptions: {
