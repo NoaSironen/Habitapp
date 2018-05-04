@@ -113,6 +113,7 @@ componentWillUnmount() {
 
       render() {
         showWorkerInfo = () => {
+
           this.setState({
             modalVisible : true
           })
@@ -157,9 +158,10 @@ componentWillUnmount() {
                 onRequestClose={() => {
                   alert('Rutan stängdes ner.');
                 }}>
+
                 <View style={styles.popUp}>
                 <View style={styles.logoContainer}>
-                  <Image style={styles.picture} source={require('../images/ProfileTemplate.png')} />
+                  <Image style={styles.picture} source={require('../images/Ali.jpg')} />
                   </View>
                   <View style={styles.infoText}>
                     <Text style={styles.largeText}>
@@ -168,8 +170,17 @@ componentWillUnmount() {
                     <Text style={styles.largeText}>
                       SNITTBETYG: 3,6
                     </Text>
+                    <View style={styles.starView}>
+                  <Image style={styles.starGrade} source={require('../images/Grade.png')} />
+                  </View>
                     </View>
-
+                    <View style={styles.workerDescriptionView}>
+                    <Text style={styles.desctiptionText}>
+                    Hej, Kalle Bengtsson heter jag och har jobbat som arbetare i 4 år. Jag anslöt mig till 
+                    Habitapp för 5 månader sen och har älskat livet sen dess. Jag har bil och kan därför vara på plats 
+                    väldigt snabbt, så länge det inte är rusningstid. 
+                    </Text>
+                     </View> 
                     <View style={styles.modalButtons}>
                     <TouchableOpacity style={styles.buttonStyle}
                       onPress={() => {
@@ -210,14 +221,15 @@ const styles = StyleSheet.create({
         right: 0,
         justifyContent: 'flex-end',
         alignItems: 'center',
-        
+       
     },
     map: {
         position: 'absolute',
         top: 0,
         left: 0,
         bottom: 0,
-        right: 0
+        right: 0,
+  
     },
     radius: {
         height: 50,
@@ -237,7 +249,8 @@ const styles = StyleSheet.create({
       borderColor: 'white',
       borderRadius: 20 / 2,
       overflow: 'hidden',
-      backgroundColor: '#007AFF'
+      backgroundColor: '#007AFF',
+      
     },
     workerMarker: {
       height: 10,
@@ -260,7 +273,7 @@ const styles = StyleSheet.create({
     largeText: {
       fontSize: 16,
       marginTop: 10,
-      marginHorizontal: 20
+      marginHorizontal: 13
     },
     mediumText: {
       fontSize: 14,
@@ -274,19 +287,23 @@ const styles = StyleSheet.create({
       marginRight: 10,
       padding: 20,
       backgroundColor: '#ffffff',
-      borderWidth: 0.5,
-      borderColor: '#8e8e8e',
+      borderWidth: 0,
+      borderColor: '#000000',
       borderRadius: 50,
+   
     },
     logoContainer: {
       alignItems: 'center',
       justifyContent: 'center',
-     
+     // backgroundColor: '#020405',
+      borderTopLeftRadius: 40,
+      borderTopRightRadius: 40,
   },
     picture: {
       width: 100,
       height:100,
       borderRadius: 100,
+      marginVertical: 10,
 },
 buttonStyle: {
   marginHorizontal: 20,
@@ -294,7 +311,7 @@ buttonStyle: {
   backgroundColor: '#161616',
   height: 45,
   width: 150,
-  marginVertical: 141,
+  marginVertical: 17,
   borderRadius: 35,
 },
 buttonTextStyle: {
@@ -313,5 +330,22 @@ infoText: {
   flexDirection: 'row',
 
   //justifyContent: 'space-between',
+},
+workerDescriptionView: {
+  marginTop: 10,
+  height: 100,
+  width: 350,
+  alignItems: 'center'
+},
+desctiptionText: {
+  textAlign: 'center',
+},
+starGrade: {
+  height: 20,
+  width: 20,
+},
+starView: {
+  marginTop: 10,
+  marginRight: 40,
 }
 }) 
