@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity, Alert, FlatList, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity, Alert, FlatList, KeyboardAvoidingView, NativeModules, PropTypes } from 'react-native';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import firebase from 'react-native-firebase';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
@@ -92,6 +92,20 @@ export default class ChangeUserInfo extends Component {
     });
   }
 
+  onPressProfilePicture() {
+    NativeModules.ImagePickerManager.showImagePicker({
+      title: 'Set Profile Picture',
+    }, (picture) => {
+      if (picture.data) {
+        this.setState({
+          profilePicture: {
+            uri: 'data:image/jpeg;base64,' + picture.data, isStatic: true
+          }
+        });
+      }
+    })
+  }
+  
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -100,7 +114,7 @@ export default class ChangeUserInfo extends Component {
 
 
         <View style={styles.logoContainer}>
-          <TouchableOpacity onPress={() => navigate('ProfilePicture')}>
+          <TouchableOpacity onPress={() => this.onPressProfilePicture()}>
             <Image style={styles.picture} source={require('../images/ProfileTemplate.png')} />
           </TouchableOpacity>
           {/* <Image style={styles.picture}  source={{uri: '.' + loggedInUser.profilePicture}}  /> */}
