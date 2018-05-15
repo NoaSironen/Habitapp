@@ -33,8 +33,8 @@ constructor(props) {
       longitude: 0
     },
     modalVisible: false,
-    workerMarker : []
-    
+    workerMarker : [],
+    workerId : ''
   }
 }
 
@@ -111,12 +111,35 @@ componentWillUnmount() {
   navigator.geolocation.clearWatch(this.watchID)
 }
 
-      render() {
-        showWorkerInfo = () => {
 
+      render() {
+        showWorkerInfo = (event) => {
+           const coord = event.nativeEvent.coordinate;
+           const lat = coord.latitude;
+           const long = coord.longitude;
+          let marker = this.state.workerMarker;
+
+           var a = marker.map(function(item) { // Gets only one parameter from array.
+            if(lat === {latitude: item.latitude})
+            return {key: item.key};
+          });
+          
+          console.log(a)
+
+          let firebaseRef = firebase.database().ref().child('positions');
+          firebaseRef.once('value', snapshot => {
+            snapshot.forEach(function(data) {
+            let result = data.val();
+            //  console.log(result);
+            
+            })
+          })
+/*             const workerId = this.state.workerMarker[2].key;
+           console.log(workerId);  */
           this.setState({
             modalVisible : true
           })
+        
         }
         
         return(
@@ -137,10 +160,12 @@ componentWillUnmount() {
                  { this.state.workerMarker.map(function(x){
                    return(
                    <MapView.Marker
+           
                     onPress={(event) => this.showWorkerInfo(event)}
-                   key={x.key}
-                   image={require('../images/Star.png')}
-                   coordinate={{
+                    key={x.key}
+                    identifier={x.key}
+                    image={require('../images/Star.png')}
+                    coordinate={{
                     latitude: x.latitude,
                     longitude: x.longitude
                    }}>
@@ -164,9 +189,16 @@ componentWillUnmount() {
                   <Image style={styles.picture} source={require('../images/Ali.jpg')} />
                   </View>
                   <View style={styles.infoText}>
+                  
+                  { this.state.workerMarker.map(function(x){
+                   return(
+                     
                     <Text style={styles.largeText}>
-                      KALLE BENGTSSON 
+                     {x.key}  
                     </Text>
+                    )
+                  })
+                  } 
                     <Text style={styles.largeText}>
                       SNITTBETYG: 3,6
                     </Text>
