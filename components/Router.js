@@ -15,6 +15,12 @@ import ChangeUserPassword from './ChangeUserPassword';
 import ProfilePicture from './ProfilePicture';
 
 const StackNav = StackNavigator({
+  LogInScreen: {
+    screen: LogInScreen,
+    navigationOptions: {
+      title: 'Log In',
+    }
+  },
   Home: {
     screen: Home,
     navigationOptions: ({ navigation }) => ({
@@ -34,12 +40,6 @@ const StackNav = StackNavigator({
     screen: ChooseRegistration,
     navigationOptions: {
       title: '1 av 3',
-    }
-  },
-  LogInScreen: {
-    screen: LogInScreen,
-    navigationOptions: {
-      title: 'Log In',
     }
   },
   RegisterUserProfile: {
