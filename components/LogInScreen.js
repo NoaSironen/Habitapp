@@ -94,8 +94,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 22,
         marginHorizontal: 40,
-        marginVertical: 10,
-        // borderWidth: 1, 
+        marginVertical: 10, 
         padding: 10,
         backgroundColor: '#accee0',
     },
@@ -129,4 +128,4 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 25,
     }
-}) 
+});

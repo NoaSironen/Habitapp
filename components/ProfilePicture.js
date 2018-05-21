@@ -18,6 +18,7 @@ export default class ProfilePicture extends Component {
         }
         )
     }
+    
     render() {
         return (
             <View>

@@ -39,14 +39,14 @@ export default class RegisterUserPaymentCard extends Component {
       }).catch = (error) => {
         console.log('Register failed with error: ${error}');
       };
-      navigate('CreateNewUid', {
-        typedPassword: this.state.typedPassword, 
-        typedPhoneNumber: this.state.typedPhoneNumber,
-        typedFirstName: this.state.typedFirstName,
-        typedLastName: this.state.typedLastName,
-        typedPaymentCardNumber: this.state.typedPaymentCardNumber
-        })
-    }
+    navigate('CreateNewUid', {
+      typedPassword: this.state.typedPassword,
+      typedPhoneNumber: this.state.typedPhoneNumber,
+      typedFirstName: this.state.typedFirstName,
+      typedLastName: this.state.typedLastName,
+      typedPaymentCardNumber: this.state.typedPaymentCardNumber
+    })
+  }
 
   render() {
     return (
@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    // backgroundColor: '#133547',
   },
 
   inputStyle: {
@@ -106,7 +105,4 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 22,
   },
-  buttonLayout: {
-    //alignItems: 'flex-end',
-  }
-}) 
+});

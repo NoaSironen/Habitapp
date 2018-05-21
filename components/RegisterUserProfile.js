@@ -68,28 +68,13 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    // backgroundColor: '#133547',
   },
-  /*   halfView: {
-      flexDirection: 'row',
-      marginHorizontal: 20,
-      borderWidth: 1,
-    }, */
   inputStyle: {
     height: 70,
     fontSize: 22,
     marginHorizontal: 20,
     marginVertical: 3,
-    // marginRight: 50,      
-
-    // paddingHorizontal: 10,
-    //  backgroundColor: '#e5e6e8',
   },
-  /*   nameInputStyle: {
-      height: 70,
-      width: 185,
-      fontSize: 22,  
-  }, */
   headerStyle: {
     textAlign: 'center',
     fontSize: 20,
@@ -113,4 +98,4 @@ const styles = StyleSheet.create({
   buttonLayout: {
     alignItems: 'flex-end',
   }
-}) 
+});
