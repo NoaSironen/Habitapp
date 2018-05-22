@@ -110,10 +110,6 @@ export default class CustomDrawer extends Component {
   };
 }
 
-DrawerHeader.propTypes = {
-  navigation: PropTypes.object
-};
-
 const styles = StyleSheet.create({
   container: {
     paddingTop: 15,
