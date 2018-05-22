@@ -30,6 +30,7 @@ export default class ChooseRegistration extends Component {
           returnKeyType='next'
           keyboardType='email-address'
           autoCapitalize='none'
+          onSubmitEditing={() => this.phoneNumberInput.focus()}
           onChangeText={
             (text) => {
               this.setState({ typedEmail: text });
@@ -40,6 +41,8 @@ export default class ChooseRegistration extends Component {
           placeholder='Mobilnummer'
           keyboardType='phone-pad'
           returnKeyType='next'
+          onSubmitEditing={() => this.passwordInput.focus()}
+          ref={(input) => this.phoneNumberInput = input}
           onChangeText={
             (text) => {
               this.setState({ typedPhoneNumber: text });
@@ -51,6 +54,7 @@ export default class ChooseRegistration extends Component {
           placeholder='Lösenord'
           keyboardType='default'
           secureTextEntry={true}
+          ref={(input) => this.passwordInput = input}
           onChangeText={
             (text) => {
               this.setState({ typedPassword: text });

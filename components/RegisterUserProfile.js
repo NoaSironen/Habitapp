@@ -28,6 +28,7 @@ export default class RegisterUserProfile extends Component {
           placeholder='Förnamn'
           returnKeyType='next'
           keyboardType='default'
+          onSubmitEditing={() => this.lastNameInput.focus()}
           onChangeText={
             (text) => {
               this.setState({ typedFirstName: text });
@@ -39,6 +40,7 @@ export default class RegisterUserProfile extends Component {
           placeholder='Efternamn'
           returnKeyType='default'
           keyboardType='default'
+          ref={(input) => this.lastNameInput = input}
           onChangeText={
             (text) => {
               this.setState({ typedLastName: text });
