@@ -20,19 +20,6 @@ export default class CustomDrawer extends Component {
     };
   }
 
-  // Set's the uidstate with the UID from the logged in user.
-  getUid() {
-    var user = firebase.auth().currentUser;
-    var uid;
-
-    if (user != null) {
-      uid = user.uid;
-    }
-    this.setState({
-      uidState: uid
-    })
-  }
-
   // Display firstName and lastname of logged in user from Firebase database. 
   componentDidMount() {
 
@@ -109,10 +96,6 @@ export default class CustomDrawer extends Component {
     )
   };
 }
-
-DrawerHeader.propTypes = {
-  navigation: PropTypes.object
-};
 
 const styles = StyleSheet.create({
   container: {
