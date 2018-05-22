@@ -24,14 +24,15 @@ export default class RegisterUserPaymentCard extends Component {
 
     };
   }
-  // Checks if cardnumber is empy otherwise if not navigates
+  // Checks if cardnumber is empty
   onPressAdd = () => {
     const { navigate } = this.props.navigation;
     if (this.state.typedPaymentCardNumber.trim() === '') {
       alert('Vänligen fyll i ditt kortnummer!');
       return;
     }
-
+    /* Uses firebase auth object and the createUserWithEmailAndPassword method to create a user, 
+    if successfull sets state from the input recieved */
     firebase.auth().createUserWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
       .then((loggedInUser) => {
         this.setState({ user: loggedInUser })
