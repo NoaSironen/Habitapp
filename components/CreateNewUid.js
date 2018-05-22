@@ -47,7 +47,7 @@ export default class CreateNewUid extends Component {
     render() {
         return (
 
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container}>
                 <View style={styles.logoContainer}>
                     <Image style={styles.picture} source={require('../images/HabitApp.png')} />
                 </View>
@@ -59,7 +59,7 @@ export default class CreateNewUid extends Component {
                     onPress={this.createDatabaseContent}>
                     <Text style={styles.buttonTextStyle}>ACCEPTERA</Text>
                 </TouchableOpacity>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }
