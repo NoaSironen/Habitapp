@@ -8,6 +8,8 @@ import AddWorker from './AddWorker';
 const rootRef = firebase.database().ref();
 const userRef = rootRef.child('users');
 
+// This screen is created because it takes a few seconds to create a new user in Firebase Authentification.
+// The UID that's created in past screen is used in this screen as a key in Firebase database.
 export default class CreateNewUid extends Component {
     constructor(props) {
         super(props);
@@ -21,9 +23,11 @@ export default class CreateNewUid extends Component {
             defaultProfilePicture: '../images/ProfileTemplate.png',
         };
     }
+
+    // Creates a new user in Firebase Database with the values inserted in text inputs from earlier screens.
+    // The UID is recieved from the newly created and signed in user in Firebase Authentification from last screen.
     createDatabaseContent = () => {
         const { navigate } = this.props.navigation;
-
         var user = firebase.auth().currentUser;
         var uid;
 
@@ -38,8 +42,8 @@ export default class CreateNewUid extends Component {
             profilePicture: this.state.defaultProfilePicture
         })
         navigate('Home');
-
     }
+
     render() {
         return (
 
@@ -56,7 +60,6 @@ export default class CreateNewUid extends Component {
                     <Text style={styles.buttonTextStyle}>ACCEPTERA</Text>
                 </TouchableOpacity>
             </View>
-
         )
     }
 }
@@ -76,7 +79,6 @@ const styles = StyleSheet.create({
         height: 100,
         borderRadius: 100,
     },
-
     inputStyle: {
         height: 70,
         fontSize: 22,
@@ -88,7 +90,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         margin: 10,
         color: '#FFFFFF',
-
     },
     textStyle: {
         textAlign: 'center',
@@ -108,8 +109,5 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#FFFFFF',
         fontSize: 22,
-    },
-    buttonLayout: {
-        //alignItems: 'flex-end',
     }
-})
+});

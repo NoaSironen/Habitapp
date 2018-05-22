@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, TextInput, Platform, Image, Text, View, Navigator, TouchableOpacity, KeyboardAvoidingView, StatusBar } from 'react-native';
 import firebase from 'react-native-firebase';
 import { StackNavigator } from 'react-navigation';
-import CustomDrawer from './CustomDrawer';
 
 export default class LogInScreen extends Component {
     constructor(props) {
@@ -21,10 +20,11 @@ export default class LogInScreen extends Component {
         firebase.auth().signInWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
             .then((loggedInUser) => {
                 this.setState({ user: loggedInUser })
-                console.log('Login successfull!');
+                console.log({})
+                console.log('Login with user : ${JSON.stringify(loggedInUser.toJSON())}');
                 navigate('Home');
             }).catch = (error) => {
-                console.log('Login failed with error:' + error);
+                console.log('Login failed with error: ${error}');
             };
     }
 

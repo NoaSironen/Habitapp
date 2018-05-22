@@ -4,9 +4,6 @@ import firebase from 'react-native-firebase';
 import { StackNavigator } from 'react-navigation';
 import AddWorker from './AddWorker';
 
-/* const rootRef = firebase.database().ref();
-const userRef = rootRef.child('users'); */
-
 export default class ChooseRegistration extends Component {
   constructor(props) {
     super(props);
@@ -20,23 +17,12 @@ export default class ChooseRegistration extends Component {
     };
   }
 
-  /*      onRegister = () => {
-        const { navigate } = this.props.navigation;
-        firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(this.state.typedEmail, this.state.typedPassword)
-        .then((loggedInUser) => {
-          this.setState({user: loggedInUser})
-          console.log('Register with user : ${JSON.stringify(loggedInUser.toJSON())}');
-        }).catch = (error) => {
-          console.log('Register failed with error: ${error}');
-          navigate('AddUserProfile');
-        };
-      }   */
-
   render() {
     const { navigate } = this.props.navigation;
     return (
 
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
+      
         <Text style={styles.headerStyle}>REGISTRERING</Text>
 
         <TextInput style={styles.inputStyle}
@@ -80,7 +66,6 @@ export default class ChooseRegistration extends Component {
               typedPassword: this.state.typedPassword,
               typedPhoneNumber: this.state.typedPhoneNumber
             })}>
-            {/* onPress={this.onRegister}>   */}
             <Text style={styles.buttonTextStyle}>NÄSTA</Text>
           </TouchableOpacity>
         </View>
@@ -94,28 +79,13 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    // backgroundColor: '#133547',
   },
-  /*   halfView: {
-      flexDirection: 'row',
-      marginHorizontal: 20,
-      borderWidth: 1,
-    }, */
   inputStyle: {
     height: 70,
     fontSize: 22,
     marginHorizontal: 20,
     marginVertical: 3,
-    // marginRight: 50,      
-
-    // paddingHorizontal: 10,
-    //  backgroundColor: '#e5e6e8',
   },
-  /*   nameInputStyle: {
-      height: 70,
-      width: 185,
-      fontSize: 22,  
-  }, */
   headerStyle: {
     textAlign: 'center',
     fontSize: 20,

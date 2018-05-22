@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import { View, Text, TextInput, Alert, TouchableOpacity, Dimensions, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, TextInput, Alert, TouchableOpacity, Dimensions, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import {StackNavigator, NavigationAction} from 'react-navigation';
+import { StackNavigator, NavigationAction } from 'react-navigation';
 import firebase from 'react-native-firebase';
 
 const rootRef = firebase.database().ref();
@@ -12,20 +12,21 @@ export default class AddWorker extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-          defaultProfilePicture: '../images/ProfileTemplate.png',
-          loading: false,
+            defaultProfilePicture: '../images/ProfileTemplate.png',
+            loading: false,
         });
-      }
-  
-      onPressAdd = () => {
+    }
+
+    // Checks if all the inputs are filled in and if true, add's a new worker to Firebase database.
+    onPressAdd = () => {
         const { navigate } = this.props.navigation;
         var user = firebase.auth().currentUser;
         var uid;
-  
+
         if (user != null) {
-          uid = user.uid;
-        } 
-        if (this.state.newFirstName.trim() === ''){
+            uid = user.uid;
+        }
+        if (this.state.newFirstName.trim() === '') {
             alert('Vänligen fyll i ditt förnamn!');
             return;
         }
@@ -43,27 +44,26 @@ export default class AddWorker extends Component {
             return;
         }
         workerRef.child(uid).set({
-          firstName: this.state.newFirstName,
-          lastName: this.state.newLastName,
-          phoneNumber: this.state.newPhoneNumber,
-          email: this.state.newEmail,
-          profilePicture: this.state.defaultProfilePicture,
+            firstName: this.state.newFirstName,
+            lastName: this.state.newLastName,
+            phoneNumber: this.state.newPhoneNumber,
+            email: this.state.newEmail,
+            profilePicture: this.state.defaultProfilePicture,
         });
 
         alert('Du har lagt till en ny stjärna!');
         navigate('Home');
-      }
+    }
 
     render() {
-
         return (
-
             <View style={styles.container}>
                 <Text style={styles.headerStyle}>LÄGG TILL STJÄRNA</Text>
 
                 <TextInput style={styles.inputStyle}
                     placeholder='Förnamn'
                     returnKeyType='next'
+                    onSubmitEditing={() => this.lastNameInput.focus()}
                     onChangeText={
                         (text) => {
                             this.setState({ newFirstName: text });
@@ -75,6 +75,8 @@ export default class AddWorker extends Component {
                 <TextInput style={styles.inputStyle}
                     placeholder='Efternamn'
                     returnKeyType='next'
+                    onSubmitEditing={() => this.phoneNumberInput.focus()}
+                    ref={(input) => this.lastNameInput = input}
                     onChangeText={
                         (text) => {
                             this.setState({ newLastName: text });
@@ -86,6 +88,8 @@ export default class AddWorker extends Component {
                 <TextInput style={styles.inputStyle}
                     placeholder='Mobilnummer'
                     returnKeyType='next'
+                    onSubmitEditing={() => this.emailInput.focus()}
+                    ref={(input) => this.phoneNumberInput = input}
                     onChangeText={
                         (text) => {
                             this.setState({ newPhoneNumber: text });
@@ -99,6 +103,7 @@ export default class AddWorker extends Component {
                     returnKeyType='next'
                     keyboardType='email-address'
                     autoCapitalize='none'
+                    ref={(input) => this.emailInput = input}
                     onChangeText={
                         (text) => {
                             this.setState({ newEmail: text });
@@ -109,7 +114,7 @@ export default class AddWorker extends Component {
 
                 <TouchableOpacity style={styles.buttonStyle}
                     onPress={this.onPressAdd}>
-                    <Text style={styles.buttonTextStyle}> Skapa Stjärna</Text>
+                    <Text style={styles.buttonTextStyle}>Skapa Stjärna</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -119,7 +124,6 @@ export default class AddWorker extends Component {
 const styles = StyleSheet.create({
 
     container: {
-
         margin: 20,
     },
     inputStyle: {
@@ -135,7 +139,6 @@ const styles = StyleSheet.create({
         margin: 20,
     },
     buttonStyle: {
-
         alignItems: 'center',
         backgroundColor: '#275770',
         padding: 20,

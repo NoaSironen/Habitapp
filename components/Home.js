@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
         right: 0,
         justifyContent: 'flex-end',
         alignItems: 'center',
-
     },
     inputStyle: {
         height: 60,
@@ -33,7 +32,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 25,
         marginBottom: 20,
-
     },
     headerStyle: {
         textAlign: 'center',

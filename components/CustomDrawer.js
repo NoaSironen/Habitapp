@@ -20,6 +20,20 @@ export default class CustomDrawer extends Component {
     };
   }
 
+  // Set's the uidstate with the UID from the logged in user.
+  getUid() {
+    var user = firebase.auth().currentUser;
+    var uid;
+
+    if (user != null) {
+      uid = user.uid;
+    }
+    this.setState({
+      uidState: uid
+    })
+  }
+
+  // Display firstName and lastname of logged in user from Firebase database. 
   componentDidMount() {
 
     // Retreives first and last name from database and then concatenates it to one variable for printing in drawer
@@ -30,16 +44,16 @@ export default class CustomDrawer extends Component {
 
         firebaseRef.once('value', snapshot => {
           let dbFirstName = snapshot.child('firstName').val();
-          let dbLastName = snapshot.child('lastName').val()
+          let dbLastName = snapshot.child('lastName').val();
           that.setState({
-            fullNameState: dbFirstName + ' ' + dbLastName,
-            dbprofilePictureState: dbprofilePicture,
+            fullNameState: dbFirstName + ' ' + dbLastName
           })
         })
       }
     })
   }
 
+  // Makes logged in user sign out from app and Firebase Authentification.
   navigateToScreenLogOut = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
@@ -52,6 +66,7 @@ export default class CustomDrawer extends Component {
     this.props.navigation.dispatch(navigateAction);
   }
 
+  // Navigates to the screen that's clicked on in the drawer menu. 
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
@@ -66,9 +81,7 @@ export default class CustomDrawer extends Component {
           <TouchableOpacity onPress={this.navigateToScreen('ChangeUserInfo')} >
             <Image style={styles.templateImage} source={require('../images/ProfileTemplate.png')} />
           </TouchableOpacity>
-          <Text style={styles.userName}>
-            {this.state.fullNameState}
-          </Text>
+          <Text style={styles.nameText}>{this.state.fullNameState}</Text>
         </View>
         <ScrollView>
           <View>
@@ -90,12 +103,16 @@ export default class CustomDrawer extends Component {
           </View>
         </ScrollView>
         <View style={styles.footerContainer}>
-          <Text>Habitapp</Text>
+          <Text>© Habitapp 2018</Text>
         </View>
       </View>
     )
   };
 }
+
+DrawerHeader.propTypes = {
+  navigation: PropTypes.object
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -110,6 +127,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5
   },
   footerContainer: {
+    justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
     backgroundColor: 'white'
@@ -119,6 +137,9 @@ const styles = StyleSheet.create({
     width: 150,
     borderRadius: 75,
   },
+  nameText: {
+    marginTop: 10,
+  },
   imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -127,3 +148,4 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   }
 });
+
