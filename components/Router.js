@@ -14,6 +14,7 @@ import CreateNewUid from './CreateNewUid';
 import ChangeUserPassword from './ChangeUserPassword';
 import ProfilePicture from './ProfilePicture';
 
+// Stacknavigation, keeps track of every screen.
 const StackNav = StackNavigator({
   LogInScreen: {
     screen: LogInScreen,
@@ -79,7 +80,7 @@ const StackNav = StackNavigator({
     }
   },
 });
-
+// DrawerNavigator, nested stacknavigator inside so that you can navigate through the drawer to other screens
 export const DrawerMenu = DrawerNavigator({
 
   Home: {

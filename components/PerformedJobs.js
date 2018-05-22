@@ -18,7 +18,7 @@ export default class AddPerformedJobs extends Component {
             loading: false,
         });
     }
-
+    // Runs after component mounts
     componentDidMount() {
         performedJobsRef.on('value', (childSnapshot) => {
             const performedJobs = [];

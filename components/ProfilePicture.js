@@ -3,7 +3,7 @@ import { Text, Image, View, TouchableOpacity, NativeModules, PropTypes } from 'r
 import firebase from 'react-native-firebase';
 
 export default class ProfilePicture extends Component {
-
+    // opens profilepicker
     onPressProfilePicture() {
         NativeModules.ImagePickerManager.showImagePicker({
             title: 'Set Profile Picture',
@@ -18,7 +18,7 @@ export default class ProfilePicture extends Component {
         }
         )
     }
-    
+
     render() {
         return (
             <View>

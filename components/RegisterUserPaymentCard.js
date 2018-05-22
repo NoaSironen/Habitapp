@@ -24,7 +24,7 @@ export default class RegisterUserPaymentCard extends Component {
 
     };
   }
-
+  // Checks if cardnumber is empy otherwise if not navigates
   onPressAdd = () => {
     const { navigate } = this.props.navigation;
     if (this.state.typedPaymentCardNumber.trim() === '') {
