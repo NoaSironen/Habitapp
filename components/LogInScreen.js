@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 22,
         marginHorizontal: 40,
-        marginVertical: 10, 
+        marginVertical: 10,
         padding: 10,
         backgroundColor: '#accee0',
     },
@@ -115,7 +115,6 @@ const styles = StyleSheet.create({
         margin: 20,
         color: '#accee0',
         textDecorationLine: 'underline',
-
     },
     buttonStyle: {
         marginHorizontal: 40,

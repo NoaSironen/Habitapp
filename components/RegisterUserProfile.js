@@ -33,8 +33,8 @@ export default class RegisterUserProfile extends Component {
               this.setState({ typedFirstName: text });
             }
           }
-
         />
+
         <TextInput style={styles.inputStyle}
           placeholder='Efternamn'
           returnKeyType='default'
@@ -45,6 +45,7 @@ export default class RegisterUserProfile extends Component {
             }
           }
         />
+
         <View style={styles.buttonLayout}>
           <TouchableOpacity style={styles.buttonStyle}
             onPress={() => navigate('RegisterUserPaymentCard', {
@@ -54,11 +55,10 @@ export default class RegisterUserProfile extends Component {
               typedFirstName: this.state.typedFirstName,
               typedLastName: this.state.typedLastName
             })}>
+
             <Text style={styles.buttonTextStyle}>NÄSTA</Text>
           </TouchableOpacity>
         </View>
-
-
       </KeyboardAvoidingView>
     );
   }

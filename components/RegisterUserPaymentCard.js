@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
   inputStyle: {
     height: 70,
     fontSize: 22,
