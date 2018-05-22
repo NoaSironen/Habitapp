@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Navigator } from 'react-native';
 import { DrawerNavigator, SafeAreaView, DrawerItems, NavigationActions } from 'react-navigation';
@@ -18,55 +18,55 @@ export default class DrawerHeader extends Component {
       fullNameState: '',
       uidState: '',
     };
-  } 
-getUid () {
-    
-  var user = firebase.auth().currentUser;
-  var uid;
+  }
 
-  if (user != null) {
-    uid = user.uid;
-  } 
-  console.log(uid);
-      this.setState({
-        uidState: uid
-      })
+  // Set's the uidstate with the UID from the logged in user.
+  getUid() {
+    var user = firebase.auth().currentUser;
+    var uid;
+
+    if (user != null) {
+      uid = user.uid;
     }
+    this.setState({
+      uidState: uid
+    })
+  }
 
-  componentDidMount(){
+  // Display firstName and lastname of logged in user from Firebase database. 
+  componentDidMount() {
 
     firebase.auth().onAuthStateChanged((user) => {
-      if (user){
+      if (user) {
         var that = this;
         let firebaseRef = firebase.database().ref('users').child(user.uid);
 
-
-
-    firebaseRef.once('value', snapshot => {
-    let dbFirstName = snapshot.child('firstName').val();
-    let dbLastName = snapshot.child('lastName').val();
-    that.setState({ 
-      fullNameState: dbFirstName + ' ' + dbLastName
+        firebaseRef.once('value', snapshot => {
+          let dbFirstName = snapshot.child('firstName').val();
+          let dbLastName = snapshot.child('lastName').val();
+          that.setState({
+            fullNameState: dbFirstName + ' ' + dbLastName
+          })
+        })
+      }
     })
-  })  
-}
-})
-}
+  }
 
+  // Makes logged in user sign out from app and Firebase Authentification.
   navigateToScreenLogOut = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
     });
-    firebase.auth().signOut().then(function() {
+    firebase.auth().signOut().then(function () {
       console.log('Signed Out!')
-    }).catch(function(error){
+    }).catch(function (error) {
       console.log('Not Signed Out')
     });
     this.props.navigation.dispatch(navigateAction);
-   
+
   }
 
-    
+  // Navigates to the screen that's clicked on in the drawer menu. 
   navigateToScreen = (route) => () => {
     const navigateAction = NavigationActions.navigate({
       routeName: route
@@ -74,35 +74,39 @@ getUid () {
     this.props.navigation.dispatch(navigateAction);
   }
 
-  render () {
-    return(
+  render() {
+    return (
       <View style={styles.container}>
-              <View style={styles.imageContainer}>
-              <TouchableOpacity onPress={this.navigateToScreen('ChangeUserInfo')} >
-              <Image style={styles.templateImage} source={require('../images/ProfileTemplate.png')}/>
-              </TouchableOpacity>
+
+        <View style={styles.imageContainer}>
+          <TouchableOpacity onPress={this.navigateToScreen('ChangeUserInfo')} >
+            <Image style={styles.templateImage} source={require('../images/ProfileTemplate.png')} />
+          </TouchableOpacity>
+          <Text style={styles.nameText}>{this.state.fullNameState}</Text>
         </View>
+
         <ScrollView>
-        <View>
-              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Home')}>
+          <View>
+            <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Home')}>
               Home
               </Text>
-              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('AddWorker')}>
-                Add Worker
+            <Text style={styles.navItemStyle} onPress={this.navigateToScreen('AddWorker')}>
+              Add Worker
               </Text>
-              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('ChooseRegistration')}>
-                Choose Registration
+            <Text style={styles.navItemStyle} onPress={this.navigateToScreen('ChooseRegistration')}>
+              Choose Registration
               </Text>
-              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('LogInScreen')}>
-                Login
+            <Text style={styles.navItemStyle} onPress={this.navigateToScreen('LogInScreen')}>
+              Login
               </Text>
-              <Text style={styles.navItemStyle}  onPress={this.navigateToScreenLogOut('LogOutScreen')}>
-                Log out
+            <Text style={styles.navItemStyle} onPress={this.navigateToScreenLogOut('LogOutScreen')}>
+              Log out
               </Text>
           </View>
         </ScrollView>
+
         <View style={styles.footerContainer}>
-          <Text>Detta är: {this.state.fullNameState}</Text>
+          <Text>© Habitapp 2018</Text>
         </View>
       </View>
     )
@@ -113,7 +117,7 @@ DrawerHeader.propTypes = {
   navigation: PropTypes.object
 };
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
     flex: 1
@@ -126,13 +130,18 @@ const styles = StyleSheet.create ({
     paddingHorizontal: 5
   },
   footerContainer: {
-    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
     backgroundColor: 'white'
   },
   templateImage: {
     height: 150,
     width: 150,
     borderRadius: 75,
+  },
+  nameText: {
+    marginTop: 10,
   },
   imageContainer: {
     justifyContent: 'center',
@@ -141,4 +150,3 @@ const styles = StyleSheet.create ({
   }
 });
 
-//export default DrawerHeader;
