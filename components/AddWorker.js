@@ -51,14 +51,14 @@ export default class AddWorker extends Component {
             profilePicture: this.state.defaultProfilePicture,
         });
 
-        alert('Du har lagt till en ny stjärna!');
+        alert('Du har lagt till en ny städare!');
         navigate('Home');
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.headerStyle}>LÄGG TILL STJÄRNA</Text>
+                {/* <Text style={styles.headerStyle}>LÄGG TILL ARBETARE</Text> */}
 
                 <TextInput style={styles.inputStyle}
                     placeholder='Förnamn'
@@ -114,7 +114,7 @@ export default class AddWorker extends Component {
 
                 <TouchableOpacity style={styles.buttonStyle}
                     onPress={this.onPressAdd}>
-                    <Text style={styles.buttonTextStyle}>Skapa Stjärna</Text>
+                    <Text style={styles.buttonTextStyle}>Lägg till städare</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -145,6 +145,6 @@ const styles = StyleSheet.create({
     },
     buttonTextStyle: {
         color: '#FFFFFF',
-        fontSize: 25,
+        fontSize: 22,
     },
 });

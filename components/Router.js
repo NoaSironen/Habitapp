@@ -19,13 +19,13 @@ const StackNav = StackNavigator({
   LogInScreen: {
     screen: LogInScreen,
     navigationOptions: {
-      title: 'Log In',
+      title: '',
     }
   },
   Home: {
     screen: Home,
     navigationOptions: ({ navigation }) => ({
-      title: 'Home',
+      title: 'Hem',
       headerLeft: (
         <HamburgerButton navigation={navigation} />
       )
@@ -34,7 +34,7 @@ const StackNav = StackNavigator({
   AddWorker: {
     screen: AddWorker,
     navigationOptions: {
-      title: 'Add Worker',
+      title: 'Lägg till städare',
     }
   },
   ChooseRegistration: {
@@ -58,13 +58,13 @@ const StackNav = StackNavigator({
   ChangeUserPassword: {
     screen: ChangeUserPassword,
     navigationOptions: {
-      title: 'TILLBAKA',
+      title: 'Ändra lösenord',
     }
   },
   ChangeUserInfo: {
     screen: ChangeUserInfo,
     navigationOptions: {
-      title: '',
+      title: 'Redigera profil',
     }
   },
   CreateNewUid: {
@@ -76,7 +76,7 @@ const StackNav = StackNavigator({
   ProfilePicture: {
     screen: ProfilePicture,
     navigationOptions: {
-      title: 'Välj profilbild'
+      title: ''
     }
   },
 });
@@ -89,7 +89,7 @@ export const DrawerMenu = DrawerNavigator({
   AddWorker: {
     screen: AddWorker,
     navigationOptions: {
-      title: 'Add Worker',
+      title: 'Lägg till städare',
     }
   },
   ChooseRegistration: {
@@ -113,7 +113,7 @@ export const DrawerMenu = DrawerNavigator({
   LogOutScreen: {
     screen: LogInScreen,
     navigationOptions: {
-      title: 'Log Out'
+      title: 'Logga ut'
     }
   },
 }, {

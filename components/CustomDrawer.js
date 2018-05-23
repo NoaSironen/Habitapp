@@ -86,19 +86,13 @@ export default class CustomDrawer extends Component {
         <ScrollView>
           <View>
             <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Home')}>
-              Home
+              Hem
               </Text>
             <Text style={styles.navItemStyle} onPress={this.navigateToScreen('AddWorker')}>
-              Add Worker
-              </Text>
-            <Text style={styles.navItemStyle} onPress={this.navigateToScreen('ChooseRegistration')}>
-              Choose Registration
-              </Text>
-            <Text style={styles.navItemStyle} onPress={this.navigateToScreen('LogInScreen')}>
-              Login
+              Lägg till städare
               </Text>
             <Text style={styles.navItemStyle} onPress={this.navigateToScreenLogOut('LogOutScreen')}>
-              Log out
+              Logga ut
               </Text>
           </View>
         </ScrollView>
