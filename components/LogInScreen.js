@@ -54,6 +54,7 @@ export default class LogInScreen extends Component {
                 <TextInput style={styles.inputStyle}
                     placeholder='Lösenord'
                     keyboardType='default'
+                    autoCapitalize='none'
                     underlineColorAndroid='transparent'
                     secureTextEntry={true}
                     ref={(input) => this.passwordInput = input}
