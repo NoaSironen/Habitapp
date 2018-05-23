@@ -81,7 +81,7 @@ const StackNav = StackNavigator({
   },
 });
 // DrawerNavigator, nested stacknavigator inside so that you can navigate through the drawer to other screens
-export const DrawerMenu = DrawerNavigator({
+export const Router = DrawerNavigator({
 
   Home: {
     screen: StackNav,
